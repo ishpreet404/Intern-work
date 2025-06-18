@@ -415,11 +415,11 @@ const Home: React.FC = () => {
           {/* Text Left */}
           <div className="flex-1 text-left">
             <h3 className="text-3xl sm:text-4xl font-extrabold mb-4 font-serif animate-gradient-text bg-gradient-to-r from-[#41644A] via-[#E9762B] to-[#FFB823] bg-clip-text text-transparent">
-              Discover the Emerald Advantage
+
+            Empowering Futures
             </h3>
             <p className="text-lg sm:text-xl mb-6 text-[color:rgb(var(--foreground))] font-light font-sans max-w-xl">
-              At Emerald Learning Garden, we blend modern teaching methods with a nurturing environment. Our expert mentors, innovative resources, and personalized approach ensure every learner thrives—academically and personally.
-            </p>
+            At SmartPreps, we combine innovative teaching with a nurturing environment to unlock every student’s full potential. Our passionate mentors, up-to-date resources, and personalized guidance help learners excel—in exams and in life.            </p>
             <ul className="list-disc pl-5 space-y-2 text-[color:rgb(var(--primary))] font-sans">
               <li>Personalized learning paths</li>
               <li>Supportive, growth-focused community</li>
@@ -460,12 +460,12 @@ const Home: React.FC = () => {
               Who We Are
             </h3>
             <p className="text-lg sm:text-xl mb-6 text-[color:rgb(var(--foreground))] font-light font-sans max-w-xl">
-              Emerald Learning Garden is a passionate team of educators, mentors, and innovators dedicated to empowering students. We believe in holistic growth, blending academic excellence with life skills and values.
+            Smart Preps, based in Guwahati, Assam, offers quality, affordable coaching for CLAT, BANK PO, BANK CLERICAL, SSC, and STATE EXAMS. Choose online or offline classes—our caring expert faculty is committed to your success.
             </p>
             <ul className="list-disc pl-5 space-y-2 text-[color:rgb(var(--primary))] font-sans">
-              <li>Experienced, caring faculty</li>
+              <li>Structured courses & regular classes</li>
               <li>Inclusive, diverse learning environment</li>
-              <li>Focus on both knowledge and character</li>
+              <li>Mock tests & doubt-clearing support</li>
               <li>Trusted by thousands of families</li>
             </ul>
           </div>
@@ -638,13 +638,13 @@ const Home: React.FC = () => {
               Success Stories
             </h2>
             <p className="text-lg sm:text-xl text-[color:rgb(var(--foreground))] max-w-2xl mx-auto">
-              Hear from our students and their journey to success with Emerald Learning Garden.
+              Hear from our students and their journey to success with SmartPreps.
             </p>
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10 max-w-6xl mx-auto">
             {[{
               name: "Priya Sharma",
-              text: "Emerald Learning Garden helped me crack CLAT with confidence. The mentors are amazing!",
+              text: "SmartPreps helped me crack CLAT with confidence. The mentors are amazing!",
               image: "https://randomuser.me/api/portraits/women/68.jpg",
               course: "CLAT"
             }, {
@@ -687,10 +687,10 @@ const Home: React.FC = () => {
             </p>
           </div>
           <div className="flex flex-wrap justify-center items-center gap-8">
-            <img src="/public/placeholder.svg" alt="Partner 1" className="h-12 w-auto opacity-80 grayscale hover:grayscale-0 transition" />
-            <img src="/public/placeholder.svg" alt="Partner 2" className="h-12 w-auto opacity-80 grayscale hover:grayscale-0 transition" />
-            <img src="/public/placeholder.svg" alt="Partner 3" className="h-12 w-auto opacity-80 grayscale hover:grayscale-0 transition" />
-            <img src="/public/placeholder.svg" alt="Partner 4" className="h-12 w-auto opacity-80 grayscale hover:grayscale-0 transition" />
+            {/* <img src="/public/placeholder.svg" alt="Partner 1" className="h-12 w-auto opacity-80 grayscale hover:grayscale-0 transition" /> */}
+            {/* <img src="/public/placeholder.svg" alt="Partner 2" className="h-12 w-auto opacity-80 grayscale hover:grayscale-0 transition" /> */}
+            {/* <img src="/public/placeholder.svg" alt="Partner 3" className="h-12 w-auto opacity-80 grayscale hover:grayscale-0 transition" /> */}
+            <img src="https://smartiasfoundation.com/wp-content/uploads/2024/05/Main-2D.png" alt="Partner 4" className="h-12 w-auto opacity-80  " />
           </div>
         </div>
       </section>
