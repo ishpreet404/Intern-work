@@ -64,7 +64,7 @@ const InquiryForm: React.FC<InquiryFormProps> = ({ courseName, isOpen, onClose }
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-[100] p-4">
       <Card className="w-full max-w-md animate-scale-in rounded-[2rem] shadow-lg border-0 bg-white">
         <CardHeader>
           <div className="flex items-center justify-between">

@@ -177,7 +177,7 @@ const Index = () => {
       <div className="min-h-screen w-full overflow-x-hidden pt-20" style={{background: `linear-gradient(120deg, ${COLORS.black} 0%, ${COLORS.gray} 60%, ${COLORS.faintGreen} 100%)`}}>
         {/* Navigation */}
         <nav className="fixed top-0 w-full z-40 border-b" style={{background: `${COLORS.gray}CC`, borderColor: COLORS.accentGreen}}>
-          <div className="container mx-auto px-6 py-4">
+          <div className="container mx-auto px-3 xs:px-4 sm:px-6 py-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-2">
                 <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{background: COLORS.accentGreen}}>
@@ -211,17 +211,17 @@ const Index = () => {
 
         {/* Hero Section */}
         <section id="home" className="pt-20 pb-16 animate-fade-in-up">
-          <div className="container mx-auto px-6">
+          <div className="container mx-auto px-3 xs:px-4 sm:px-6">
             <div className="text-center max-w-4xl mx-auto">
               <div className="animate-fade-in-up">
-                <h1 className="text-5xl md:text-6xl font-bold mb-6 leading-tight" style={{color: COLORS.white}}>
+                <h1 className="text-3xl xs:text-4xl md:text-5xl font-bold mb-4 xs:mb-6 leading-tight" style={{color: COLORS.white}}>
                   Transform Your Future with
                   <span style={{color: COLORS.accentGreen, display: 'block'}}>Expert-Led Courses</span>
                 </h1>
-                <p className="text-xl mb-8 max-w-2xl mx-auto" style={{color: COLORS.accentGreen}}>
+                <p className="text-base xs:text-lg md:text-xl mb-4 xs:mb-8 max-w-2xl mx-auto" style={{color: COLORS.accentGreen}}>
                   Join thousands of learners who've advanced their careers through our comprehensive, industry-focused online courses. Start your journey today.
                 </p>
-                <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <div className="flex flex-col xs:flex-row gap-3 xs:gap-4 justify-center">
                   <Button 
                     onClick={() => scrollToSection('courses')}
                     size="lg" 
@@ -244,7 +244,7 @@ const Index = () => {
             </div>
             
             {/* Stats */}
-            <div className="mt-20 grid grid-cols-2 md:grid-cols-4 gap-8 max-w-3xl mx-auto">
+            <div className="mt-10 xs:mt-20 grid grid-cols-2 md:grid-cols-4 gap-4 xs:gap-8 max-w-3xl mx-auto">
               {stats.map((stat, index) => (
                 <div key={index} className="text-center animate-fade-in-up" style={{ animationDelay: `${index * 0.1}s`, color: COLORS.white }}>
                   <div className="text-3xl font-bold mb-2" style={{color: COLORS.accentGreen}}>{stat.number}</div>
@@ -267,8 +267,8 @@ const Index = () => {
         </section>
 
         {/* About Section */}
-        <section id="about" className="py-20 animate-fade-in-up" style={{background: COLORS.gray}}>
-          <div className="container mx-auto px-6">
+        <section id="about" className="py-10 xs:py-20 animate-fade-in-up" style={{background: COLORS.gray}}>
+          <div className="container mx-auto px-3 xs:px-4 sm:px-6">
             <div className="max-w-6xl mx-auto">
               <div className="text-center mb-16">
                 <h2 className="text-4xl font-bold mb-6 animate-fade-in-up" style={{color: COLORS.white}}>
@@ -278,7 +278,7 @@ const Index = () => {
                   We're dedicated to making quality education accessible to everyone. Our mission is to empower learners with practical skills and knowledge that drive real career growth.
                 </p>
               </div>
-              <div className="grid md:grid-cols-2 gap-12 items-center mb-16">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 xs:gap-12 items-center mb-10 xs:mb-16">
                 <div className="animate-slide-in-left">
                   <h3 className="text-2xl font-bold mb-4" style={{color: COLORS.white}}>Our Story</h3>
                   <p className="mb-6" style={{color: COLORS.white}}>
@@ -293,7 +293,7 @@ const Index = () => {
                 </div>
               </div>
               {/* Features Grid */}
-              <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 xs:gap-8">
                 {features.map((feature, index) => (
                   <Card key={index} className="hover:shadow-lg transition-shadow animate-fade-in-up" style={{ animationDelay: `${index * 0.1}s`, background: COLORS.gray, border: `1.5px solid ${COLORS.accentGreen}33` }}>
                     <CardContent className="p-6 text-center">
@@ -311,8 +311,8 @@ const Index = () => {
         </section>
 
         {/* Courses Section */}
-        <section id="courses" className="py-20 animate-fade-in-up" style={{background: COLORS.black}}>
-          <div className="container mx-auto px-6">
+        <section id="courses" className="py-10 xs:py-20 animate-fade-in-up" style={{background: COLORS.black}}>
+          <div className="container mx-auto px-3 xs:px-4 sm:px-6">
             <div className="text-center mb-16">
               <h2 className="text-4xl font-bold mb-6 animate-fade-in-up" style={{color: COLORS.white}}>
                 Our <span style={{color: COLORS.accentGreen}}>Courses</span>
@@ -321,13 +321,12 @@ const Index = () => {
                 Choose from our carefully curated selection of courses designed by industry experts to give you the skills employers are looking for.
               </p>
             </div>
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 xs:gap-8 max-w-7xl mx-auto">
               {courses.map((course, index) => (
                 <div key={index} className="animate-fade-in-up" style={{ animationDelay: `${index * 0.1}s` }}>
                   <CourseCard
                     {...course}
                     onInquire={() => handleCourseInquiry(course.title)}
-                    style={{background: COLORS.gray, color: COLORS.white, border: `1.5px solid ${COLORS.accentGreen}33`}}
                   />
                 </div>
               ))}

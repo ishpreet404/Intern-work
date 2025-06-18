@@ -91,20 +91,20 @@ const NotFound = () => {
     <>
       <CursorRing />
       <div
-        className="min-h-screen flex items-center justify-center pt-20"
+        className="min-h-screen flex items-center justify-center pt-20 px-2 xs:px-0"
         style={{ background: COLORS.black }}
       >
         <div
-          className="text-center p-8 rounded-2xl shadow-lg"
+          className="text-center p-4 xs:p-8 rounded-2xl shadow-lg w-full max-w-xs xs:max-w-md"
           style={{ background: COLORS.gray }}
         >
           <h1
-            className="text-4xl font-bold mb-4"
+            className="text-3xl xs:text-4xl font-bold mb-2 xs:mb-4"
             style={{ color: COLORS.accentOrange }}
           >
             404
           </h1>
-          <p className="text-xl mb-4" style={{ color: COLORS.white }}>
+          <p className="text-lg xs:text-xl mb-2 xs:mb-4" style={{ color: COLORS.white }}>
             Oops! Page not found
           </p>
           <a

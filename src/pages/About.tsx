@@ -77,7 +77,7 @@ const About = () => {
     <div className="relative min-h-screen w-full overflow-x-hidden pt-20 bg-[color:rgb(var(--background))] text-[color:rgb(var(--foreground))]">
       {/* Decorative background blob */}
       <div className="absolute -top-32 -left-32 w-[500px] h-[500px] bg-gradient-to-br from-[color:rgb(var(--primary))]/20 via-[color:rgb(var(--secondary))]/10 to-transparent rounded-full blur-3xl opacity-70 pointer-events-none z-0" />
-      <div className="container mx-auto px-6 py-16 relative z-10">
+      <div className="container mx-auto px-3 xs:px-4 sm:px-6 py-10 xs:py-16 relative z-10">
         <div className="max-w-6xl mx-auto">
           {/* Header */}
           <div className="text-center mb-16">
@@ -89,7 +89,7 @@ const About = () => {
             </p>
           </div>
           {/* Story Section */}
-          <div className="grid md:grid-cols-2 gap-12 items-center mb-20">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 xs:gap-12 items-center mb-16">
             <div className="animate-slide-in-left">
               <h2 className="text-3xl font-bold mb-6" style={{ color: '#41644A' }}>Our Story</h2>
               <p className="mb-6 text-lg leading-relaxed text-[color:rgb(var(--foreground))] bg-white/60 rounded-lg px-4 py-2 shadow-sm">
@@ -109,7 +109,7 @@ const About = () => {
           {/* Features Grid */}
           <div className="mb-20">
             <h2 className="text-3xl font-bold text-center mb-12" style={{ color: '#41644A' }}>What Makes Us Different</h2>
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 xs:gap-8">
               {features.map((feature, index) => (
                 <Card key={index} className="hover:shadow-2xl transition-shadow animate-fade-in-up bg-white/80 backdrop-blur-md border-2 border-[#41644A] rounded-2xl card-glass" style={{ animationDelay: `${index * 0.1}s`, boxShadow: '0 4px 24px #E9762B22' }}>
                   <CardContent className="p-7 text-center flex flex-col items-center">
@@ -127,7 +127,7 @@ const About = () => {
           {/* Meet Our Instructors Section */}
           <div className="mb-20">
             <h2 className="text-3xl font-bold text-center mb-10" style={{ color: '#41644A' }}>Meet Our Instructors</h2>
-            <div className="flex flex-wrap justify-center gap-8">
+            <div className="flex flex-col xs:flex-row flex-wrap justify-center gap-6 xs:gap-8">
               {instructors.map((inst, idx) => (
                 <Card key={idx} className="w-72 p-6 flex flex-col items-center bg-white/90 border-2 border-[#41644A] shadow-xl rounded-2xl hover:scale-105 transition-transform">
                   <Avatar className="w-20 h-20 mb-4 shadow-lg">
@@ -145,7 +145,7 @@ const About = () => {
           {/* Achievements List */}
           <div className="mb-20">
             <h2 className="text-3xl font-bold text-center mb-8" style={{ color: '#41644A' }}>Our Achievements</h2>
-            <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 xs:gap-8 max-w-5xl mx-auto">
               {achievements.map((item, idx) => (
                 <Card key={idx} className="flex flex-col items-center justify-center bg-gradient-to-br from-[#FFF1CA] to-[#F1F0E9] border-2 border-[#E9762B] rounded-2xl px-6 py-8 shadow-lg animate-fade-in-up hover:scale-105 transition-transform" style={{ boxShadow: '0 4px 24px #E9762B22' }}>
                   <div className="mb-4">
@@ -158,18 +158,18 @@ const About = () => {
           </div>
 
           {/* FAQ Section */}
-          <div className="mb-24 max-w-3xl mx-auto">
+          <div className="mb-24 max-w-3xl mx-auto px-2 xs:px-0">
             <h2 className="text-4xl font-extrabold text-center mb-10 tracking-tight" style={{ color: '#41644A' }}>Frequently Asked Questions</h2>
             <div className="rounded-3xl bg-gradient-to-br from-[#FFF1CA] via-[#F1F0E9] to-[#FFF1CA] shadow-2xl border-2 border-[#41644A] p-1">
               <Accordion type="single" collapsible className="rounded-3xl overflow-hidden">
                 {faqs.map((faq, idx) => (
                   <AccordionItem key={idx} value={`faq-${idx}`} className="group border-b last:border-b-0 border-[#E9762B] bg-white/95 transition-all duration-300">
-                    <AccordionTrigger className="flex items-center gap-3 px-8 py-6 text-xl font-semibold text-left text-[#41644A] transition-all duration-300 hover:bg-[#FFF1CA]/60 group-data-[state=open]:bg-[#E9762B]/10 group-data-[state=open]:text-[#E9762B]">
-                      <span className="flex items-center justify-center w-8 h-8 rounded-full bg-[#E9762B] text-white font-bold text-lg shadow-md transition-all duration-300 group-data-[state=open]:bg-[#41644A] group-data-[state=open]:scale-110">
+                    <AccordionTrigger className="flex items-center gap-2 xs:gap-3 px-4 xs:px-8 py-4 xs:py-6 text-lg xs:text-xl font-semibold text-left text-[#41644A] transition-all duration-300 hover:bg-[#FFF1CA]/60 group-data-[state=open]:bg-[#E9762B]/10 group-data-[state=open]:text-[#E9762B]">
+                      <span className="flex items-center justify-center w-7 h-7 xs:w-8 xs:h-8 rounded-full bg-[#E9762B] text-white font-bold text-base xs:text-lg shadow-md transition-all duration-300 group-data-[state=open]:bg-[#41644A] group-data-[state=open]:scale-110">
                         {idx + 1}
                       </span>
                       <span className="flex-1">{faq.q}</span>
-                      <svg className="w-5 h-5 ml-2 transition-transform duration-300 group-data-[state=open]:rotate-180 text-[#41644A]" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" /></svg>
+                      <svg className="w-4 h-4 xs:w-5 xs:h-5 ml-1 xs:ml-2 transition-transform duration-300 group-data-[state=open]:rotate-180 text-[#41644A]" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" /></svg>
                     </AccordionTrigger>
                     <AccordionContent>
                       <div className="px-12 py-6 text-base text-[#0D4715] bg-[#FFF1CA]/80 rounded-b-3xl animate-fade-in-up transition-all duration-500 shadow-inner">

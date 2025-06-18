@@ -82,18 +82,18 @@ const Contact = () => {
 
   return (
     <div className="min-h-screen w-full overflow-x-hidden pt-20 bg-[color:rgb(var(--background))] text-[color:rgb(var(--foreground))]">
-      <div className="container mx-auto px-6 py-16">
+      <div className="container mx-auto px-3 xs:px-4 sm:px-6 py-10 xs:py-16">
         <div className="max-w-5xl mx-auto">
-          <h1 className="text-5xl font-extrabold mb-10 text-center animate-gradient-text bg-gradient-to-r from-[#41644A] via-[#E9762B] to-[#FFB823] bg-clip-text text-transparent font-serif">
+          <h1 className="text-3xl xs:text-4xl sm:text-5xl font-extrabold mb-6 xs:mb-10 text-center animate-gradient-text bg-gradient-to-r from-[#41644A] via-[#E9762B] to-[#FFB823] bg-clip-text text-transparent font-serif">
             Contact <span className="text-[#FFB823]">Us</span>
           </h1>
           {/* Elegant Divider */}
-          <div className="w-full flex justify-center items-center my-0 mb-10">
-            <svg viewBox="0 0 1440 60" fill="none" className="w-full h-10">
+          <div className="w-full flex justify-center items-center my-0 mb-6 xs:mb-10">
+            <svg viewBox="0 0 1440 60" fill="none" className="w-full h-8 xs:h-10">
               <path d="M0 30 Q 360 0 720 30 T 1440 30 V60 H0Z" fill="#708A58" fillOpacity="0.10" />
             </svg>
           </div>
-          <div className="grid md:grid-cols-2 gap-12 mb-16">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 xs:gap-12 mb-10 xs:mb-16">
             {/* Contact Info */}
             <div className="space-y-8">
               {contactInfo.map((info, idx) => (
@@ -123,7 +123,7 @@ const Contact = () => {
               </div>
             </div>
             {/* Contact Form */}
-            <Card className="p-8 bg-[color:rgb(var(--card))] border border-[color:rgb(var(--primary))]/20 shadow-md animate-fade-in-up backdrop-blur-md bg-opacity-90">
+            <Card className="p-4 xs:p-8 bg-[color:rgb(var(--card))] border border-[color:rgb(var(--primary))]/20 shadow-md animate-fade-in-up backdrop-blur-md bg-opacity-90">
               <CardHeader>
                 <CardTitle className="text-2xl font-bold text-[color:rgb(var(--foreground))] mb-2">Send a Message</CardTitle>
               </CardHeader>
@@ -181,24 +181,24 @@ const Contact = () => {
           </div>
         </div>
         {/* Social/Contact Links */}
-        <div className="flex justify-center gap-6 mt-12 mb-4">
+        <div className="flex flex-col xs:flex-row justify-center gap-4 xs:gap-6 mt-8 xs:mt-12 mb-2 xs:mb-4">
           <a href="mailto:smartpreps.official@gmail.com" aria-label="Email" className="text-[#708A58] hover:text-[#FFB823] text-2xl transition-colors"><Mail /></a>
           <a href="tel:+919287987525" aria-label="Phone" className="text-[#708A58] hover:text-[#FFB823] text-2xl transition-colors"><Phone /></a>
           <a href="https://goo.gl/maps/2Qw1k1k1k1k1k1k1A" target="_blank" rel="noopener noreferrer" aria-label="Map" className="text-[#708A58] hover:text-[#FFB823] text-2xl transition-colors"><MapPin /></a>
         </div>
         {/* FAQ Section */}
-        <section className="max-w-3xl mx-auto mt-10">
+        <section className="max-w-3xl mx-auto mt-6 xs:mt-10 px-2 xs:px-0">
           <h2 className="text-2xl font-bold mb-4 text-[#41644A] font-serif">Frequently Asked Questions</h2>
           <div className="space-y-4">
-            <div className="bg-white/80 rounded-xl p-4 shadow border-l-4 border-[#FFB823]">
+            <div className="bg-white/80 rounded-xl p-3 xs:p-4 shadow border-l-4 border-[#FFB823]">
               <div className="font-semibold text-[#708A58]">How soon will I get a response?</div>
               <div className="text-gray-700">We aim to respond to all queries within 24 hours on business days.</div>
             </div>
-            <div className="bg-white/80 rounded-xl p-4 shadow border-l-4 border-[#FFB823]">
+            <div className="bg-white/80 rounded-xl p-3 xs:p-4 shadow border-l-4 border-[#FFB823]">
               <div className="font-semibold text-[#708A58]">Can I visit your office without an appointment?</div>
               <div className="text-gray-700">Yes, you are welcome during business hours. For personalized counseling, booking an appointment is recommended.</div>
             </div>
-            <div className="bg-white/80 rounded-xl p-4 shadow border-l-4 border-[#FFB823]">
+            <div className="bg-white/80 rounded-xl p-3 xs:p-4 shadow border-l-4 border-[#FFB823]">
               <div className="font-semibold text-[#708A58]">Is my information safe?</div>
               <div className="text-gray-700">Absolutely. We never share your details with third parties.</div>
             </div>

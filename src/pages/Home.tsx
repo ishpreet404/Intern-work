@@ -176,12 +176,11 @@ const Home: React.FC = () => {
       {/* Hero Section with video background */}
       <section
         id="home"
-        className="relative z-10 pt-10 pb-8 sm:pt-16 sm:pb-12"
+        className="relative z-10 pt-10 pb-8 xs:pt-12 xs:pb-10 sm:pt-16 sm:pb-12 px-2 xs:px-4 sm:px-8"
         tabIndex={-1}
-        aria-label="Homepage Hero"
       >
         {/* GIF background as image */}
-        <div className="absolute inset-0 w-full h-full z-0 pointer-events-none overflow-hidden rounded-3xl">
+        <div className="absolute inset-0 w-full h-full z-0 pointer-events-none overflow-hidden rounded-2xl xs:rounded-3xl">
           <img
             src="https://i.ibb.co/cS7vgKYT/Video-111.gif"
             alt="Animated background"
@@ -190,10 +189,9 @@ const Home: React.FC = () => {
             aria-hidden="true"
           />
         </div>
-
         {/* Hero Card with aligned badges inside */}
         <div
-          className="rounded-3xl shadow-2xl max-w-6xl w-full mx-auto p-0 text-center flex flex-col items-stretch overflow-visible relative border-0 mt-4 mb-8 bg-[color:rgb(var(--card))] border-[color:rgb(var(--primary))] backdrop-blur-md bg-opacity-80"
+          className="rounded-2xl xs:rounded-3xl shadow-2xl max-w-2xl xs:max-w-3xl sm:max-w-6xl w-full mx-auto p-0 text-center flex flex-col items-stretch overflow-visible relative border-0 mt-4 mb-8 bg-[color:rgb(var(--card))] border-[color:rgb(var(--primary))] backdrop-blur-md bg-opacity-80"
           style={{ boxShadow: "0 12px 48px rgba(112,138,88,0.13)", border: "1.5px solid #708A5855", backgroundColor: "rgba(var(--card),0.80)" }}
         >
           {/* Main hero content with image section */}
@@ -201,32 +199,32 @@ const Home: React.FC = () => {
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, type: "spring" }}
-            className="flex-1 px-4 sm:px-14 py-10 flex flex-col justify-center items-center relative z-20 min-w-[320px] text-white drop-shadow-lg"
+            className="flex-1 px-2 xs:px-4 sm:px-14 py-6 xs:py-8 sm:py-10 flex flex-col justify-center items-center relative z-20 min-w-[220px] xs:min-w-[320px] text-white drop-shadow-lg"
           >
-            <div className="flex justify-center items-center gap-1 mb-4">
+            <div className="flex justify-center items-center gap-1 mb-3 xs:mb-4">
               {[...Array(5)].map((_, i) => (
-                <Star key={i} className="w-5 h-5 text-[#FFB823]" />
+                <Star key={i} className="w-4 h-4 xs:w-5 xs:h-5 text-[#FFB823]" />
               ))}
-              <span className="ml-2 text-sm font-medium text-white drop-shadow">Rated 4.9/5 by our students</span>
+              <span className="ml-2 text-xs xs:text-sm font-medium text-white drop-shadow">Rated 4.9/5 by our students</span>
             </div>
-            <h1 className="text-4xl sm:text-6xl font-extrabold mb-5 leading-tight drop-shadow-lg tracking-wide animate-gradient-text bg-gradient-to-r from-[#41644A] via-[#E9762B] to-[#FFB823] bg-clip-text text-transparent">
+            <h1 className="text-2xl xs:text-3xl sm:text-4xl md:text-6xl font-extrabold mb-3 xs:mb-5 leading-tight drop-shadow-lg tracking-wide animate-gradient-text bg-gradient-to-r from-[#41644A] via-[#E9762B] to-[#FFB823] bg-clip-text text-transparent">
               Achieve More
-              <br className="hidden sm:block" /> with
+              <br className="hidden xs:block" /> with
               <span className="ml-2 animate-gradient-text bg-gradient-to-r from-[#E9762B] via-[#41644A] to-[#FFB823] bg-clip-text text-transparent">Smart Preps</span>
             </h1>
-            <p className="text-lg sm:text-2xl mb-5 sm:mb-7 text-white opacity-90 drop-shadow">
+            <p className="text-base xs:text-lg sm:text-2xl mb-3 xs:mb-5 sm:mb-7 text-white opacity-90 drop-shadow">
               Unlock your success with high-quality, affordable coaching—online
               and offline—in Guwahati, Assam.
               <br />
-              Prepare for CLET, BANK PO, BANK CLERICAL, SSC, and State Exams with
+              Prepare for CLAT, BANK PO, BANK CLERICAL, SSC, and State Exams with
               structured courses and expert faculty.
             </p>
-            <h2 className="font-medium mb-7 text-[#FFB823] drop-shadow">Start your journey to success with Smart Preps today!</h2>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <h2 className="font-medium mb-5 xs:mb-7 text-[#FFB823] drop-shadow text-base xs:text-lg">Start your journey to success with Smart Preps today!</h2>
+            <div className="flex flex-col xs:flex-row gap-3 xs:gap-4 justify-center">
               <Link to="/courses">
                 <Button
                   size="lg"
-                  className="bg-[#708A58] text-white rounded-full border-none shadow-lg hover:bg-[#E9762B] hover:text-white hover:scale-105 transition font-semibold inline-flex items-center px-7 py-3"
+                  className="bg-[#708A58] text-white rounded-full border-none shadow-lg hover:bg-[#E9762B] hover:text-white hover:scale-105 transition font-semibold inline-flex items-center px-6 xs:px-7 py-2.5 xs:py-3"
                 >
                   <BookOpen className="mr-2 h-5 w-5" /> Explore Courses
                 </Button>
@@ -235,14 +233,14 @@ const Home: React.FC = () => {
                 <Button
                   variant="outline"
                   size="lg"
-                  className="border-[#708A58] text-[#708A58] bg-[color:rgb(var(--background))] rounded-full shadow hover:bg-[#41644A] hover:text-white font-semibold inline-flex items-center px-7 py-3 transition-colors duration-200"
+                  className="border-[#708A58] text-[#708A58] bg-[color:rgb(var(--background))] rounded-full shadow hover:bg-[#41644A] hover:text-white font-semibold inline-flex items-center px-6 xs:px-7 py-2.5 xs:py-3 transition-colors duration-200"
                 >
                   <Lightbulb className="mr-2 h-5 w-5" /> Learn More
                 </Button>
               </Link>
             </div>
             {/* Feature badges below buttons */}
-            <div className="flex flex-wrap justify-center gap-4 mt-8">
+            <div className="flex flex-wrap justify-center gap-2 xs:gap-4 mt-6 xs:mt-8">
               <FeatureBadge icon={Star} className="static">Expert Tutors</FeatureBadge>
               <FeatureBadge icon={Award} className="static">Top Rated Courses</FeatureBadge>
               <FeatureBadge icon={Target} className="static">Goal-Oriented</FeatureBadge>
@@ -262,7 +260,7 @@ const Home: React.FC = () => {
         </div>
 
         {/* Stats */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-7 max-w-6xl mx-auto z-10 relative mt-8 mb-10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-5 xs:gap-7 max-w-2xl xs:max-w-4xl sm:max-w-6xl mx-auto z-10 relative mt-6 xs:mt-8 mb-8 xs:mb-10">
           {stats.map((stat, i) => (
             <motion.div
               key={i}
@@ -270,18 +268,18 @@ const Home: React.FC = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: i * 0.1 }}
-              className="flex flex-col items-center shadow-lg rounded-2xl px-8 py-10 bg-[color:rgb(var(--card))] border-0 hover:scale-105 hover:shadow-2xl transition backdrop-blur-md bg-opacity-70 text-white drop-shadow"
+              className="flex flex-col items-center shadow-lg rounded-2xl px-4 xs:px-8 py-6 xs:py-10 bg-[color:rgb(var(--card))] border-0 hover:scale-105 hover:shadow-2xl transition backdrop-blur-md bg-opacity-70 text-white drop-shadow"
               style={{ boxShadow: "0 6px 24px rgba(112,138,88,0.13)", border: "1.5px solid #708A5833", backgroundColor: "rgba(var(--card),0.70)" }}
             >
               <span
-                className="rounded-full p-3 shadow mb-2 gradient-green"
+                className="rounded-full p-2 xs:p-3 shadow mb-2 gradient-green"
               >
-                <stat.icon className="text-white h-7 w-7" />
+                <stat.icon className="text-white h-6 w-6 xs:h-7 xs:w-7" />
               </span>
-              <div className="text-3xl font-bold mt-2 text-white drop-shadow">
+              <div className="text-2xl xs:text-3xl font-bold mt-1 xs:mt-2 text-white drop-shadow">
                 {stat.number}
               </div>
-              <div className="text-base font-medium mt-1 text-[#FFB823] drop-shadow">
+              <div className="text-sm xs:text-base font-medium mt-0.5 xs:mt-1 text-[#FFB823] drop-shadow">
                 {stat.label}
               </div>
             </motion.div>
@@ -307,7 +305,7 @@ const Home: React.FC = () => {
       {/* Carousel */}
       <section
         id="carousel"
-        className="relative z-10 py-14 sm:py-20 animate-fade-in-up bg-[color:rgb(var(--card))]"
+        className="relative z-10 py-14 sm:py-20 animate-fade-in bg-[color:rgb(var(--card))]"
       >
         <div className="w-full px-0 sm:px-0 flex flex-col items-center">
           <div className="text-center mb-10 sm:mb-16">
@@ -485,7 +483,7 @@ const Home: React.FC = () => {
               Explore our most popular and impactful courses, designed to help you achieve your academic and career goals.
             </p>
           </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10 max-w-6xl mx-auto">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 xs:gap-10 max-w-6xl mx-auto">
             {[
               {
                 title: "Law Entrances",
@@ -568,7 +566,7 @@ const Home: React.FC = () => {
       </section>
 
       {/* Why Choose Us */}
-      <section className="relative z-10 py-14 sm:py-20 animate-fade-in-up bg-[color:rgb(var(--background))]">
+      <section className="relative z-0 py-14 sm:py-20 animate-fade-in-up bg-[color:rgb(var(--background))]">
         <div className="container mx-auto px-4 sm:px-8">
           <div className="text-center mb-10 sm:mb-16">
             <h2 className="text-2xl sm:text-4xl font-extrabold mb-4 sm:mb-6 animate-fade-in-up tracking-tight animate-gradient-text bg-gradient-to-r from-[#41644A] via-[#E9762B] to-[#FFB823] bg-clip-text text-transparent font-serif">
@@ -633,7 +631,7 @@ const Home: React.FC = () => {
       </div>
 
       {/* Testimonials Section */}
-      <section className="relative z-10 py-16 bg-[color:rgb(var(--background))]">
+      <section className="relative z-9 py-16 bg-[color:rgb(var(--background))]">
         <div className="container mx-auto px-4 sm:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl sm:text-4xl font-extrabold mb-4 font-serif animate-gradient-text bg-gradient-to-r from-[#41644A] via-[#E9762B] to-[#FFB823] bg-clip-text text-transparent">
@@ -678,7 +676,7 @@ const Home: React.FC = () => {
       </div>
 
       {/* Partner Logos Section */}
-      <section className="relative z-10 py-10 bg-[color:rgb(var(--card))]">
+      <section className="relative z-0 py-10 bg-[color:rgb(var(--card))]">
         <div className="container mx-auto px-4 sm:px-8">
           <div className="text-center mb-8">
             <h2 className="text-2xl sm:text-3xl font-extrabold mb-2 font-serif animate-gradient-text bg-gradient-to-r from-[#41644A] via-[#E9762B] to-[#FFB823] bg-clip-text text-transparent">
@@ -712,28 +710,6 @@ const Home: React.FC = () => {
       >
         <Target className="w-6 h-6" /> Get Free Counseling
       </a>
-
-      {/* Modern Footer */}
-      <footer className="relative z-10 bg-[color:rgb(var(--card))] border-t border-[color:rgb(var(--primary))] py-10 mt-10">
-        <div className="container mx-auto px-4 sm:px-8 flex flex-col md:flex-row justify-between items-center gap-6">
-          <div className="flex flex-col items-center md:items-start">
-            <span className="text-2xl font-bold text-[#41644A] mb-2">Emerald Learning Garden</span>
-            <span className="text-sm text-[color:rgb(var(--primary))] mb-2">Empowering Success Since 2010</span>
-            <span className="text-xs text-gray-500">© {new Date().getFullYear()} Emerald Learning Garden. All rights reserved.</span>
-          </div>
-          <div className="flex flex-col items-center gap-2">
-            <a href="/about" className="text-[color:rgb(var(--primary))] hover:text-[#FFB823] font-medium">About</a>
-            <a href="/courses" className="text-[color:rgb(var(--primary))] hover:text-[#FFB823] font-medium">Courses</a>
-            <a href="/contact" className="text-[color:rgb(var(--primary))] hover:text-[#FFB823] font-medium">Contact</a>
-          </div>
-          <div className="flex flex-col items-center gap-2">
-            <span className="text-[color:rgb(var(--primary))] font-medium">Contact Us</span>
-            <span className="text-sm text-gray-500">Guwahati, Assam</span>
-            <span className="text-sm text-gray-500">+91 98765 43210</span>
-            <span className="text-sm text-gray-500">info@emeraldlearning.in</span>
-          </div>
-        </div>
-      </footer>
 
       <style>{`
         @keyframes gradientMove {
