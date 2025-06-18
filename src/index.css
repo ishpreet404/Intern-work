@@ -106,6 +106,15 @@
   }
 }
 
+/* Fix yellow autofill background on inputs for all browsers */
+input:-webkit-autofill,
+textarea:-webkit-autofill,
+select:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 1000px #E7FFF2 inset !important;
+  box-shadow: 0 0 0 1000px #E7FFF2 inset !important;
+  -webkit-text-fill-color: #004B23 !important;
+}
+
 /* Custom animations */
 @keyframes fadeInUp {
   from {
