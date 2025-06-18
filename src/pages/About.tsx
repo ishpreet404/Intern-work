@@ -127,9 +127,9 @@ const About = () => {
           {/* Meet Our Instructors Section */}
           <div className="mb-20">
             <h2 className="text-3xl font-bold text-center mb-10" style={{ color: '#41644A' }}>Meet Our Instructors</h2>
-            <div className="flex flex-col xs:flex-row flex-wrap justify-center gap-6 xs:gap-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 justify-items-center">
               {instructors.map((inst, idx) => (
-                <Card key={idx} className="w-72 p-6 flex flex-col items-center bg-white/90 border-2 border-[#41644A] shadow-xl rounded-2xl hover:scale-105 transition-transform">
+                <Card key={idx} className="w-full max-w-xs p-6 flex flex-col items-center bg-white/90 border-2 border-[#41644A] shadow-xl rounded-2xl hover:scale-105 transition-transform">
                   <Avatar className="w-20 h-20 mb-4 shadow-lg">
                     <AvatarImage src={inst.img} alt={inst.name} />
                     <AvatarFallback>{inst.name[0]}</AvatarFallback>
