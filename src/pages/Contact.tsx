@@ -81,29 +81,29 @@ const Contact = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-green-50 pt-20">
-      <div className="container mx-auto px-6 py-16">
+    <div className="min-h-screen w-full overflow-x-hidden bg-gradient-to-br from-slate-50 to-green-50 pt-20">
+      <div className="container mx-auto px-4 sm:px-6 py-10 sm:py-16">
         <div className="max-w-6xl mx-auto">
           {/* Header */}
-          <div className="text-center mb-16">
-            <h1 className="text-5xl font-bold text-gray-800 mb-6 animate-fade-in-up">
+          <div className="text-center mb-10 sm:mb-16">
+            <h1 className="text-3xl sm:text-5xl font-bold text-gray-800 mb-4 sm:mb-6 animate-fade-in-up">
               Contact <span className="text-gradient">Us</span>
             </h1>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto animate-fade-in-up">
+            <p className="text-base sm:text-xl text-gray-600 max-w-3xl mx-auto animate-fade-in-up">
               Have questions about our courses? Need help choosing the right path for your career? 
               We're here to help you succeed.
             </p>
           </div>
 
-          <div className="grid lg:grid-cols-2 gap-12">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12">
             {/* Contact Form */}
             <Card className="animate-fade-in-up shadow-lg border-0 bg-white rounded-[2rem]">
               <CardHeader>
-                <CardTitle className="text-2xl text-green-600">Send us a Message</CardTitle>
+                <CardTitle className="text-xl sm:text-2xl text-green-600">Send us a Message</CardTitle>
               </CardHeader>
               <CardContent>
                 <form onSubmit={handleSubmit} className="space-y-6">
-                  <div className="grid md:grid-cols-2 gap-4">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                       <input
                         type="text"
@@ -127,7 +127,7 @@ const Contact = () => {
                       />
                     </div>
                   </div>
-                  <div className="grid md:grid-cols-2 gap-4">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                       <input
                         type="tel"
@@ -174,24 +174,24 @@ const Contact = () => {
 
             {/* Contact Information */}
             <div className="space-y-6 animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
-              <div className="mb-8">
-                <h2 className="text-3xl font-bold text-gray-800 mb-4">Get in Touch</h2>
-                <p className="text-gray-600 text-lg">
+              <div className="mb-6 sm:mb-8">
+                <h2 className="text-2xl sm:text-3xl font-bold text-gray-800 mb-2 sm:mb-4">Get in Touch</h2>
+                <p className="text-gray-600 text-base sm:text-lg">
                   Ready to start your learning journey? Our team is here to guide you every step of the way.
                 </p>
               </div>
 
               {contactInfo.map((item, index) => (
                 <Card key={index} className="border-green-100 hover:shadow-lg transition-shadow">
-                  <CardContent className="p-6">
+                  <CardContent className="p-4 sm:p-6">
                     <div className="flex items-start space-x-4">
-                      <div className="w-12 h-12 gradient-green rounded-lg flex items-center justify-center flex-shrink-0">
-                        <item.icon className="w-6 h-6 text-white" />
+                      <div className="w-10 h-10 sm:w-12 sm:h-12 gradient-green rounded-lg flex items-center justify-center flex-shrink-0">
+                        <item.icon className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
                       </div>
                       <div>
                         <h3 className="font-semibold text-gray-800 mb-1">{item.title}</h3>
                         <p className="text-green-600 font-medium mb-1">{item.details}</p>
-                        <p className="text-gray-600 text-sm">{item.description}</p>
+                        <p className="text-gray-600 text-xs sm:text-sm">{item.description}</p>
                       </div>
                     </div>
                   </CardContent>
@@ -200,9 +200,9 @@ const Contact = () => {
 
               {/* Additional Info */}
               <Card className="border-green-100 bg-gradient-green-light">
-                <CardContent className="p-6 text-center">
+                <CardContent className="p-4 sm:p-6 text-center">
                   <h3 className="font-semibold text-gray-800 mb-2">Quick Response Guarantee</h3>
-                  <p className="text-gray-600">
+                  <p className="text-gray-600 text-xs sm:text-base">
                     We respond to all inquiries within 24 hours. For urgent matters, 
                     call us directly during business hours.
                   </p>

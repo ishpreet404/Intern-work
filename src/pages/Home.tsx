@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
@@ -60,25 +59,25 @@ const Home = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-green-50">
+    <div className="min-h-screen w-full overflow-x-hidden bg-gradient-to-br from-slate-50 to-green-50">
       {/* Hero Section */}
-      <section id="home" className="pt-20 pb-16">
-        <div className="container mx-auto px-6">
+      <section id="home" className="pt-24 pb-12 sm:pt-28 sm:pb-16">
+        <div className="container mx-auto px-4 sm:px-6">
           <div className="text-center max-w-4xl mx-auto">
             <div className="animate-fade-in-up">
-              <h1 className="text-5xl md:text-6xl font-bold text-gray-800 mb-6 leading-tight">
-              Achieve More with Smart Preps
+              <h1 className="text-3xl sm:text-5xl md:text-6xl font-bold text-gray-800 mb-4 sm:mb-6 leading-tight">
+                Achieve More with Smart Preps
                 <span className="text-gradient block">Expert-Led Courses</span>
               </h1>
-              <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
-              Unlock your success with high-quality, affordable coaching—online and offline—in Guwahati, Assam. Prepare for CLET, BANK PO, BANK CLERICAL, SSC, and State Exams with structured courses, expert faculty, and personalized mentoring.
+              <p className="text-base sm:text-xl text-gray-600 mb-6 sm:mb-8 max-w-2xl mx-auto">
+                Unlock your success with high-quality, affordable coaching—online and offline—in Guwahati, Assam. Prepare for CLET, BANK PO, BANK CLERICAL, SSC, and State Exams with structured courses, expert faculty, and personalized mentoring.
               </p>
-              <h1 className="text-xl text-gray-700 mb-8 max-w-2xl mx-auto">Start your journey to success with Smart Preps today!</h1>
+              <h1 className="text-base sm:text-xl text-gray-700 mb-6 sm:mb-8 max-w-2xl mx-auto">Start your journey to success with Smart Preps today!</h1>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Link to="/courses">
                   <Button 
                     size="lg" 
-                    className="gradient-green hover:opacity-90 transition-opacity text-lg px-8 py-3"
+                    className="gradient-green hover:opacity-90 transition-opacity text-base sm:text-lg px-6 sm:px-8 py-3"
                   >
                     Explore Courses
                   </Button>
@@ -87,7 +86,7 @@ const Home = () => {
                   <Button 
                     variant="outline" 
                     size="lg"
-                    className="border-green-300 text-green-600 hover:bg-green-50 text-lg px-8 py-3"
+                    className="border-green-300 text-green-600 hover:bg-green-50 text-base sm:text-lg px-6 sm:px-8 py-3"
                   >
                     Learn More
                   </Button>
@@ -95,19 +94,17 @@ const Home = () => {
               </div>
             </div>
           </div>
-          
           {/* Stats */}
-          <div className="mt-20 grid grid-cols-2 md:grid-cols-4 gap-8 max-w-3xl mx-auto">
+          <div className="mt-12 sm:mt-20 grid grid-cols-2 sm:grid-cols-4 gap-6 sm:gap-8 max-w-3xl mx-auto">
             {stats.map((stat, index) => (
               <div key={index} className="text-center animate-fade-in-up" style={{ animationDelay: `${index * 0.1}s` }}>
-                <div className="text-3xl font-bold text-gradient mb-2">{stat.number}</div>
-                <div className="text-gray-600">{stat.label}</div>
+                <div className="text-2xl sm:text-3xl font-bold text-gradient mb-1 sm:mb-2">{stat.number}</div>
+                <div className="text-gray-600 text-sm sm:text-base">{stat.label}</div>
               </div>
             ))}
           </div>
-
           {/* Scroll Indicator */}
-          <div className="flex justify-center mt-16">
+          <div className="flex justify-center mt-10 sm:mt-16">
             <button 
               onClick={() => scrollToSection('carousel')}
               className="animate-bounce text-green-600 hover:text-green-700 transition-colors"
@@ -117,34 +114,32 @@ const Home = () => {
           </div>
         </div>
       </section>
-
       {/* Image Carousel Section */}
-      <section id="carousel" className="py-20 bg-white">
-        <div className="container mx-auto px-6">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-800 mb-6 animate-fade-in-up">
+      <section id="carousel" className="py-12 sm:py-20 bg-white">
+        <div className="container mx-auto px-4 sm:px-6">
+          <div className="text-center mb-10 sm:mb-16">
+            <h2 className="text-2xl sm:text-4xl font-bold text-gray-800 mb-4 sm:mb-6 animate-fade-in-up">
               Experience <span className="text-gradient">Modern Learning</span>
             </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto animate-fade-in-up">
+            <p className="text-base sm:text-xl text-gray-600 max-w-3xl mx-auto animate-fade-in-up">
               Discover how our innovative approach to education transforms the way you learn
             </p>
           </div>
-
-          <div className="max-w-4xl mx-auto">
+          <div className="max-w-2xl sm:max-w-4xl mx-auto">
             <Carousel className="w-full">
               <CarouselContent>
                 {carouselImages.map((image, index) => (
                   <CarouselItem key={index}>
-                    <div className="relative h-96 rounded-2xl overflow-hidden">
+                    <div className="relative h-56 sm:h-96 rounded-xl sm:rounded-2xl overflow-hidden">
                       <img 
                         src={image.url} 
                         alt={image.title}
                         className="w-full h-full object-cover"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end">
-                        <div className="p-8 text-white">
-                          <h3 className="text-2xl font-bold mb-2">{image.title}</h3>
-                          <p className="text-lg opacity-90">{image.description}</p>
+                        <div className="p-4 sm:p-8 text-white">
+                          <h3 className="text-lg sm:text-2xl font-bold mb-1 sm:mb-2">{image.title}</h3>
+                          <p className="text-sm sm:text-lg opacity-90">{image.description}</p>
                         </div>
                       </div>
                     </div>
@@ -157,36 +152,33 @@ const Home = () => {
           </div>
         </div>
       </section>
-
       {/* Why Choose Us Section */}
-      <section className="py-20 bg-gradient-to-br from-green-50 to-slate-50">
-        <div className="container mx-auto px-6">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-800 mb-6 animate-fade-in-up">
+      <section className="py-12 sm:py-20 bg-gradient-to-br from-green-50 to-slate-50">
+        <div className="container mx-auto px-4 sm:px-6">
+          <div className="text-center mb-10 sm:mb-16">
+            <h2 className="text-2xl sm:text-4xl font-bold text-gray-800 mb-4 sm:mb-6 animate-fade-in-up">
               Why Choose <span className="text-gradient">EduGreen</span>
             </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto animate-fade-in-up">
+            <p className="text-base sm:text-xl text-gray-600 max-w-3xl mx-auto animate-fade-in-up">
               We're committed to providing the best learning experience with proven results
             </p>
           </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 max-w-7xl mx-auto">
             {whyChooseUs.map((feature, index) => (
               <Card key={index} className="border-green-100 hover:shadow-xl transition-all duration-300 hover:-translate-y-2 animate-fade-in-up" style={{ animationDelay: `${index * 0.1}s` }}>
-                <CardContent className="p-6 text-center">
-                  <div className="w-16 h-16 gradient-green rounded-full flex items-center justify-center mx-auto mb-4">
-                    <feature.icon className="w-8 h-8 text-white" />
+                <CardContent className="p-4 sm:p-6 text-center">
+                  <div className="w-12 h-12 sm:w-16 sm:h-16 gradient-green rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-4">
+                    <feature.icon className="w-6 h-6 sm:w-8 sm:h-8 text-white" />
                   </div>
-                  <h4 className="text-xl font-semibold text-gray-800 mb-3">{feature.title}</h4>
-                  <p className="text-gray-600 leading-relaxed">{feature.description}</p>
+                  <h4 className="text-lg sm:text-xl font-semibold text-gray-800 mb-2 sm:mb-3">{feature.title}</h4>
+                  <p className="text-gray-600 text-sm sm:text-base leading-relaxed">{feature.description}</p>
                 </CardContent>
               </Card>
             ))}
           </div>
-
-          <div className="text-center mt-12">
+          <div className="text-center mt-8 sm:mt-12">
             <Link to="/contact">
-              <Button size="lg" className="gradient-green hover:opacity-90 transition-opacity">
+              <Button size="lg" className="gradient-green hover:opacity-90 transition-opacity text-base sm:text-lg px-6 sm:px-8 py-3">
                 Get Started Today
               </Button>
             </Link>

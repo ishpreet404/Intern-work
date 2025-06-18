@@ -87,21 +87,21 @@ const Courses = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-green-50 pt-20">
-      <div className="container mx-auto px-6 py-16">
+    <div className="min-h-screen w-full overflow-x-hidden bg-gradient-to-br from-slate-50 to-green-50 pt-20">
+      <div className="container mx-auto px-4 sm:px-6 py-10 sm:py-16">
         {/* Header */}
-        <div className="text-center mb-16">
-          <h1 className="text-5xl font-bold text-gray-800 mb-6 animate-fade-in-up">
+        <div className="text-center mb-10 sm:mb-16">
+          <h1 className="text-3xl sm:text-5xl font-bold text-gray-800 mb-4 sm:mb-6 animate-fade-in-up">
             Our <span className="text-gradient">Courses</span>
           </h1>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto animate-fade-in-up">
+          <p className="text-base sm:text-xl text-gray-600 max-w-3xl mx-auto animate-fade-in-up">
             Choose from our carefully curated selection of courses designed by industry experts 
             to give you the skills employers are looking for.
           </p>
         </div>
 
         {/* Courses Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 max-w-7xl mx-auto">
           {courses.map((course, index) => (
             <div key={index} className="animate-fade-in-up" style={{ animationDelay: `${index * 0.1}s` }}>
               <CourseCard
