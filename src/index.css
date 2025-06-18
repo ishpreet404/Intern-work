@@ -173,3 +173,20 @@ select:-webkit-autofill {
 .animate-scale-in {
   animation: scaleIn 0.3s ease-out;
 }
+.animated-bg-gradient {
+  background: linear-gradient(120deg, #d1fae5 0%, #a7f3d0 25%, #f0fdfa 75%, #bbf7d0 100%);
+  animation: gradientMove 10s ease-in-out infinite alternate;
+  background-size: 200% 200%;
+}
+@keyframes gradientMove {
+  0% { background-position: 0% 50% }
+  100% { background-position: 100% 50% }
+}
+/* Optional: add a .text-gradient if used in text spans */
+.text-gradient {
+  background: linear-gradient(90deg, #10b981 30%, #0ea5e9 60%, #059669 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
