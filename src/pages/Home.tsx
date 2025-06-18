@@ -207,10 +207,10 @@ const Home: React.FC = () => {
               ))}
               <span className="ml-2 text-xs xs:text-sm font-medium text-white drop-shadow">Rated 4.9/5 by our students</span>
             </div>
-            <h1 className="text-2xl xs:text-3xl sm:text-4xl md:text-6xl font-extrabold mb-3 xs:mb-5 leading-tight drop-shadow-lg tracking-wide animate-gradient-text bg-gradient-to-r from-[#41644A] via-[#E9762B] to-[#FFB823] bg-clip-text text-transparent">
+            <h1 className="text-2xl xs:text-3xl sm:text-4xl md:text-6xl font-bold mb-3 xs:mb-5 leading-tight drop-shadow-lg tracking-normal animate-gradient-text bg-gradient-to-r from-[#41644A] via-[#E9762B] to-[#FFB823] bg-clip-text text-transparent simple-hero-title">
               Achieve More
               <br className="hidden xs:block" /> with
-              <span className="ml-2 animate-gradient-text bg-gradient-to-r from-[#E9762B] via-[#41644A] to-[#FFB823] bg-clip-text text-transparent">Smart Preps</span>
+              <span className="ml-2 animate-gradient-text bg-gradient-to-r from-[#E9762B] via-[#41644A] to-[#FFB823] bg-clip-text text-transparent simple-hero-title">Smart Preps</span>
             </h1>
             <p className="text-base xs:text-lg sm:text-2xl mb-3 xs:mb-5 sm:mb-7 text-white opacity-90 drop-shadow">
               Unlock your success with high-quality, affordable coaching—online
@@ -734,6 +734,11 @@ const Home: React.FC = () => {
         }
         .font-light, .font-normal, .font-medium, .font-semibold, .font-bold, .font-extrabold {
           font-family: 'Georgia', 'Times New Roman', Times, serif !important;
+        }
+        .simple-hero-title {
+          font-family: 'Segoe UI', Arial, Helvetica, sans-serif !important;
+          font-weight: 700;
+          letter-spacing: 0.01em;
         }
       `}</style>
     </div>
