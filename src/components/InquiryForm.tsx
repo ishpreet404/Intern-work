@@ -1,8 +1,5 @@
-
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { useToast } from '@/hooks/use-toast';
 import { X, Send } from 'lucide-react';
@@ -13,6 +10,8 @@ interface InquiryFormProps {
   onClose: () => void;
 }
 
+const FORMSPREE_ENDPOINT = "https://formspree.io/f/meokzggo"; // <-- Replace with your Formspree endpoint
+
 const InquiryForm: React.FC<InquiryFormProps> = ({ courseName, isOpen, onClose }) => {
   const [formData, setFormData] = useState({
     name: '',
@@ -21,19 +20,40 @@ const InquiryForm: React.FC<InquiryFormProps> = ({ courseName, isOpen, onClose }
     message: ''
   });
   const { toast } = useToast();
+  const [loading, setLoading] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
-    // Simulate form submission
-    toast({
-      title: "Inquiry Sent Successfully!",
-      description: `Thank you for your interest in ${courseName}. We'll get back to you soon.`,
-    });
-    
-    // Reset form
-    setFormData({ name: '', email: '', phone: '', message: '' });
-    onClose();
+    setLoading(true);
+    try {
+      const response = await fetch(FORMSPREE_ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ...formData, course: courseName }),
+      });
+      if (response.ok) {
+        toast({
+          title: 'Inquiry Sent Successfully!',
+          description: `Thank you for your interest in ${courseName}. We'll get back to you soon.`,
+        });
+        setFormData({ name: '', email: '', phone: '', message: '' });
+        onClose();
+      } else {
+        toast({
+          title: 'Submission Failed',
+          description: 'There was an error sending your inquiry. Please try again.',
+          variant: 'destructive',
+        });
+      }
+    } catch (error) {
+      toast({
+        title: 'Submission Failed',
+        description: 'There was an error sending your inquiry. Please try again.',
+        variant: 'destructive',
+      });
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -45,7 +65,7 @@ const InquiryForm: React.FC<InquiryFormProps> = ({ courseName, isOpen, onClose }
 
   return (
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-      <Card className="w-full max-w-md animate-scale-in">
+      <Card className="w-full max-w-md animate-scale-in rounded-[2rem] shadow-lg border-0 bg-white">
         <CardHeader>
           <div className="flex items-center justify-between">
             <div>
@@ -65,52 +85,53 @@ const InquiryForm: React.FC<InquiryFormProps> = ({ courseName, isOpen, onClose }
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <Input
+              <input
                 placeholder="Your Name"
                 name="name"
                 value={formData.name}
                 onChange={handleChange}
                 required
-                className="border-green-200 focus:border-green-400"
+                className="w-full border border-green-200 focus:border-green-400 rounded-full px-6 py-3 bg-green-50 placeholder-gray-400 shadow-sm transition-all duration-200"
               />
             </div>
             <div>
-              <Input
+              <input
                 type="email"
                 placeholder="Email Address"
                 name="email"
                 value={formData.email}
                 onChange={handleChange}
                 required
-                className="border-green-200 focus:border-green-400"
+                className="w-full border border-green-200 focus:border-green-400 rounded-full px-6 py-3 bg-green-50 placeholder-gray-400 shadow-sm transition-all duration-200"
               />
             </div>
             <div>
-              <Input
+              <input
                 type="tel"
                 placeholder="Phone Number"
                 name="phone"
                 value={formData.phone}
                 onChange={handleChange}
-                className="border-green-200 focus:border-green-400"
+                className="w-full border border-green-200 focus:border-green-400 rounded-full px-6 py-3 bg-green-50 placeholder-gray-400 shadow-sm transition-all duration-200"
               />
             </div>
             <div>
-              <Textarea
+              <textarea
                 placeholder="Tell us about your learning goals..."
                 name="message"
                 value={formData.message}
                 onChange={handleChange}
                 rows={4}
-                className="border-green-200 focus:border-green-400 resize-none"
+                className="w-full border border-green-200 focus:border-green-400 rounded-3xl px-6 py-4 bg-green-50 placeholder-gray-400 shadow-sm resize-none transition-all duration-200"
               />
             </div>
             <Button
               type="submit"
-              className="w-full gradient-green hover:opacity-90 transition-opacity"
+              className="w-full bg-gradient-to-r from-green-400 to-green-600 text-white font-semibold py-3 rounded-full hover:opacity-90 transition-opacity flex items-center justify-center shadow-md"
+              disabled={loading}
             >
               <Send className="w-4 h-4 mr-2" />
-              Send Inquiry
+              {loading ? 'Sending...' : 'Send Inquiry'}
             </Button>
           </form>
         </CardContent>

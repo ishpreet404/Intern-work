@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import CourseCard from '@/components/CourseCard';
 import InquiryForm from '@/components/InquiryForm';
@@ -9,77 +8,77 @@ const Courses = () => {
 
   const courses = [
     {
-      title: "Web Development Mastery",
-      description: "Learn modern web development with React, Node.js, and MongoDB. Build real-world projects from scratch and deploy them to production.",
-      duration: "12 weeks",
-      students: "500+",
-      level: "Intermediate",
-      image: "/placeholder.svg"
+      "title": "Law Entrances",
+      "description": "CLAT, AILET, SLAT & OLET preparations. Apply now to avail 7 day trial classes.",
+      "duration": "1 Year",
+      "students": "500",
+      "level": null,
+      "image": "https://i.ibb.co/YTXbnGtw/Screenshot-2025-06-18-052048.png"
     },
     {
-      title: "Data Science Fundamentals",
-      description: "Master Python, statistics, machine learning, and data visualization to become a data scientist. Work with real datasets and build predictive models.",
-      duration: "16 weeks",
-      students: "300+",
-      level: "Beginner",
-      image: "/placeholder.svg"
+      "title": "CUET Exams",
+      "description": "The classes start soon. Apply now to avail 7 day trial classes.",
+      "duration": "1 Year",
+      "students": "500",
+      "level": null,
+      "image": "https://i.ibb.co/xt1s4wSx/Screenshot-2025-06-18-052125.png"
     },
     {
-      title: "Digital Marketing Pro",
-      description: "Complete digital marketing course covering SEO, social media, PPC, and content marketing strategies. Learn to drive traffic and conversions.",
-      duration: "8 weeks",
-      students: "750+",
-      level: "All Levels",
-      image: "/placeholder.svg"
-    },
-    {
-      title: "UI/UX Design Studio",
-      description: "Create beautiful, user-centered designs using Figma, Adobe XD, and design thinking principles. Build a professional portfolio.",
-      duration: "10 weeks",
-      students: "400+",
-      level: "Intermediate",
-      image: "/placeholder.svg"
-    },
-    {
-      title: "Mobile App Development",
-      description: "Build iOS and Android apps using React Native and Flutter. Learn to deploy to app stores and monetize your applications.",
-      duration: "14 weeks",
-      students: "250+",
-      level: "Advanced",
-      image: "/placeholder.svg"
-    },
-    {
-      title: "Cloud Computing AWS",
-      description: "Master Amazon Web Services, cloud architecture, and DevOps practices for modern applications. Get AWS certified.",
-      duration: "12 weeks",
-      students: "350+",
-      level: "Intermediate",
-      image: "/placeholder.svg"
-    },
-    {
-      title: "Cybersecurity Essentials",
-      description: "Learn ethical hacking, network security, and risk assessment. Protect organizations from cyber threats and vulnerabilities.",
-      duration: "10 weeks",
-      students: "200+",
-      level: "Intermediate",
-      image: "/placeholder.svg"
-    },
-    {
-      title: "Artificial Intelligence",
-      description: "Explore machine learning, deep learning, and neural networks. Build AI applications and understand the future of technology.",
-      duration: "18 weeks",
-      students: "180+",
-      level: "Advanced",
-      image: "/placeholder.svg"
-    },
-    {
-      title: "Business Analytics",
-      description: "Learn to analyze business data, create insights, and make data-driven decisions. Master Excel, SQL, and Tableau.",
-      duration: "8 weeks",
-      students: "320+",
-      level: "Beginner",
-      image: "/placeholder.svg"
+      "title": "ADRE 3.0",
+      "description": "The classes start soon. Apply now to avail 7 day trial classes.",
+      "duration": "1 Year",
+      "students": "500",
+      "level": null,
+      "image": "https://i.ibb.co/xt1s4wSx/Screenshot-2025-06-18-052125.png"
     }
+    // {
+    //   title: "UI/UX Design Studio",
+    //   description: "Create beautiful, user-centered designs using Figma, Adobe XD, and design thinking principles. Build a professional portfolio.",
+    //   duration: "10 weeks",
+    //   students: "400+",
+    //   level: "Intermediate",
+    //   image: "/placeholder.svg"
+    // },
+    // {
+    //   title: "Mobile App Development",
+    //   description: "Build iOS and Android apps using React Native and Flutter. Learn to deploy to app stores and monetize your applications.",
+    //   duration: "14 weeks",
+    //   students: "250+",
+    //   level: "Advanced",
+    //   image: "/placeholder.svg"
+    // },
+    // {
+    //   title: "Cloud Computing AWS",
+    //   description: "Master Amazon Web Services, cloud architecture, and DevOps practices for modern applications. Get AWS certified.",
+    //   duration: "12 weeks",
+    //   students: "350+",
+    //   level: "Intermediate",
+    //   image: "/placeholder.svg"
+    // },
+    // {
+    //   title: "Cybersecurity Essentials",
+    //   description: "Learn ethical hacking, network security, and risk assessment. Protect organizations from cyber threats and vulnerabilities.",
+    //   duration: "10 weeks",
+    //   students: "200+",
+    //   level: "Intermediate",
+    //   image: "/placeholder.svg"
+    // },
+    // {
+    //   title: "Artificial Intelligence",
+    //   description: "Explore machine learning, deep learning, and neural networks. Build AI applications and understand the future of technology.",
+    //   duration: "18 weeks",
+    //   students: "180+",
+    //   level: "Advanced",
+    //   image: "/placeholder.svg"
+    // },
+    // {
+    //   title: "Business Analytics",
+    //   description: "Learn to analyze business data, create insights, and make data-driven decisions. Master Excel, SQL, and Tableau.",
+    //   duration: "8 weeks",
+    //   students: "320+",
+    //   level: "Beginner",
+    //   image: "/placeholder.svg"
+    // }
   ];
 
   const handleCourseInquiry = (courseName: string) => {

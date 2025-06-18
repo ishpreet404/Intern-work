@@ -12,9 +12,10 @@ const Footer = () => {
           <div className="md:col-span-2">
             <div className="flex items-center space-x-2 mb-4">
               <div className="w-8 h-8 gradient-green rounded-lg flex items-center justify-center">
-                <BookOpen className="w-5 h-5 text-white" />
+                {/* <BookOpen className="w-5 h-5 text-white" /> */}
+                <img src="https://smartpreps.in/wp-content/uploads/2025/05/cropped-pfp_1-removebg-preview.png" alt="logo" />
               </div>
-              <span className="text-xl font-bold">EduGreen</span>
+              <span className="text-xl font-bold">SmartPreps</span>
             </div>
             <p className="text-gray-400 mb-4 max-w-md">
               Empowering learners worldwide with quality education and practical skills 
@@ -53,8 +54,8 @@ const Footer = () => {
           <div>
             <h3 className="font-semibold mb-4">Contact Info</h3>
             <ul className="space-y-2 text-gray-400">
-              <li>support@edugreen.com</li>
-              <li>+1 (555) 123-4567</li>
+              <li>smartpreps.official@gmail.com</li>
+              <li>+91 9287987525</li>
               <li>Mon-Fri: 8am-6pm</li>
             </ul>
           </div>
@@ -62,7 +63,7 @@ const Footer = () => {
 
         <div className="border-t border-gray-800 pt-8 text-center">
           <p className="text-gray-500 text-sm">
-            © 2024 EduGreen. All rights reserved.
+            © 2025 SmartPreps. All rights reserved.
           </p>
         </div>
       </div>
