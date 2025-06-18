@@ -2,101 +2,15 @@ import React, { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious
-} from "@/components/ui/carousel";
-import {
   ChevronDown, Star, Trophy, Clock, Globe,
   Users, BookOpen, Award, Target, Heart, Lightbulb
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import useEmblaCarousel from "embla-carousel-react";
+import CourseCard from '@/components/CourseCard';
 
-// ----- COLOR PALETTE -----
-const COLORS = {
-  black: "#181818",
-  white: "#F8F8F8",
-  gray: "#232323",
-  faintGreen: "#1B5E20",
-  accentGreen: "#00A64F",
-  faintOrange: "#FFB74D",
-  accentOrange: "#FF9800",
-};
-
-// Custom cursor: ring and dot
-const CursorRing: React.FC = () => {
-  const dot = useRef<HTMLDivElement>(null);
-  const ring = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if ("ontouchstart" in window) return;
-    let mouseX = 0, mouseY = 0;
-    let dotX = 0, dotY = 0, ringX = 0, ringY = 0;
-    let frame: number;
-
-    const animate = () => {
-      dotX += (mouseX - dotX) * 0.28;
-      dotY += (mouseY - dotY) * 0.28;
-      ringX += (mouseX - ringX) * 0.16;
-      ringY += (mouseY - ringY) * 0.16;
-      if (dot.current) dot.current.style.transform = `translate(-50%, -50%) translate(${dotX}px,${dotY}px)`;
-      if (ring.current) ring.current.style.transform = `translate(-50%, -50%) translate(${ringX}px,${ringY}px)`;
-      frame = requestAnimationFrame(animate);
-    };
-
-    const move = (e: MouseEvent) => {
-      mouseX = e.clientX;
-      mouseY = e.clientY;
-    };
-
-    document.addEventListener("mousemove", move);
-    animate();
-
-    return () => {
-      cancelAnimationFrame(frame);
-      document.removeEventListener("mousemove", move);
-    };
-  }, []);
-
-  if ("ontouchstart" in window) return null;
-
-  return (
-    <>
-      <div
-        ref={ring}
-        className="fixed top-0 left-0 z-[100] pointer-events-none"
-        style={{
-          width: 38,
-          height: 38,
-          border: `2px solid ${COLORS.accentGreen}`,
-          borderRadius: "50%",
-          background: `${COLORS.accentGreen}10`,
-          transition: "border .2s",
-          willChange: "transform"
-        }}
-        aria-hidden="true"
-      />
-      <div
-        ref={dot}
-        className="fixed top-0 left-0 z-[101] pointer-events-none"
-        style={{
-          width: 9,
-          height: 9,
-          background: COLORS.accentGreen,
-          borderRadius: "50%",
-          boxShadow: `0 2px 6px 1px ${COLORS.accentGreen}24`,
-          willChange: "transform"
-        }}
-        aria-hidden="true"
-      />
-    </>
-  );
-};
-
+// FeatureBadge updated to use CSS variables and Tailwind classes
 const FeatureBadge: React.FC<{
   icon: React.ElementType;
   children: React.ReactNode;
@@ -104,25 +18,19 @@ const FeatureBadge: React.FC<{
   style?: React.CSSProperties;
 }> = ({ icon: Icon, children, className = "", style }) => (
   <div
-    className={`flex items-center gap-3 border rounded-full px-4 py-2 shadow-lg hover:scale-105 transition-transform duration-300 ${className}`}
-    style={{
-      background: `rgba(24,24,24,0.85)`,
-      borderColor: COLORS.accentGreen,
-      ...style
-    }}
+    className={`flex items-center gap-3 border rounded-full px-4 py-2 shadow-lg hover:scale-105 transition-transform duration-300 bg-[rgba(var(--card)/0.85)] border-[color:rgb(var(--primary))] ${className}`}
+    style={style}
   >
     <div
-      className="w-8 h-8 rounded-full flex items-center justify-center shadow"
-      style={{
-        background: `linear-gradient(135deg, ${COLORS.accentGreen} 0%, ${COLORS.faintGreen} 100%)`
-      }}
+      className="w-8 h-8 rounded-full flex items-center justify-center shadow gradient-green"
     >
       <Icon className="w-5 h-5 text-white" />
     </div>
-    <span className="font-semibold text-sm" style={{ color: COLORS.accentGreen }}>{children}</span>
+    <span className="font-semibold text-sm text-[color:rgb(var(--primary))]">{children}</span>
   </div>
 );
 
+// BgBlob and BgGradientSvg updated to use palette
 const BgBlob = ({ className = "" }) => (
   <svg className={className} viewBox="0 0 600 600" fill="none">
     <g filter="url(#filter0_f_692_37)">
@@ -131,7 +39,7 @@ const BgBlob = ({ className = "" }) => (
         cy="300"
         rx="200"
         ry="100"
-        fill={COLORS.accentGreen}
+        fill="#708A58"
         fillOpacity="0.15"
       />
     </g>
@@ -156,8 +64,8 @@ const BgGradientSvg = () => (
         fy="60%"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stopColor={COLORS.accentGreen} stopOpacity="0.30" />
-        <stop offset="1" stopColor={COLORS.black} stopOpacity="0.05" />
+        <stop stopColor="#FFB823" stopOpacity="0.30" />
+        <stop offset="1" stopColor="#2D4F2B" stopOpacity="0.05" />
       </radialGradient>
     </defs>
     <rect width="1440" height="580" fill="url(#radial)" />
@@ -222,8 +130,23 @@ const scrollToSection = (sectionId: string) => {
 
 const Home: React.FC = () => {
   // Carousel state for dot indicator
-  const [emblaApi, setEmblaApi] = useState<any>(null);
+  const [emblaApi, setEmblaApi] = useState<import("@/components/ui/carousel").CarouselApi | null>(null);
   const [selectedIndex, setSelectedIndex] = useState(0);
+  const [isDragging, setIsDragging] = useState(false);
+  const dragStartX = useRef<number | null>(null);
+  const dragThreshold = 50;
+
+  // Modal state for course details
+  const [modalCourse, setModalCourse] = useState<{
+    title: string;
+    description: string;
+    duration: string;
+    students: string;
+    level: string;
+    image: string;
+    rating: number;
+    tags: string[];
+  } | null>(null);
 
   useEffect(() => {
     if (!emblaApi) return;
@@ -237,273 +160,421 @@ const Home: React.FC = () => {
 
   return (
     <div
-      style={{
-        background: `linear-gradient(120deg, ${COLORS.black} 0%, ${COLORS.gray} 60%, ${COLORS.faintGreen} 100%)`,
-        backgroundAttachment: "fixed"
-      }}
-      className="relative w-full bg-fixed font-sans pt-20"
+      className="relative w-full bg-fixed font-sans pt-20 bg-[color:rgb(var(--background))]"
     >
       {/* Decorative SVG background overlays for extra depth */}
       <svg className="absolute top-0 left-0 w-[60vw] h-[40vw] opacity-20 z-0 pointer-events-none" viewBox="0 0 600 400" fill="none">
-        <ellipse cx="300" cy="200" rx="300" ry="200" fill={COLORS.accentGreen} fillOpacity="0.10" />
+        <ellipse cx="300" cy="200" rx="300" ry="200" fill="#708A58" fillOpacity="0.10" />
       </svg>
       <svg className="absolute bottom-0 right-0 w-[50vw] h-[30vw] opacity-10 z-0 pointer-events-none" viewBox="0 0 500 300" fill="none">
-        <ellipse cx="250" cy="150" rx="250" ry="150" fill={COLORS.accentOrange} fillOpacity="0.10" />
+        <ellipse cx="250" cy="150" rx="250" ry="150" fill="#FFB823" fillOpacity="0.10" />
       </svg>
       <BgGradientSvg />
-      <CursorRing />
       <BgBlob className="absolute blur-3xl opacity-40 top-[-100px] left-[-150px] w-[400px] h-[300px] z-1 pointer-events-none" />
       <BgBlob className="absolute blur-2xl opacity-40 bottom-[-100px] right-[-120px] w-[350px] h-[300px] z-1 pointer-events-none" />
 
-      {/* Hero */}
+      {/* Hero Section with video background */}
       <section
         id="home"
         className="relative z-10 pt-10 pb-8 sm:pt-16 sm:pb-12"
+        tabIndex={-1}
+        aria-label="Homepage Hero"
       >
-        <div className="container mx-auto px-4 sm:px-8 relative">
-          {/* Hero Card with aligned badges inside */}
-          <div
-            className="rounded-3xl shadow-2xl max-w-6xl w-full mx-auto p-0 text-center flex flex-col items-stretch overflow-visible relative border-0 mt-4 mb-8" // Reduced margin
-            style={{
-              background: `linear-gradient(135deg, ${COLORS.gray} 70%, ${COLORS.black} 100%)`,
-              boxShadow: `0 12px 48px ${COLORS.accentGreen}22`,
-              border: `1.5px solid ${COLORS.faintGreen}55`,
-            }}
+        {/* GIF background as image */}
+        <div className="absolute inset-0 w-full h-full z-0 pointer-events-none overflow-hidden rounded-3xl">
+          <img
+            src="https://i.ibb.co/cS7vgKYT/Video-111.gif"
+            alt="Animated background"
+            className="w-full h-full object-cover opacity-90 brightness-110"
+            draggable="false"
+            aria-hidden="true"
+          />
+        </div>
+
+        {/* Hero Card with aligned badges inside */}
+        <div
+          className="rounded-3xl shadow-2xl max-w-6xl w-full mx-auto p-0 text-center flex flex-col items-stretch overflow-visible relative border-0 mt-4 mb-8 bg-[color:rgb(var(--card))] border-[color:rgb(var(--primary))] backdrop-blur-md bg-opacity-80"
+          style={{ boxShadow: "0 12px 48px rgba(112,138,88,0.13)", border: "1.5px solid #708A5855", backgroundColor: "rgba(var(--card),0.80)" }}
+        >
+          {/* Main hero content with image section */}
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, type: "spring" }}
+            className="flex-1 px-4 sm:px-14 py-10 flex flex-col justify-center items-center relative z-20 min-w-[320px] text-white drop-shadow-lg"
           >
-            {/* Main hero content with image section */}
+            <div className="flex justify-center items-center gap-1 mb-4">
+              {[...Array(5)].map((_, i) => (
+                <Star key={i} className="w-5 h-5 text-[#FFB823]" />
+              ))}
+              <span className="ml-2 text-sm font-medium text-white drop-shadow">Rated 4.9/5 by our students</span>
+            </div>
+            <h1 className="text-4xl sm:text-6xl font-extrabold mb-5 leading-tight drop-shadow-lg tracking-wide animate-gradient-text bg-gradient-to-r from-[#41644A] via-[#E9762B] to-[#FFB823] bg-clip-text text-transparent">
+              Achieve More
+              <br className="hidden sm:block" /> with
+              <span className="ml-2 animate-gradient-text bg-gradient-to-r from-[#E9762B] via-[#41644A] to-[#FFB823] bg-clip-text text-transparent">Smart Preps</span>
+            </h1>
+            <p className="text-lg sm:text-2xl mb-5 sm:mb-7 text-white opacity-90 drop-shadow">
+              Unlock your success with high-quality, affordable coaching—online
+              and offline—in Guwahati, Assam.
+              <br />
+              Prepare for CLET, BANK PO, BANK CLERICAL, SSC, and State Exams with
+              structured courses and expert faculty.
+            </p>
+            <h2 className="font-medium mb-7 text-[#FFB823] drop-shadow">Start your journey to success with Smart Preps today!</h2>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Link to="/courses">
+                <Button
+                  size="lg"
+                  className="bg-[#708A58] text-white rounded-full border-none shadow-lg hover:bg-[#E9762B] hover:text-white hover:scale-105 transition font-semibold inline-flex items-center px-7 py-3"
+                >
+                  <BookOpen className="mr-2 h-5 w-5" /> Explore Courses
+                </Button>
+              </Link>
+              <Link to="/about">
+                <Button
+                  variant="outline"
+                  size="lg"
+                  className="border-[#708A58] text-[#708A58] bg-[color:rgb(var(--background))] rounded-full shadow hover:bg-[#41644A] hover:text-white font-semibold inline-flex items-center px-7 py-3 transition-colors duration-200"
+                >
+                  <Lightbulb className="mr-2 h-5 w-5" /> Learn More
+                </Button>
+              </Link>
+            </div>
+            {/* Feature badges below buttons */}
+            <div className="flex flex-wrap justify-center gap-4 mt-8">
+              <FeatureBadge icon={Star} className="static">Expert Tutors</FeatureBadge>
+              <FeatureBadge icon={Award} className="static">Top Rated Courses</FeatureBadge>
+              <FeatureBadge icon={Target} className="static">Goal-Oriented</FeatureBadge>
+              <FeatureBadge icon={BookOpen} className="static">20+ Courses</FeatureBadge>
+            </div>
+          </motion.div>
+        </div>
+        {/* Decorative wave separator */}
+        <div className="mx-auto -mb-4 mt-8 md:mt-14 max-w-2xl opacity-70 pointer-events-none select-none">
+          <svg viewBox="0 0 1440 72" fill="none" className="w-full h-12 sm:h-16">
+            <path
+              fill="#708A58"
+              fillOpacity="0.13"
+              d="M0 17L48 29.8C96 43 192 69 288 63.7C384 57.7 480 18.3 576 8.5C672 0.5 768 21.1 864 37.3C960 52.9 1056 63 1152 63C1248 63 1344 53.1 1392 47.2L1440 41V0H1392C1344 0 1248 0 1152 0C1056 0 960 0 864 0C768 0 672 0 576 0C480 0 384 0 288 0C192 0 96 0 48 0H0V17Z"
+            />
+          </svg>
+        </div>
+
+        {/* Stats */}
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-7 max-w-6xl mx-auto z-10 relative mt-8 mb-10">
+          {stats.map((stat, i) => (
             <motion.div
+              key={i}
               initial={{ opacity: 0, y: 40 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, type: "spring" }}
-              className="flex-1 px-4 sm:px-14 py-10 flex flex-col justify-center items-center relative z-20 min-w-[320px]" // Reduced py
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: i * 0.1 }}
+              className="flex flex-col items-center shadow-lg rounded-2xl px-8 py-10 bg-[color:rgb(var(--card))] border-0 hover:scale-105 hover:shadow-2xl transition backdrop-blur-md bg-opacity-70 text-white drop-shadow"
+              style={{ boxShadow: "0 6px 24px rgba(112,138,88,0.13)", border: "1.5px solid #708A5833", backgroundColor: "rgba(var(--card),0.70)" }}
             >
-              <div
-                className="flex justify-center items-center gap-1 mb-4"
-                style={{ animationDelay: "0.1s" }}
+              <span
+                className="rounded-full p-3 shadow mb-2 gradient-green"
               >
-                <Star className="w-5 h-5" style={{ color: COLORS.accentOrange }} />
-                <Star className="w-5 h-5" style={{ color: COLORS.accentOrange }} />
-                <Star className="w-5 h-5" style={{ color: COLORS.accentOrange }} />
-                <Star className="w-5 h-5" style={{ color: COLORS.accentOrange }} />
-                <Star className="w-5 h-5" style={{ color: COLORS.accentOrange }} />
-                <span className="ml-2 text-sm font-medium" style={{ color: COLORS.accentGreen }}>
-                  Rated 4.9/5 by our students
-                </span>
+                <stat.icon className="text-white h-7 w-7" />
+              </span>
+              <div className="text-3xl font-bold mt-2 text-white drop-shadow">
+                {stat.number}
               </div>
-              <h1
-                className="text-4xl sm:text-6xl font-extrabold mb-5 leading-tight drop-shadow-lg"
-                style={{
-                  color: COLORS.white,
-                  letterSpacing: 1.5,
-                  textShadow: `0 2px 16px ${COLORS.faintGreen}55`
-                }}
-              >
-                Achieve More
-                <br className="hidden sm:block" /> with
-                <span
-                  style={{
-                    color: COLORS.accentGreen,
-                    textShadow: `0 2px 16px ${COLORS.accentGreen}55`
-                  }}
-                >{" "}Smart Preps</span>
-              </h1>
-              <p className="text-lg sm:text-2xl mb-5 sm:mb-7" style={{ color: COLORS.white, opacity: 0.85 }}>
-                Unlock your success with high-quality, affordable coaching—online
-                and offline—in Guwahati, Assam.
-                <br />
-                Prepare for CLET, BANK PO, BANK CLERICAL, SSC, and State Exams with
-                structured courses and expert faculty.
-              </p>
-              <h2 className="font-medium mb-7" style={{ color: COLORS.accentGreen }}>
-                Start your journey to success with Smart Preps today!
-              </h2>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Link to="/courses">
-                  <Button
-                    size="lg"
-                    style={{
-                      background: COLORS.accentGreen,
-                      color: COLORS.white,
-                      borderRadius: "9999px",
-                      border: "none",
-                      boxShadow: `0 2px 12px ${COLORS.accentGreen}33`
-                    }}
-                    className="hover:scale-105 transition font-semibold inline-flex items-center px-7 py-3 shadow-lg"
-                  >
-                    <BookOpen className="mr-2 h-5 w-5" /> Explore Courses
-                  </Button>
-                </Link>
-                <Link to="/about">
-                  <Button
-                    variant="outline"
-                    size="lg"
-                    style={{
-                      borderColor: COLORS.accentGreen,
-                      color: COLORS.accentGreen,
-                      background: COLORS.black,
-                      borderRadius: "9999px",
-                      boxShadow: `0 2px 12px ${COLORS.accentGreen}11`
-                    }}
-                    className="hover:bg-[#232323] font-semibold inline-flex items-center px-7 py-3"
-                  >
-                    <Lightbulb className="mr-2 h-5 w-5" /> Learn More
-                  </Button>
-                </Link>
-              </div>
-              {/* Feature badges below buttons */}
-              <div className="flex flex-wrap justify-center gap-4 mt-8">
-                <FeatureBadge icon={Star} className="static">Expert Tutors</FeatureBadge>
-                <FeatureBadge icon={Award} className="static">Top Rated Courses</FeatureBadge>
-                <FeatureBadge icon={Target} className="static">Goal-Oriented</FeatureBadge>
-                <FeatureBadge icon={BookOpen} className="static">20+ Courses</FeatureBadge>
+              <div className="text-base font-medium mt-1 text-[#FFB823] drop-shadow">
+                {stat.label}
               </div>
             </motion.div>
-          </div>
-          {/* Decorative wave separator */}
-          <div className="mx-auto -mb-4 mt-8 md:mt-14 max-w-2xl opacity-70 pointer-events-none select-none"> {/* Reduced margin */}
-            <svg viewBox="0 0 1440 72" fill="none" className="w-full h-12 sm:h-16">
-              <path
-                fill={COLORS.accentGreen}
-                fillOpacity="0.13"
-                d="M0 17L48 29.8C96 43 192 69 288 63.7C384 57.7 480 18.3 576 8.5C672 0.5 768 21.1 864 37.3C960 52.9 1056 63 1152 63C1248 63 1344 53.1 1392 47.2L1440 41V0H1392C1344 0 1248 0 1152 0C1056 0 960 0 864 0C768 0 672 0 576 0C480 0 384 0 288 0C192 0 96 0 48 0H0V17Z"
-              />
-            </svg>
-          </div>
-
-          {/* Stats */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-7 max-w-6xl mx-auto z-10 relative mt-8 mb-10"> {/* Reduced margin */}
-            {stats.map((stat, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: i * 0.1 }}
-                className="flex flex-col items-center shadow-lg rounded-2xl px-8 py-10 bg-[#232323]/95 border-0 hover:scale-105 hover:shadow-2xl transition backdrop-blur-md"
-                style={{
-                  boxShadow: `0 6px 24px ${COLORS.accentGreen}22`,
-                  border: `1.5px solid ${COLORS.faintGreen}33`,
-                }}
-              >
-                <span
-                  className="rounded-full p-3 shadow mb-2"
-                  style={{
-                    background: `linear-gradient(135deg, ${COLORS.accentGreen} 0%, ${COLORS.faintGreen} 100%)`,
-                  }}
-                >
-                  <stat.icon className="text-white h-7 w-7" />
-                </span>
-                <div className="text-3xl font-bold mt-2" style={{ color: COLORS.white }}>
-                  {stat.number}
-                </div>
-                <div className="text-base font-medium mt-1" style={{ color: COLORS.accentGreen }}>
-                  {stat.label}
-                </div>
-              </motion.div>
-            ))}
-          </div>
-          {/* Scroll Indicator */}
-          <div className="flex justify-center mt-6 sm:mt-8"> {/* Reduced margin */}
-            <button
-              onClick={() => {
-                const el = document.getElementById("carousel");
-                if (el) {
-                  const y = el.getBoundingClientRect().top + window.scrollY - 60; // Offset for navbar
-                  window.scrollTo({ top: y, behavior: "smooth" });
-                }
-              }}
-              className="animate-bounce"
-              style={{ color: COLORS.accentGreen }}
-            >
-              <ChevronDown className="w-10 h-10" />
-            </button>
-          </div>
+          ))}
+        </div>
+        {/* Scroll Indicator */}
+        <div className="flex justify-center mt-6 sm:mt-8">
+          <button
+            onClick={() => {
+              const el = document.getElementById("carousel");
+              if (el) {
+                const y = el.getBoundingClientRect().top + window.scrollY - 60;
+                window.scrollTo({ top: y, behavior: "smooth" });
+              }
+            }}
+            className="animate-bounce text-[#708A58]"
+          >
+            <ChevronDown className="w-10 h-10" />
+          </button>
         </div>
       </section>
 
       {/* Carousel */}
       <section
         id="carousel"
-        className="relative z-10 py-14 sm:py-20 animate-fade-in-up"
-        style={{ background: `linear-gradient(120deg, ${COLORS.gray} 80%, ${COLORS.black} 100%)` }}
+        className="relative z-10 py-14 sm:py-20 animate-fade-in-up bg-[color:rgb(var(--card))]"
       >
-        <div className="w-full px-0 sm:px-0">
+        <div className="w-full px-0 sm:px-0 flex flex-col items-center">
           <div className="text-center mb-10 sm:mb-16">
-            <h2 className="text-2xl sm:text-4xl font-bold mb-4 sm:mb-6 animate-fade-in-up tracking-tight"
-                style={{ color: COLORS.white, letterSpacing: 1 }}>
-              Experience <span style={{
-                color: COLORS.accentGreen
-              }}>Modern Learning</span>
+            <h2 className="text-2xl sm:text-4xl font-extrabold mb-4 sm:mb-6 animate-fade-in-up tracking-tight animate-gradient-text bg-gradient-to-r from-[#41644A] via-[#E9762B] to-[#FFB823] bg-clip-text text-transparent">
+              Experience <span className="text-[#FFB823]">Modern Learning</span>
             </h2>
-            <p className="text-base sm:text-xl max-w-3xl mx-auto animate-fade-in-up"
-              style={{ color: COLORS.accentGreen }}>
+            <p className="text-base sm:text-xl max-w-3xl mx-auto animate-fade-in-up text-[color:rgb(var(--primary))]">
               Discover how our innovative approach to education transforms the way
               you learn.
             </p>
           </div>
-          <div className="w-full mx-auto rounded-none p-0 sm:p-0 relative bg-[#232323]/95 border-0"
-            style={{
-              background: `linear-gradient(120deg, ${COLORS.gray} 70%, ${COLORS.black} 100%)`,
-              border: `1.5px solid ${COLORS.faintGreen}22`
+          {/* Custom Crossfade Carousel */}
+          <div className="relative w-full max-w-5xl h-[340px] sm:h-[420px] md:h-[480px] lg:h-[520px] flex items-center justify-center overflow-hidden rounded-xl shadow-lg border border-[color:rgb(var(--border))] bg-white/90"
+            onMouseDown={e => {
+              dragStartX.current = e.clientX;
+              setIsDragging(true);
+            }}
+            onMouseMove={e => {
+              if (isDragging && dragStartX.current !== null) {
+                const delta = e.clientX - dragStartX.current;
+                if (Math.abs(delta) > dragThreshold) {
+                  if (delta < 0) setSelectedIndex(prev => prev === carouselImages.length - 1 ? 0 : prev + 1);
+                  else setSelectedIndex(prev => prev === 0 ? carouselImages.length - 1 : prev - 1);
+                  setIsDragging(false);
+                  dragStartX.current = null;
+                }
+              }
+            }}
+            onMouseUp={() => {
+              setIsDragging(false);
+              dragStartX.current = null;
+            }}
+            onMouseLeave={() => {
+              setIsDragging(false);
+              dragStartX.current = null;
+            }}
+            onTouchStart={e => {
+              dragStartX.current = e.touches[0].clientX;
+              setIsDragging(true);
+            }}
+            onTouchMove={e => {
+              if (isDragging && dragStartX.current !== null && e.touches.length > 0) {
+                const delta = e.touches[0].clientX - dragStartX.current;
+                if (Math.abs(delta) > dragThreshold) {
+                  if (delta < 0) setSelectedIndex(prev => prev === carouselImages.length - 1 ? 0 : prev + 1);
+                  else setSelectedIndex(prev => prev === 0 ? carouselImages.length - 1 : prev - 1);
+                  setIsDragging(false);
+                  dragStartX.current = null;
+                }
+              }
+            }}
+            onTouchEnd={() => {
+              setIsDragging(false);
+              dragStartX.current = null;
             }}
           >
-            <Carousel className="w-full" setApi={setEmblaApi}>
-              <CarouselContent>
-                {carouselImages.map((img, idx) => (
-                  <CarouselItem key={idx}>
-                    <div className="relative h-[40vw] min-h-[320px] max-h-[600px] rounded-none overflow-hidden group transition-all hover:scale-[1.03] duration-300 bg-gradient-to-br from-[#232323] via-[#181818] to-[#232323]">
-                      <img
-                        src={img.url}
-                        alt={img.title}
-                        className="w-full h-full object-contain group-hover:scale-110 transition-transform duration-700 mx-auto" // Use object-contain for full image
-                      />
-                      <div className="absolute inset-0 flex items-end bg-gradient-to-t from-[#1B5E20]/80 via-[#232323]/30 to-transparent pointer-events-none">
-                        <div className="p-6 sm:p-10 text-white">
-                          <h3 className="text-2xl sm:text-3xl font-bold mb-2 drop-shadow-lg">
-                            {img.title}
-                          </h3>
-                          <p className="text-lg sm:text-xl opacity-90 drop-shadow">
-                            {img.description}
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  </CarouselItem>
-                ))}
-              </CarouselContent>
-              <CarouselPrevious />
-              <CarouselNext />
-              {/* Navigation dots */}
-              <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-10">
-                {carouselImages.map((_, idx) => (
-                  <span key={idx}
-                    className={`w-3 h-3 rounded-full border opacity-70 transition-all duration-200 ${selectedIndex === idx ? '' : 'opacity-40'}`}
-                    style={{
-                      background: selectedIndex === idx ? COLORS.accentGreen : COLORS.gray,
-                      borderColor: COLORS.accentOrange,
-                      transform: selectedIndex === idx ? 'scale(1.2)' : 'scale(1)'
-                    }} />
-                ))}
-              </div>
-            </Carousel>
+            {carouselImages.map((img, idx) => (
+              <img
+                key={idx}
+                src={img.url}
+                alt={img.title}
+                className={`absolute top-0 left-0 w-full h-full object-cover transition-opacity duration-700 ease-in-out ${selectedIndex === idx ? 'opacity-100 z-10' : 'opacity-0 z-0'}`}
+                style={{ transitionProperty: 'opacity' }}
+              />
+            ))}
+            {/* Caption overlay */}
+            <div className="absolute bottom-0 left-0 w-full flex flex-col items-start p-8 sm:p-10 z-20 bg-gradient-to-t from-black/60 via-transparent to-transparent rounded-b-xl">
+              <span className="inline-block px-4 py-1 mb-2 rounded-full text-xs font-bold tracking-widest bg-[color:rgb(var(--secondary))] text-[color:rgb(var(--secondary-foreground))] shadow-md uppercase">
+                {carouselImages[selectedIndex].title}
+              </span>
+              <h3 className="text-2xl sm:text-3xl font-bold mb-1 drop-shadow-lg text-white">
+                {carouselImages[selectedIndex].description}
+              </h3>
+            </div>
+            {/* Controls */}
+            <button
+              className="absolute left-4 top-1/2 -translate-y-1/2 bg-[color:rgb(var(--primary))] text-white rounded-full p-2 shadow hover:bg-[color:rgb(var(--secondary))] transition z-30"
+              onClick={() => setSelectedIndex((prev) => prev === 0 ? carouselImages.length - 1 : prev - 1)}
+              aria-label="Previous"
+            >
+              <ChevronDown className="rotate-90 w-6 h-6" />
+            </button>
+            <button
+              className="absolute right-4 top-1/2 -translate-y-1/2 bg-[color:rgb(var(--primary))] text-white rounded-full p-2 shadow hover:bg-[color:rgb(var(--secondary))] transition z-30"
+              onClick={() => setSelectedIndex((prev) => prev === carouselImages.length - 1 ? 0 : prev + 1)}
+              aria-label="Next"
+            >
+              <ChevronDown className="-rotate-90 w-6 h-6" />
+            </button>
+            {/* Dots */}
+            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-30">
+              {carouselImages.map((_, idx) => (
+                <span
+                  key={idx}
+                  className={`w-3 h-3 rounded-full border transition-all duration-200 cursor-pointer ${selectedIndex === idx ? 'bg-[color:rgb(var(--primary))]' : 'bg-white opacity-50'} border-[color:rgb(var(--primary))]`}
+                  onClick={() => setSelectedIndex(idx)}
+                />
+              ))}
+            </div>
           </div>
         </div>
       </section>
 
+      {/* Info Section Below Carousel (moved above Why Choose Us) */}
+      <section className="relative z-10 py-16 bg-[color:rgb(var(--background))]">
+        <div className="container mx-auto flex flex-col md:flex-row items-center gap-10 px-4 sm:px-8">
+          {/* Text Left */}
+          <div className="flex-1 text-left">
+            <h3 className="text-3xl sm:text-4xl font-extrabold mb-4 font-serif animate-gradient-text bg-gradient-to-r from-[#41644A] via-[#E9762B] to-[#FFB823] bg-clip-text text-transparent">
+              Discover the Emerald Advantage
+            </h3>
+            <p className="text-lg sm:text-xl mb-6 text-[color:rgb(var(--foreground))] font-light font-sans max-w-xl">
+              At Emerald Learning Garden, we blend modern teaching methods with a nurturing environment. Our expert mentors, innovative resources, and personalized approach ensure every learner thrives—academically and personally.
+            </p>
+            <ul className="list-disc pl-5 space-y-2 text-[color:rgb(var(--primary))] font-sans">
+              <li>Personalized learning paths</li>
+              <li>Supportive, growth-focused community</li>
+              <li>Cutting-edge digital resources</li>
+              <li>Workshops, events, and more!</li>
+            </ul>
+            <div className="mt-8">
+              <Link to="/about">
+                <Button size="lg" className="bg-[#E9762B] text-white rounded-full shadow hover:bg-[#41644A] font-semibold px-8 py-3">Learn More</Button>
+              </Link>
+            </div>
+          </div>
+          {/* Image Right */}
+          <div className="flex-1 flex justify-center">
+            <img
+              src="/public/Screenshot 2025-06-18 052140.png"
+              alt="Emerald Learning Garden"
+              className="rounded-2xl shadow-2xl w-full max-w-md object-cover border-4 border-[color:rgb(var(--primary))]"
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* Who We Are Section */}
+      <section className="relative z-10 py-16 bg-[color:rgb(var(--background))]">
+        <div className="container mx-auto flex flex-col md:flex-row items-center gap-10 px-4 sm:px-8">
+          {/* Image Left */}
+          <div className="flex-1 flex justify-center mb-8 md:mb-0">
+            <img
+              src="/public/Screenshot 2025-06-18 042727.png"
+              alt="Who We Are"
+              className="rounded-2xl shadow-2xl w-full max-w-md object-cover border-4 border-[color:rgb(var(--primary))]"
+            />
+          </div>
+          {/* Text Right */}
+          <div className="flex-1 text-left">
+            <h3 className="text-3xl sm:text-4xl font-extrabold mb-4 font-serif animate-gradient-text bg-gradient-to-r from-[#41644A] via-[#E9762B] to-[#FFB823] bg-clip-text text-transparent">
+              Who We Are
+            </h3>
+            <p className="text-lg sm:text-xl mb-6 text-[color:rgb(var(--foreground))] font-light font-sans max-w-xl">
+              Emerald Learning Garden is a passionate team of educators, mentors, and innovators dedicated to empowering students. We believe in holistic growth, blending academic excellence with life skills and values.
+            </p>
+            <ul className="list-disc pl-5 space-y-2 text-[color:rgb(var(--primary))] font-sans">
+              <li>Experienced, caring faculty</li>
+              <li>Inclusive, diverse learning environment</li>
+              <li>Focus on both knowledge and character</li>
+              <li>Trusted by thousands of families</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      {/* Featured Courses Section */}
+      <section className="relative z-10 py-16 bg-[color:rgb(var(--card))]">
+        <div className="container mx-auto px-4 sm:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl sm:text-4xl font-extrabold mb-4 font-serif animate-gradient-text bg-gradient-to-r from-[#41644A] via-[#E9762B] to-[#FFB823] bg-clip-text text-transparent">
+              Featured Courses
+            </h2>
+            <p className="text-lg sm:text-xl text-[color:rgb(var(--foreground))] max-w-2xl mx-auto">
+              Explore our most popular and impactful courses, designed to help you achieve your academic and career goals.
+            </p>
+          </div>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10 max-w-6xl mx-auto">
+            {[
+              {
+                title: "Law Entrances",
+                description: "CLAT, AILET, SLAT & OLET preparations. Apply now to avail 7 day trial classes.",
+                duration: "1 Year",
+                students: "500+",
+                level: "Beginner",
+                image: "https://i.ibb.co/YTXbnGtw/Screenshot-2025-06-18-052048.png",
+                rating: 4.9,
+                tags: ["CLAT", "AILET", "Trial"],
+              },
+              {
+                title: "CUET Exams",
+                description: "The classes start soon. Apply now to avail 7 day trial classes.",
+                duration: "1 Year",
+                students: "500+",
+                level: "Intermediate",
+                image: "https://i.ibb.co/xt1s4wSx/Screenshot-2025-06-18-052125.png",
+                rating: 4.8,
+                tags: ["CUET", "UG"],
+              },
+              {
+                title: "ADRE 3.0",
+                description: "The classes start soon. Apply now to avail 7 day trial classes.",
+                duration: "1 Year",
+                students: "500+",
+                level: "Advanced",
+                image: "https://i.ibb.co/xt1s4wSx/Screenshot-2025-06-18-052125.png",
+                rating: 4.7,
+                tags: ["ADRE", "Govt"],
+              }
+            ].map((course, idx) => (
+              <CourseCard
+                key={idx}
+                title={course.title}
+                description={course.description}
+                duration={course.duration}
+                students={course.students}
+                level={course.level}
+                image={course.image}
+                rating={course.rating}
+                tags={course.tags}
+                onInquire={() => window.location.href = '/contact'}
+                onDetails={() => setModalCourse(course)}
+              />
+            ))}
+          </div>
+          {/* Modal for course details */}
+          {modalCourse && (
+            <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm">
+              <div className="bg-white rounded-2xl shadow-2xl max-w-lg w-full p-8 relative animate-fade-in-up">
+                <button
+                  className="absolute top-4 right-4 text-gray-500 hover:text-red-500 text-2xl font-bold"
+                  onClick={() => setModalCourse(null)}
+                  aria-label="Close"
+                >
+                  ×
+                </button>
+                <img src={modalCourse.image} alt={modalCourse.title} className="w-full h-48 object-cover rounded-xl mb-4" />
+                <h3 className="text-2xl font-bold mb-2 text-[#41644A]">{modalCourse.title}</h3>
+                <div className="flex gap-2 mb-2">
+                  {modalCourse.tags && modalCourse.tags.map((tag, i) => (
+                    <span key={i} className="bg-[#FFB823] text-white text-xs px-2 py-0.5 rounded-full">{tag}</span>
+                  ))}
+                </div>
+                <div className="flex items-center gap-2 mb-2">
+                  <span className="text-yellow-500 font-bold">{modalCourse.rating}</span>
+                  <svg className="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.967a1 1 0 00.95.69h4.175c.969 0 1.371 1.24.588 1.81l-3.38 2.455a1 1 0 00-.364 1.118l1.287 3.966c.3.922-.755 1.688-1.54 1.118l-3.38-2.455a1 1 0 00-1.175 0l-3.38 2.455c-.784.57-1.838-.196-1.54-1.118l1.287-3.966a1 1 0 00-.364-1.118L2.05 9.394c-.783-.57-.38-1.81.588-1.81h4.175a1 1 0 00.95-.69l1.286-3.967z"/></svg>
+                </div>
+                <p className="mb-4 text-gray-700">{modalCourse.description}</p>
+                <div className="flex gap-4 mb-4">
+                  <span className="flex items-center gap-1 text-gray-600"><Clock className="w-4 h-4" /> {modalCourse.duration}</span>
+                  <span className="flex items-center gap-1 text-gray-600"><Users className="w-4 h-4" /> {modalCourse.students}</span>
+                </div>
+                <Button onClick={() => { window.location.href = '/contact'; }} className="w-full gradient-green">Inquire Now</Button>
+              </div>
+            </div>
+          )}
+        </div>
+      </section>
+
       {/* Why Choose Us */}
-      <section className="relative z-10 py-14 sm:py-20 animate-fade-in-up"
-        style={{ background: `linear-gradient(120deg, ${COLORS.black} 80%, ${COLORS.gray} 100%)` }}
-      >
+      <section className="relative z-10 py-14 sm:py-20 animate-fade-in-up bg-[color:rgb(var(--background))]">
         <div className="container mx-auto px-4 sm:px-8">
           <div className="text-center mb-10 sm:mb-16">
-            <h2 className="text-2xl sm:text-4xl font-bold mb-4 sm:mb-6 animate-fade-in-up tracking-tight"
-              style={{ color: COLORS.white, letterSpacing: 1 }}>
-              Why Choose <span style={{
-                color: COLORS.accentOrange
-              }}>EduGreen</span>
+            <h2 className="text-2xl sm:text-4xl font-extrabold mb-4 sm:mb-6 animate-fade-in-up tracking-tight animate-gradient-text bg-gradient-to-r from-[#41644A] via-[#E9762B] to-[#FFB823] bg-clip-text text-transparent font-serif">
+              Why Choose <span className="text-[#FFB823]">EduGreen</span>
             </h2>
-            <p className="text-base sm:text-xl max-w-3xl mx-auto animate-fade-in-up"
-              style={{ color: COLORS.accentGreen }}>
+            <p className="text-base sm:text-xl max-w-3xl mx-auto animate-fade-in-up text-[color:rgb(var(--primary))]">
               We're committed to providing the best learning experience with proven
               results.
             </p>
@@ -512,12 +583,12 @@ const Home: React.FC = () => {
             {whyChooseUs.map((feature, idx) => (
               <Card
                 key={idx}
-                className="border-none shadow-lg hover:shadow-2xl transition-all hover:scale-105 duration-300 bg-[#232323]/95"
+                className="border-none shadow-lg hover:shadow-2xl transition-all hover:scale-105 duration-300 bg-[color:rgb(var(--card))]"
                 style={{
                   animationDelay: `${idx * 0.1 + 0.2}s`,
-                  boxShadow: `0 6px 24px ${COLORS.accentGreen}18`,
+                  boxShadow: '0 6px 24px rgba(112,138,88,0.09)',
                   borderRadius: '1.5rem',
-                  border: `1.5px solid ${COLORS.faintGreen}22`,
+                  border: '1.5px solid #708A5822',
                   minHeight: '320px',
                   display: 'flex',
                   flexDirection: 'column',
@@ -528,18 +599,14 @@ const Home: React.FC = () => {
               >
                 <CardContent className="p-0 text-center flex flex-col items-center">
                   <div
-                    className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 shadow-md"
-                    style={{
-                      background: `linear-gradient(135deg, ${COLORS.accentGreen} 0%, ${COLORS.faintGreen} 100%)`,
-                    }}
+                    className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 shadow-md gradient-green"
                   >
                     <feature.icon className="w-8 h-8 text-white" />
                   </div>
-                  <h4 className="text-lg sm:text-xl font-semibold mb-3"
-                    style={{ color: COLORS.accentGreen }}>
+                  <h4 className="text-lg sm:text-xl font-semibold mb-3 text-[color:rgb(var(--primary))]">
                     {feature.title}
                   </h4>
-                  <p className="text-base sm:text-lg" style={{ color: COLORS.white }}>
+                  <p className="text-base sm:text-lg text-[color:rgb(var(--foreground))]">
                     {feature.description}
                   </p>
                 </CardContent>
@@ -550,12 +617,7 @@ const Home: React.FC = () => {
             <Link to="/contact">
               <Button
                 size="lg"
-                style={{
-                  background: COLORS.accentOrange,
-                  color: COLORS.white,
-                  borderRadius: "9999px"
-                }}
-                className="hover:scale-105 transition px-8 py-3 font-semibold shadow-md text-lg"
+                className="bg-[#FFB823] text-white rounded-full hover:scale-105 transition px-8 py-3 font-semibold shadow-md text-lg"
               >
                 <Target className="inline mr-2 w-6 h-6" /> Get Started Today
               </Button>
@@ -563,6 +625,141 @@ const Home: React.FC = () => {
           </div>
         </div>
       </section>
+      {/* Elegant Divider */}
+      <div className="w-full flex justify-center items-center my-0">
+        <svg viewBox="0 0 1440 60" fill="none" className="w-full h-10">
+          <path d="M0 30 Q 360 0 720 30 T 1440 30 V60 H0Z" fill="#708A58" fillOpacity="0.10" />
+        </svg>
+      </div>
+
+      {/* Testimonials Section */}
+      <section className="relative z-10 py-16 bg-[color:rgb(var(--background))]">
+        <div className="container mx-auto px-4 sm:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl sm:text-4xl font-extrabold mb-4 font-serif animate-gradient-text bg-gradient-to-r from-[#41644A] via-[#E9762B] to-[#FFB823] bg-clip-text text-transparent">
+              Success Stories
+            </h2>
+            <p className="text-lg sm:text-xl text-[color:rgb(var(--foreground))] max-w-2xl mx-auto">
+              Hear from our students and their journey to success with Emerald Learning Garden.
+            </p>
+          </div>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10 max-w-6xl mx-auto">
+            {[{
+              name: "Priya Sharma",
+              text: "Emerald Learning Garden helped me crack CLAT with confidence. The mentors are amazing!",
+              image: "https://randomuser.me/api/portraits/women/68.jpg",
+              course: "CLAT"
+            }, {
+              name: "Rahul Das",
+              text: "The personal attention and mock tests made all the difference. Highly recommended!",
+              image: "https://randomuser.me/api/portraits/men/32.jpg",
+              course: "BANK PO"
+            }, {
+              name: "Ananya Roy",
+              text: "I loved the flexible learning options and the supportive community.",
+              image: "https://randomuser.me/api/portraits/women/65.jpg",
+              course: "SSC"
+            }].map((t, idx) => (
+              <div key={idx} className="rounded-2xl shadow-xl bg-white/80 backdrop-blur-md p-8 flex flex-col items-center text-center border border-[color:rgb(var(--primary))]">
+                <img src={t.image} alt={t.name} className="w-20 h-20 rounded-full mb-4 object-cover border-4 border-[#FFB823]" />
+                <p className="text-lg font-medium text-[color:rgb(var(--foreground))] mb-3">“{t.text}”</p>
+                <div className="font-bold text-[#41644A]">{t.name}</div>
+                <div className="text-sm text-[#E9762B] font-semibold">{t.course} Success</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+      {/* Elegant Divider */}
+      <div className="w-full flex justify-center items-center my-0">
+        <svg viewBox="0 0 1440 60" fill="none" className="w-full h-10">
+          <path d="M0 30 Q 360 60 720 30 T 1440 30 V60 H0Z" fill="#FFB823" fillOpacity="0.10" />
+        </svg>
+      </div>
+
+      {/* Partner Logos Section */}
+      <section className="relative z-10 py-10 bg-[color:rgb(var(--card))]">
+        <div className="container mx-auto px-4 sm:px-8">
+          <div className="text-center mb-8">
+            <h2 className="text-2xl sm:text-3xl font-extrabold mb-2 font-serif animate-gradient-text bg-gradient-to-r from-[#41644A] via-[#E9762B] to-[#FFB823] bg-clip-text text-transparent">
+              Our Partners
+            </h2>
+            <p className="text-base sm:text-lg text-[color:rgb(var(--primary))] max-w-xl mx-auto">
+              Trusted by leading organizations and educational partners.
+            </p>
+          </div>
+          <div className="flex flex-wrap justify-center items-center gap-8">
+            <img src="/public/placeholder.svg" alt="Partner 1" className="h-12 w-auto opacity-80 grayscale hover:grayscale-0 transition" />
+            <img src="/public/placeholder.svg" alt="Partner 2" className="h-12 w-auto opacity-80 grayscale hover:grayscale-0 transition" />
+            <img src="/public/placeholder.svg" alt="Partner 3" className="h-12 w-auto opacity-80 grayscale hover:grayscale-0 transition" />
+            <img src="/public/placeholder.svg" alt="Partner 4" className="h-12 w-auto opacity-80 grayscale hover:grayscale-0 transition" />
+          </div>
+        </div>
+      </section>
+      {/* Elegant Divider */}
+      <div className="w-full flex justify-center items-center my-0">
+        <svg viewBox="0 0 1440 60" fill="none" className="w-full h-10">
+          <path d="M0 30 Q 360 0 720 30 T 1440 30 V60 H0Z" fill="#41644A" fillOpacity="0.10" />
+        </svg>
+      </div>
+
+      {/* Floating CTA Button */}
+      <a
+        href="/contact"
+        className="fixed bottom-8 right-8 z-50 bg-[#FFB823] text-white px-6 py-3 rounded-full shadow-lg hover:bg-[#41644A] hover:scale-105 transition-all font-bold text-lg flex items-center gap-2 animate-bounce"
+        style={{ boxShadow: '0 4px 24px rgba(255,184,35,0.18)' }}
+        aria-label="Contact Us CTA"
+      >
+        <Target className="w-6 h-6" /> Get Free Counseling
+      </a>
+
+      {/* Modern Footer */}
+      <footer className="relative z-10 bg-[color:rgb(var(--card))] border-t border-[color:rgb(var(--primary))] py-10 mt-10">
+        <div className="container mx-auto px-4 sm:px-8 flex flex-col md:flex-row justify-between items-center gap-6">
+          <div className="flex flex-col items-center md:items-start">
+            <span className="text-2xl font-bold text-[#41644A] mb-2">Emerald Learning Garden</span>
+            <span className="text-sm text-[color:rgb(var(--primary))] mb-2">Empowering Success Since 2010</span>
+            <span className="text-xs text-gray-500">© {new Date().getFullYear()} Emerald Learning Garden. All rights reserved.</span>
+          </div>
+          <div className="flex flex-col items-center gap-2">
+            <a href="/about" className="text-[color:rgb(var(--primary))] hover:text-[#FFB823] font-medium">About</a>
+            <a href="/courses" className="text-[color:rgb(var(--primary))] hover:text-[#FFB823] font-medium">Courses</a>
+            <a href="/contact" className="text-[color:rgb(var(--primary))] hover:text-[#FFB823] font-medium">Contact</a>
+          </div>
+          <div className="flex flex-col items-center gap-2">
+            <span className="text-[color:rgb(var(--primary))] font-medium">Contact Us</span>
+            <span className="text-sm text-gray-500">Guwahati, Assam</span>
+            <span className="text-sm text-gray-500">+91 98765 43210</span>
+            <span className="text-sm text-gray-500">info@emeraldlearning.in</span>
+          </div>
+        </div>
+      </footer>
+
+      <style>{`
+        @keyframes gradientMove {
+          0% { background-position: 0% 50%; }
+          50% { background-position: 100% 50%; }
+          100% { background-position: 0% 50%; }
+        }
+        .animate-gradient-text {
+          background-size: 300% 300%;
+          animation: gradientMove 4s linear infinite;
+          background-clip: text;
+          -webkit-background-clip: text;
+          color: transparent;
+          font-family: Georgia, 'Times New Roman', Times, serif !important;
+        }
+        .font-serif, h2.font-serif, h3.font-serif, h1.font-serif {
+          font-family: Georgia, 'Times New Roman', Times, serif !important;
+        }
+        body, .font-sans, .text-base, .text-lg, .text-xl, .text-2xl, .text-3xl, .text-4xl, .text-5xl, .text-6xl, .text-7xl, .text-8xl, .text-9xl {
+          font-family: 'Georgia', 'Times New Roman', Times, serif !important;
+          letter-spacing: 0.01em;
+        }
+        .font-light, .font-normal, .font-medium, .font-semibold, .font-bold, .font-extrabold {
+          font-family: 'Georgia', 'Times New Roman', Times, serif !important;
+        }
+      `}</style>
     </div>
   );
 };

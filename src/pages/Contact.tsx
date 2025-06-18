@@ -1,82 +1,10 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useToast } from '@/hooks/use-toast';
 import { Mail, Phone, MapPin, Send, Clock } from 'lucide-react';
-
-const COLORS = {
-  black: "#181818",
-  white: "#F8F8F8",
-  gray: "#232323",
-  faintGreen: "#1B5E20",
-  accentGreen: "#00A64F",
-  faintOrange: "#FFB74D",
-  accentOrange: "#FF9800",
-};
-
-const CursorRing: React.FC = () => {
-  const dot = useRef<HTMLDivElement>(null);
-  const ring = useRef<HTMLDivElement>(null);
-  useEffect(() => {
-    if ("ontouchstart" in window) return;
-    let mouseX = 0, mouseY = 0;
-    let dotX = 0, dotY = 0, ringX = 0, ringY = 0;
-    let frame: number;
-    const animate = () => {
-      dotX += (mouseX - dotX) * 0.28;
-      dotY += (mouseY - dotY) * 0.28;
-      ringX += (mouseX - ringX) * 0.16;
-      ringY += (mouseY - ringY) * 0.16;
-      if (dot.current) dot.current.style.transform = `translate(-50%, -50%) translate(${dotX}px,${dotY}px)`;
-      if (ring.current) ring.current.style.transform = `translate(-50%, -50%) translate(${ringX}px,${ringY}px)`;
-      frame = requestAnimationFrame(animate);
-    };
-    const move = (e: MouseEvent) => {
-      mouseX = e.clientX;
-      mouseY = e.clientY;
-    };
-    document.addEventListener("mousemove", move);
-    animate();
-    return () => {
-      cancelAnimationFrame(frame);
-      document.removeEventListener("mousemove", move);
-    };
-  }, []);
-  if ("ontouchstart" in window) return null;
-  return (
-    <>
-      <div
-        ref={ring}
-        className="fixed top-0 left-0 z-[100] pointer-events-none"
-        style={{
-          width: 38,
-          height: 38,
-          border: `2px solid #00A64F`,
-          borderRadius: "50%",
-          background: `#00A64F10`,
-          transition: "border .2s",
-          willChange: "transform"
-        }}
-        aria-hidden="true"
-      />
-      <div
-        ref={dot}
-        className="fixed top-0 left-0 z-[101] pointer-events-none"
-        style={{
-          width: 9,
-          height: 9,
-          background: "#00A64F",
-          borderRadius: "50%",
-          boxShadow: `0 2px 6px 1px #00A64F24`,
-          willChange: "transform"
-        }}
-        aria-hidden="true"
-      />
-    </>
-  );
-};
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -153,101 +81,149 @@ const Contact = () => {
   ];
 
   return (
-    <>
-      <CursorRing />
-      <div className="min-h-screen w-full overflow-x-hidden pt-20" style={{background: `linear-gradient(120deg, ${COLORS.black} 0%, ${COLORS.gray} 60%, ${COLORS.faintGreen} 100%)`}}>
-        <div className="container mx-auto px-4 sm:px-6 py-10 sm:py-16">
-          <div className="max-w-6xl mx-auto">
-            {/* Header */}
-            <div className="text-center mb-10 sm:mb-16">
-              <h1 className="text-3xl sm:text-5xl font-bold mb-4 sm:mb-6 animate-fade-in-up" style={{color: COLORS.white}}>
-                Contact <span style={{color: COLORS.accentGreen}}>Us</span>
-              </h1>
-              <p className="text-base sm:text-xl max-w-3xl mx-auto animate-fade-in-up" style={{color: COLORS.accentGreen}}>
-                Have questions about our courses? Need help choosing the right path for your career? We're here to help you succeed.
-              </p>
-            </div>
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12">
-              {/* Contact Form */}
-              <Card className="animate-fade-in-up shadow-lg border-0 rounded-[2rem]" style={{background: COLORS.gray}}>
-                <CardHeader>
-                  <CardTitle className="text-xl sm:text-2xl" style={{color: COLORS.accentGreen}}>Send us a Message</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <form onSubmit={handleSubmit} className="space-y-6">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      <div>
-                        <input
-                          type="text"
-                          placeholder="Your Name"
-                          name="name"
-                          value={formData.name}
-                          onChange={handleChange}
-                          required
-                          className="w-full border border-green-200 focus:border-green-400 rounded-full px-6 py-3 bg-[#232323] placeholder-gray-400 text-white shadow-sm transition-all duration-200"
-                        />
-                      </div>
-                      <div>
-                        <input
-                          type="email"
-                          placeholder="Your Email"
-                          name="email"
-                          value={formData.email}
-                          onChange={handleChange}
-                          required
-                          className="w-full border border-green-200 focus:border-green-400 rounded-full px-6 py-3 bg-[#232323] placeholder-gray-400 text-white shadow-sm transition-all duration-200"
-                        />
-                      </div>
-                    </div>
-                    <input
-                      type="text"
-                      placeholder="Phone Number"
-                      name="phone"
-                      value={formData.phone}
-                      onChange={handleChange}
-                      className="w-full border border-green-200 focus:border-green-400 rounded-full px-6 py-3 bg-[#232323] placeholder-gray-400 text-white shadow-sm transition-all duration-200"
-                    />
-                    <input
-                      type="text"
-                      placeholder="Subject"
-                      name="subject"
-                      value={formData.subject}
-                      onChange={handleChange}
-                      className="w-full border border-green-200 focus:border-green-400 rounded-full px-6 py-3 bg-[#232323] placeholder-gray-400 text-white shadow-sm transition-all duration-200"
-                    />
-                    <textarea
-                      placeholder="Your Message"
-                      name="message"
-                      value={formData.message}
-                      onChange={handleChange}
-                      required
-                      className="w-full border border-green-200 focus:border-green-400 rounded-2xl px-6 py-4 bg-[#232323] placeholder-gray-400 text-white shadow-sm transition-all duration-200"
-                      rows={5}
-                    />
-                    <Button type="submit" className="w-full py-3 rounded-full font-bold" style={{background: COLORS.accentGreen, color: COLORS.white}}>
-                      <Send className="inline mr-2" /> Send Message
-                    </Button>
-                  </form>
-                </CardContent>
-              </Card>
-              {/* Contact Info */}
-              <div className="space-y-8 animate-fade-in-up">
-                {contactInfo.map((info, idx) => (
-                  <div key={idx} className="flex items-start space-x-4 p-6 rounded-2xl shadow-lg" style={{background: COLORS.gray}}>
-                    <info.icon className="w-8 h-8" style={{color: COLORS.accentGreen}} />
-                    <div>
-                      <h3 className="font-bold text-lg mb-1" style={{color: COLORS.white}}>{info.title}</h3>
-                      <p className="text-sm" style={{color: COLORS.accentGreen}}>{info.details}</p>
-                      <p className="text-xs" style={{color: COLORS.faintOrange}}>{info.description}</p>
-                    </div>
+    <div className="min-h-screen w-full overflow-x-hidden pt-20 bg-[color:rgb(var(--background))] text-[color:rgb(var(--foreground))]">
+      <div className="container mx-auto px-6 py-16">
+        <div className="max-w-5xl mx-auto">
+          <h1 className="text-5xl font-extrabold mb-10 text-center animate-gradient-text bg-gradient-to-r from-[#41644A] via-[#E9762B] to-[#FFB823] bg-clip-text text-transparent font-serif">
+            Contact <span className="text-[#FFB823]">Us</span>
+          </h1>
+          {/* Elegant Divider */}
+          <div className="w-full flex justify-center items-center my-0 mb-10">
+            <svg viewBox="0 0 1440 60" fill="none" className="w-full h-10">
+              <path d="M0 30 Q 360 0 720 30 T 1440 30 V60 H0Z" fill="#708A58" fillOpacity="0.10" />
+            </svg>
+          </div>
+          <div className="grid md:grid-cols-2 gap-12 mb-16">
+            {/* Contact Info */}
+            <div className="space-y-8">
+              {contactInfo.map((info, idx) => (
+                <Card key={idx} className="flex items-center gap-5 p-6 bg-[color:rgb(var(--card))] border border-[color:rgb(var(--primary))]/20 shadow-sm animate-fade-in-up">
+                  <div className="w-14 h-14 rounded-full flex items-center justify-center bg-[color:rgb(var(--primary))]">
+                    <info.icon className="w-7 h-7 text-[color:rgb(var(--primary-foreground))]" />
                   </div>
-                ))}
+                  <div>
+                    <h4 className="font-semibold text-lg text-[color:rgb(var(--foreground))]">{info.title}</h4>
+                    <p className="text-[color:rgb(var(--primary))]">{info.details}</p>
+                    <p className="text-sm text-[color:rgb(var(--secondary))]">{info.description}</p>
+                  </div>
+                </Card>
+              ))}
+              {/* Map Integration */}
+              <div className="rounded-2xl overflow-hidden shadow-lg border border-[color:rgb(var(--primary))]/20 mt-8 animate-fade-in-up">
+                <iframe
+                  title="Emerald Learning Garden Location"
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3577.073073289889!2d91.7969643150342!3d26.16418498344506!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x375a598b2e2b7e2b%3A0x6e2e2e2e2e2e2e2e!2sParnil%20Complex%2C%20Zoo%20Road%20Tiniali%2C%20RG%20Baruah%20Rd%2C%20Guwahati%2C%20Assam%20781024!5e0!3m2!1sen!2sin!4v1687080000000!5m2!1sen!2sin"
+                  width="100%"
+                  height="260"
+                  style={{ border: 0 }}
+                  allowFullScreen={true}
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                ></iframe>
               </div>
             </div>
+            {/* Contact Form */}
+            <Card className="p-8 bg-[color:rgb(var(--card))] border border-[color:rgb(var(--primary))]/20 shadow-md animate-fade-in-up backdrop-blur-md bg-opacity-90">
+              <CardHeader>
+                <CardTitle className="text-2xl font-bold text-[color:rgb(var(--foreground))] mb-2">Send a Message</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <form onSubmit={handleSubmit} className="space-y-5">
+                  <Input
+                    type="text"
+                    name="name"
+                    placeholder="Your Name"
+                    value={formData.name}
+                    onChange={handleChange}
+                    className="bg-white/90 border border-[color:rgb(var(--primary))]/20 text-[color:rgb(var(--foreground))] placeholder-[#708A58] focus:bg-white"
+                    required
+                  />
+                  <Input
+                    type="email"
+                    name="email"
+                    placeholder="Your Email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    className="bg-white/90 border border-[color:rgb(var(--primary))]/20 text-[color:rgb(var(--foreground))] placeholder-[#708A58] focus:bg-white"
+                    required
+                  />
+                  <Input
+                    type="tel"
+                    name="phone"
+                    placeholder="Your Phone"
+                    value={formData.phone}
+                    onChange={handleChange}
+                    className="bg-white/90 border border-[color:rgb(var(--primary))]/20 text-[color:rgb(var(--foreground))] placeholder-[#708A58] focus:bg-white"
+                  />
+                  <Input
+                    type="text"
+                    name="subject"
+                    placeholder="Subject"
+                    value={formData.subject}
+                    onChange={handleChange}
+                    className="bg-white/90 border border-[color:rgb(var(--primary))]/20 text-[color:rgb(var(--foreground))] placeholder-[#708A58] focus:bg-white"
+                  />
+                  <Textarea
+                    name="message"
+                    placeholder="Your Message"
+                    value={formData.message}
+                    onChange={handleChange}
+                    className="bg-white/90 border border-[color:rgb(var(--primary))]/20 text-[color:rgb(var(--foreground))] placeholder-[#708A58] focus:bg-white"
+                    rows={5}
+                    required
+                  />
+                  <Button type="submit" className="w-full bg-[color:rgb(var(--primary))] text-[color:rgb(var(--primary-foreground))] hover:bg-[color:rgb(var(--secondary))] hover:text-[color:rgb(var(--secondary-foreground))] transition-colors focus:ring-2 focus:ring-[#FFB823] focus:outline-none">
+                    <Send className="w-5 h-5 mr-2" /> Send Message
+                  </Button>
+                </form>
+              </CardContent>
+            </Card>
           </div>
         </div>
+        {/* Social/Contact Links */}
+        <div className="flex justify-center gap-6 mt-12 mb-4">
+          <a href="mailto:smartpreps.official@gmail.com" aria-label="Email" className="text-[#708A58] hover:text-[#FFB823] text-2xl transition-colors"><Mail /></a>
+          <a href="tel:+919287987525" aria-label="Phone" className="text-[#708A58] hover:text-[#FFB823] text-2xl transition-colors"><Phone /></a>
+          <a href="https://goo.gl/maps/2Qw1k1k1k1k1k1k1A" target="_blank" rel="noopener noreferrer" aria-label="Map" className="text-[#708A58] hover:text-[#FFB823] text-2xl transition-colors"><MapPin /></a>
+        </div>
+        {/* FAQ Section */}
+        <section className="max-w-3xl mx-auto mt-10">
+          <h2 className="text-2xl font-bold mb-4 text-[#41644A] font-serif">Frequently Asked Questions</h2>
+          <div className="space-y-4">
+            <div className="bg-white/80 rounded-xl p-4 shadow border-l-4 border-[#FFB823]">
+              <div className="font-semibold text-[#708A58]">How soon will I get a response?</div>
+              <div className="text-gray-700">We aim to respond to all queries within 24 hours on business days.</div>
+            </div>
+            <div className="bg-white/80 rounded-xl p-4 shadow border-l-4 border-[#FFB823]">
+              <div className="font-semibold text-[#708A58]">Can I visit your office without an appointment?</div>
+              <div className="text-gray-700">Yes, you are welcome during business hours. For personalized counseling, booking an appointment is recommended.</div>
+            </div>
+            <div className="bg-white/80 rounded-xl p-4 shadow border-l-4 border-[#FFB823]">
+              <div className="font-semibold text-[#708A58]">Is my information safe?</div>
+              <div className="text-gray-700">Absolutely. We never share your details with third parties.</div>
+            </div>
+          </div>
+        </section>
       </div>
-    </>
+      <style>{`
+        @keyframes gradientMove {
+          0% { background-position: 0% 50%; }
+          50% { background-position: 100% 50%; }
+          100% { background-position: 0% 50%; }
+        }
+        .animate-gradient-text {
+          background-size: 300% 300%;
+          animation: gradientMove 4s linear infinite;
+          background-clip: text;
+          -webkit-background-clip: text;
+          color: transparent;
+          font-family: Georgia, 'Times New Roman', Times, serif !important;
+        }
+        .font-serif, h2.font-serif, h3.font-serif, h1.font-serif {
+          font-family: Georgia, 'Times New Roman', Times, serif !important;
+        }
+      `}</style>
+    </div>
   );
 };
 
