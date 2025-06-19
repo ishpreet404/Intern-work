@@ -669,7 +669,8 @@ const Home: React.FC = () => {
           </div>
           <div className="relative max-w-2xl mx-auto flex flex-col items-center">
             <div
-              className="relative w-full h-64 sm:h-80 md:h-96 flex items-center justify-center overflow-hidden rounded-xl shadow-lg bg-white"
+              className="relative w-full aspect-[16/9] flex items-center justify-center overflow-hidden rounded-xl shadow-lg bg-white"
+              style={{ minHeight: '250px' }}
               onMouseEnter={() => setIsGalleryPaused(true)}
               onMouseLeave={() => setIsGalleryPaused(false)}
               tabIndex={0}
@@ -681,7 +682,8 @@ const Home: React.FC = () => {
                   key={idx}
                   src={img.src}
                   alt={img.alt}
-                  className={`absolute top-0 left-0 w-full h-full object-contain transition-opacity duration-700 ease-in-out ${galleryIndex === idx ? 'opacity-100 z-10' : 'opacity-0 z-0'}`}
+                  className={`absolute top-0 left-0 w-full h-full max-h-full max-w-full object-contain transition-opacity duration-700 ease-in-out ${galleryIndex === idx ? 'opacity-100 z-10' : 'opacity-0 z-0'}`}
+                  style={{ background: '#f8f9fa' }}
                 />
               ))}
               {/* Controls */}
