@@ -211,8 +211,7 @@ const Home: React.FC = () => {
               <span className="ml-2 animate-gradient-text bg-gradient-to-r from-[#E9762B] via-[#41644A] to-[#FFB823] bg-clip-text text-transparent simple-hero-title">Smart Preps</span>
             </h1>
             <p className="text-base xs:text-lg sm:text-2xl mb-3 xs:mb-5 sm:mb-7 text-white opacity-90 drop-shadow">
-              Unlock your success with high-quality, affordable coaching—online
-              and offline—in Guwahati, Assam.
+              Unlock your success with high-quality, affordable coaching  offline 
               <br />
               Prepare for CLAT, BANK PO, BANK CLERICAL, SSC, and State Exams with
               structured courses and expert faculty.
