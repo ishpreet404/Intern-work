@@ -108,17 +108,17 @@ const whyChooseUs = [
 
 const carouselImages = [
   {
-    url: "https://i.ibb.co/xt1s4wSx/Screenshot-2025-06-18-052125.png",
-    title: "Interactive Learning",
-    description: "Engage with hands-on projects and real-world scenarios"
+    url: "https://i.ibb.co/hJCx4FSN/Admissions-OPEN-NOW-Join-SMART-an-initiative-by-Smartpreps-and-access-ONE-PLATFORM-for-Banking-Railw.webp",
+    title: "Railways Exam",
+    description: "National Railway Success"
   },
   {
-    url: "https://i.ibb.co/tM1FV7gX/Screenshot-2025-06-18-042759.png",
-    title: "Modern Technology",
-    description: "Learn cutting-edge tools and technologies used in industry"
+    url: "https://i.ibb.co/4nLXf48X/Admissions-OPEN-NOW-Join-SMART-an-initiative-by-Smartpreps-and-access-ONE-PLATFORM-for-Banking-Railw.webp",
+    title: "SSC",
+    description: "Small time roots Big time SSC results"
   },
   {
-    url: "https://i.ibb.co/xt1s4wSx/Screenshot-2025-06-18-052125.png",
+    url: "https://i.ibb.co/RTJ2bv5V/Admissions-OPEN-NOW-Join-SMART-an-initiative-by-Smartpreps-and-access-ONE-PLATFORM-for-Banking-Railw.webp",
     title: "Expert Guidance",
     description: "Get personalized mentorship from industry professionals"
   }
@@ -159,9 +159,7 @@ const Home: React.FC = () => {
   }, [emblaApi]);
 
   return (
-    <div
-      className="relative w-full bg-fixed font-sans pt-20 bg-[color:rgb(var(--background))]"
-    >
+    <div className="min-h-screen w-full overflow-x-hidden pt-20 bg-[color:rgb(var(--background))] text-[color:rgb(var(--foreground))]" style={{ fontFamily: 'Montserrat, Nunito, Lato, Open Sans, Poppins, sans-serif' }}>
       {/* Decorative SVG background overlays for extra depth */}
       <svg className="absolute top-0 left-0 w-[60vw] h-[40vw] opacity-20 z-0 pointer-events-none" viewBox="0 0 600 400" fill="none">
         <ellipse cx="300" cy="200" rx="300" ry="200" fill="#708A58" fillOpacity="0.10" />
@@ -182,7 +180,7 @@ const Home: React.FC = () => {
         {/* GIF background as image */}
         <div className="absolute inset-0 w-full h-full z-0 pointer-events-none overflow-hidden rounded-2xl xs:rounded-3xl">
           <img
-            src="https://i.ibb.co/cS7vgKYT/Video-111.gif"
+            src="https://i.ibb.co/3KD1Q8K/IMG-8559.gif"
             alt="Animated background"
             className="w-full h-full object-cover opacity-90 brightness-110"
             draggable="false"
@@ -367,7 +365,7 @@ const Home: React.FC = () => {
                 key={idx}
                 src={img.url}
                 alt={img.title}
-                className={`absolute top-0 left-0 w-full h-full object-cover transition-opacity duration-700 ease-in-out ${selectedIndex === idx ? 'opacity-100 z-10' : 'opacity-0 z-0'}`}
+                className={`absolute top-0 left-0 w-full h-full object-contain bg-white transition-opacity duration-700 ease-in-out ${selectedIndex === idx ? 'opacity-100 z-10' : 'opacity-0 z-0'}`}
                 style={{ transitionProperty: 'opacity' }}
               />
             ))}
@@ -435,8 +433,8 @@ const Home: React.FC = () => {
           {/* Image Right */}
           <div className="flex-1 flex justify-center">
             <img
-              src="/public/Screenshot 2025-06-18 052140.png"
-              alt="Emerald Learning Garden"
+              src="https://i.ibb.co/jk97s1NY/Admissions-OPEN-NOW-Join-SMART-an-initiative-by-Smartpreps-and-access-ONE-PLATFORM-for-Banking-Railw.webp"
+              alt="SmartPreps"
               className="rounded-2xl shadow-2xl w-full max-w-md object-cover border-4 border-[color:rgb(var(--primary))]"
             />
           </div>
@@ -723,20 +721,20 @@ const Home: React.FC = () => {
           background-clip: text;
           -webkit-background-clip: text;
           color: transparent;
-          font-family: Georgia, 'Times New Roman', Times, serif !important;
+          font-family: 'Poppins', 'Montserrat', 'Nunito', 'Lato', 'Open Sans', Arial, Helvetica, sans-serif !important;
         }
         .font-serif, h2.font-serif, h3.font-serif, h1.font-serif {
-          font-family: Georgia, 'Times New Roman', Times, serif !important;
+          font-family: 'Poppins', 'Montserrat', 'Nunito', 'Lato', 'Open Sans', Arial, Helvetica, sans-serif !important;
         }
         body, .font-sans, .text-base, .text-lg, .text-xl, .text-2xl, .text-3xl, .text-4xl, .text-5xl, .text-6xl, .text-7xl, .text-8xl, .text-9xl {
-          font-family: 'Georgia', 'Times New Roman', Times, serif !important;
+          font-family: 'Poppins', 'Montserrat', 'Nunito', 'Lato', 'Open Sans', Arial, Helvetica, sans-serif !important;
           letter-spacing: 0.01em;
         }
         .font-light, .font-normal, .font-medium, .font-semibold, .font-bold, .font-extrabold {
-          font-family: 'Georgia', 'Times New Roman', Times, serif !important;
+          font-family: 'Poppins', 'Montserrat', 'Nunito', 'Lato', 'Open Sans', Arial, Helvetica, sans-serif !important;
         }
         .simple-hero-title {
-          font-family: 'Segoe UI', Arial, Helvetica, sans-serif !important;
+          font-family: 'Poppins', 'Montserrat', 'Nunito', 'Lato', 'Open Sans', Arial, Helvetica, sans-serif !important;
           font-weight: 700;
           letter-spacing: 0.01em;
         }

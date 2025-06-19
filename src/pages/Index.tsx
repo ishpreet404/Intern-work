@@ -172,7 +172,7 @@ const Index = () => {
   };
 
   return (
-    <>
+    <div className="min-h-screen w-full overflow-x-hidden pt-20 bg-[color:rgb(var(--background))] text-[color:rgb(var(--foreground))]" style={{ fontFamily: 'Montserrat, Nunito, Lato, Open Sans, Poppins, sans-serif' }}>
       <CursorRing />
       <div className="min-h-screen w-full overflow-x-hidden pt-20" style={{background: `linear-gradient(120deg, ${COLORS.black} 0%, ${COLORS.gray} 60%, ${COLORS.faintGreen} 100%)`}}>
         {/* Navigation */}
@@ -361,7 +361,7 @@ const Index = () => {
           onClose={() => setIsInquiryOpen(false)}
         />
       </div>
-    </>
+    </div>
   );
 };
 

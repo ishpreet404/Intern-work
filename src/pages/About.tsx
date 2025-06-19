@@ -74,7 +74,7 @@ const About = () => {
   ];
 
   return (
-    <div className="relative min-h-screen w-full overflow-x-hidden pt-20 bg-[color:rgb(var(--background))] text-[color:rgb(var(--foreground))]">
+    <div className="min-h-screen w-full overflow-x-hidden pt-20 bg-[color:rgb(var(--background))] text-[color:rgb(var(--foreground))]" style={{ fontFamily: 'Montserrat, Nunito, Lato, Open Sans, Poppins, sans-serif' }}>
       {/* Decorative background blob */}
       <div className="absolute -top-32 -left-32 w-[500px] h-[500px] bg-gradient-to-br from-[color:rgb(var(--primary))]/20 via-[color:rgb(var(--secondary))]/10 to-transparent rounded-full blur-3xl opacity-70 pointer-events-none z-0" />
       <div className="container mx-auto px-3 xs:px-4 sm:px-6 py-10 xs:py-16 relative z-10">

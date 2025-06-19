@@ -88,35 +88,30 @@ const NotFound = () => {
   }, [location.pathname]);
 
   return (
-    <>
+    <div className="min-h-screen w-full flex flex-col items-center justify-center bg-[color:rgb(var(--background))] text-[color:rgb(var(--foreground))]" style={{ fontFamily: 'Montserrat, Nunito, Lato, Open Sans, Poppins, sans-serif' }}>
       <CursorRing />
       <div
-        className="min-h-screen flex items-center justify-center pt-20 px-2 xs:px-0"
-        style={{ background: COLORS.black }}
+        className="text-center p-4 xs:p-8 rounded-2xl shadow-lg w-full max-w-xs xs:max-w-md"
+        style={{ background: COLORS.gray }}
       >
-        <div
-          className="text-center p-4 xs:p-8 rounded-2xl shadow-lg w-full max-w-xs xs:max-w-md"
-          style={{ background: COLORS.gray }}
+        <h1
+          className="text-3xl xs:text-4xl font-bold mb-2 xs:mb-4"
+          style={{ color: COLORS.accentOrange }}
         >
-          <h1
-            className="text-3xl xs:text-4xl font-bold mb-2 xs:mb-4"
-            style={{ color: COLORS.accentOrange }}
-          >
-            404
-          </h1>
-          <p className="text-lg xs:text-xl mb-2 xs:mb-4" style={{ color: COLORS.white }}>
-            Oops! Page not found
-          </p>
-          <a
-            href="/"
-            className="underline font-bold"
-            style={{ color: COLORS.accentGreen }}
-          >
-            Return to Home
-          </a>
-        </div>
+          404
+        </h1>
+        <p className="text-lg xs:text-xl mb-2 xs:mb-4" style={{ color: COLORS.white }}>
+          Oops! Page not found
+        </p>
+        <a
+          href="/"
+          className="underline font-bold"
+          style={{ color: COLORS.accentGreen }}
+        >
+          Return to Home
+        </a>
       </div>
-    </>
+    </div>
   );
 };
 

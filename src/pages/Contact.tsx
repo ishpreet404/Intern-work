@@ -81,7 +81,7 @@ const Contact = () => {
   ];
 
   return (
-    <div className="min-h-screen w-full overflow-x-hidden pt-20 bg-[color:rgb(var(--background))] text-[color:rgb(var(--foreground))]">
+    <div className="min-h-screen w-full overflow-x-hidden pt-20 bg-[color:rgb(var(--background))] text-[color:rgb(var(--foreground))]" style={{ fontFamily: 'Montserrat, Nunito, Lato, Open Sans, Poppins, sans-serif' }}>
       <div className="container mx-auto px-3 xs:px-4 sm:px-6 py-10 xs:py-16">
         <div className="max-w-5xl mx-auto">
           <h1 className="text-3xl xs:text-4xl sm:text-5xl font-extrabold mb-6 xs:mb-10 text-center animate-gradient-text bg-gradient-to-r from-[#41644A] via-[#E9762B] to-[#FFB823] bg-clip-text text-transparent font-serif">
