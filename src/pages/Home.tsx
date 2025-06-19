@@ -124,6 +124,17 @@ const carouselImages = [
   }
 ] as const;
 
+// Gallery images for the gallery carousel
+const galleryImages = [
+  { src: "https://i.ibb.co/nN6JmJmv/IMG-8504.jpg", alt: "Classroom Session" },
+  { src: "https://i.ibb.co/chN9FL2g/IMG-8512.jpg", alt: "Student Event" },
+  { src: "https://i.ibb.co/sv4KdRJ5/IMG-8514.jpg", alt: "Award Ceremony" },
+  { src: "https://i.ibb.co/tMDKkF7B/IMG-8533.jpg", alt: "Award Ceremony" },
+  { src: "https://i.ibb.co/zHHjp529/IMG-8542.jpg", alt: "Award Ceremony" },
+  { src: "https://i.ibb.co/hR5gfNg4/IMG-8550.jpg", alt: "Award Ceremony" },
+  { src: "https://i.ibb.co/cS7VY7Pg/IMG-8553.jpg", alt: "Mentor Session" },
+];
+
 const scrollToSection = (sectionId: string) => {
   document.getElementById(sectionId)?.scrollIntoView({ behavior: "smooth" });
 };
@@ -147,6 +158,24 @@ const Home: React.FC = () => {
     rating: number;
     tags: string[];
   } | null>(null);
+
+  // Gallery carousel state
+  const [galleryIndex, setGalleryIndex] = useState(0);
+  const galleryTimeout = useRef<NodeJS.Timeout | null>(null);
+  const [isGalleryPaused, setIsGalleryPaused] = useState(false);
+  const galleryPrev = () => setGalleryIndex(i => (i === 0 ? galleryImages.length - 1 : i - 1));
+  const galleryNext = () => setGalleryIndex(i => (i === galleryImages.length - 1 ? 0 : i + 1));
+
+  // Auto-move carousel
+  useEffect(() => {
+    if (isGalleryPaused) return;
+    galleryTimeout.current = setTimeout(() => {
+      setGalleryIndex(i => (i === galleryImages.length - 1 ? 0 : i + 1));
+    }, 3000);
+    return () => {
+      if (galleryTimeout.current) clearTimeout(galleryTimeout.current);
+    };
+  }, [galleryIndex, isGalleryPaused]);
 
   useEffect(() => {
     if (!emblaApi) return;
@@ -627,41 +656,60 @@ const Home: React.FC = () => {
         </svg>
       </div>
 
-      {/* Testimonials Section */}
+      {/* Gallery Carousel Section */}
       <section className="relative z-9 py-16 bg-[color:rgb(var(--background))]">
         <div className="container mx-auto px-4 sm:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl sm:text-4xl font-extrabold mb-4 font-serif animate-gradient-text bg-gradient-to-r from-[#41644A] via-[#E9762B] to-[#FFB823] bg-clip-text text-transparent">
-              Success Stories
+              Gallery
             </h2>
             <p className="text-lg sm:text-xl text-[color:rgb(var(--foreground))] max-w-2xl mx-auto">
-              Hear from our students and their journey to success with SmartPreps.
+              Explore moments from our classes, events, and student achievements.
             </p>
           </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10 max-w-6xl mx-auto">
-            {[{
-              name: "Priya Sharma",
-              text: "SmartPreps helped me crack CLAT with confidence. The mentors are amazing!",
-              image: "https://randomuser.me/api/portraits/women/68.jpg",
-              course: "CLAT"
-            }, {
-              name: "Rahul Das",
-              text: "The personal attention and mock tests made all the difference. Highly recommended!",
-              image: "https://randomuser.me/api/portraits/men/32.jpg",
-              course: "BANK PO"
-            }, {
-              name: "Ananya Roy",
-              text: "I loved the flexible learning options and the supportive community.",
-              image: "https://randomuser.me/api/portraits/women/65.jpg",
-              course: "SSC"
-            }].map((t, idx) => (
-              <div key={idx} className="rounded-2xl shadow-xl bg-white/80 backdrop-blur-md p-8 flex flex-col items-center text-center border border-[color:rgb(var(--primary))]">
-                <img src={t.image} alt={t.name} className="w-20 h-20 rounded-full mb-4 object-cover border-4 border-[#FFB823]" />
-                <p className="text-lg font-medium text-[color:rgb(var(--foreground))] mb-3">“{t.text}”</p>
-                <div className="font-bold text-[#41644A]">{t.name}</div>
-                <div className="text-sm text-[#E9762B] font-semibold">{t.course} Success</div>
+          <div className="relative max-w-2xl mx-auto flex flex-col items-center">
+            <div
+              className="relative w-full h-64 sm:h-80 md:h-96 flex items-center justify-center overflow-hidden rounded-xl shadow-lg bg-white"
+              onMouseEnter={() => setIsGalleryPaused(true)}
+              onMouseLeave={() => setIsGalleryPaused(false)}
+              tabIndex={0}
+              onFocus={() => setIsGalleryPaused(true)}
+              onBlur={() => setIsGalleryPaused(false)}
+            >
+              {galleryImages.map((img, idx) => (
+                <img
+                  key={idx}
+                  src={img.src}
+                  alt={img.alt}
+                  className={`absolute top-0 left-0 w-full h-full object-contain transition-opacity duration-700 ease-in-out ${galleryIndex === idx ? 'opacity-100 z-10' : 'opacity-0 z-0'}`}
+                />
+              ))}
+              {/* Controls */}
+              <button
+                className="absolute left-2 top-1/2 -translate-y-1/2 bg-[color:rgb(var(--primary))] text-white rounded-full p-2 shadow hover:bg-[color:rgb(var(--secondary))] transition z-30"
+                onClick={galleryPrev}
+                aria-label="Previous"
+              >
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" /></svg>
+              </button>
+              <button
+                className="absolute right-2 top-1/2 -translate-y-1/2 bg-[color:rgb(var(--primary))] text-white rounded-full p-2 shadow hover:bg-[color:rgb(var(--secondary))] transition z-30"
+                onClick={galleryNext}
+                aria-label="Next"
+              >
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" /></svg>
+              </button>
+              {/* Dots */}
+              <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-30">
+                {galleryImages.map((_, idx) => (
+                  <span
+                    key={idx}
+                    className={`w-3 h-3 rounded-full border transition-all duration-200 cursor-pointer ${galleryIndex === idx ? 'bg-[color:rgb(var(--primary))]' : 'bg-white opacity-50'} border-[color:rgb(var(--primary))]`}
+                    onClick={() => setGalleryIndex(idx)}
+                  />
+                ))}
               </div>
-            ))}
+            </div>
           </div>
         </div>
       </section>
