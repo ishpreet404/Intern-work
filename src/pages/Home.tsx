@@ -365,7 +365,6 @@ const Home: React.FC = () => {
                     id="enquiry-email"
                     name="email"
                     type="email"
-                    required
                     value={enquiryForm.email}
                     onChange={handleEnquiryChange}
                     className="mt-1 block w-full rounded-lg border border-[#FFB823] shadow-sm focus:border-[#41644A] focus:ring-[#41644A] text-base px-3 py-2 bg-white"
@@ -378,9 +377,13 @@ const Home: React.FC = () => {
                     name="phone"
                     type="tel"
                     required
+                    pattern="[0-9]{10}"
+                    maxLength={10}
+                    minLength={10}
                     value={enquiryForm.phone}
                     onChange={handleEnquiryChange}
                     className="mt-1 block w-full rounded-lg border border-[#FFB823] shadow-sm focus:border-[#41644A] focus:ring-[#41644A] text-base px-3 py-2 bg-white"
+                    placeholder="Enter 10 digit phone number"
                   />
                 </div>
                 <div>
@@ -450,7 +453,7 @@ const Home: React.FC = () => {
           >
             <div className="flex justify-center items-center gap-1 mb-3 xs:mb-4">
               {[...Array(5)].map((_, i) => (
-                <Star key={i} className="w-4 h-4 xs:w-5 xs:h-5 text-[#FFB823]" />
+                <Star key={i} className="w-4 h-4 xs:w-5 xs:h-5 text-[#FFB823] fill-[#FFB823]" fill="#FFB823" />
               ))}
               <span className="ml-2 text-xs xs:text-sm font-medium text-white drop-shadow">Rated 4.9/5 by our students</span>
             </div>
@@ -462,7 +465,7 @@ const Home: React.FC = () => {
             <p className="text-base xs:text-lg sm:text-2xl mb-3 xs:mb-5 sm:mb-7 text-white opacity-90 drop-shadow">
               Unlock your success with high-quality, affordable coaching  offline 
               <br />
-              Prepare for <span className="animate-gradient-text bg-gradient-to-r from-[#E9762B] via-[#41644A] to-[#FFB823] bg-clip-text text-transparent font-bold">CLAT, BANK PO, BANK CLERICAL, SSC, and State Exams</span> with
+              Prepare for <span className="animate-gradient-text bg-gradient-to-r from-[#E9762B] via-[#41644A] to-[#FFB823] bg-clip-text text-transparent font-bold">CLAT, BANK PO, BANK CLERICAL, SSC, Railways Exam and State Exams</span> with
               structured courses and expert faculty.
             </p>
             <h2 className="font-medium mb-5 xs:mb-7 text-[#FFB823] drop-shadow text-base xs:text-lg">Start your journey to success with Smart Preps today!</h2>
@@ -849,7 +852,7 @@ const Home: React.FC = () => {
         </svg>
       </div>
 
-      {/* Student Testimonials Section (moved above Gallery) */}
+      {/* Student Testimonials Section (updated with real testimonials, no images or YouTube placeholders) */}
       <section className="relative z-10 py-16 bg-[color:rgb(var(--background))]">
         <div className="container mx-auto px-4 sm:px-8">
           <div className="text-center mb-12">
@@ -861,124 +864,41 @@ const Home: React.FC = () => {
             </p>
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
-            {/* Example testimonials with random Indian student images and YouTube Shorts placeholder */}
-            <div className="rounded-2xl shadow-lg bg-white/90 p-8 flex flex-col items-center text-center border border-[color:rgb(var(--primary))]">
-              <img src="https://randomuser.me/api/portraits/men/75.jpg" alt="Amit Kumar" className="w-20 h-20 rounded-full mb-4 object-cover border-4 border-[#FFB823]" />
-              {/* YouTube Shorts Placeholder */}
-              <div className="w-full flex justify-center mb-4">
-                <div className="w-32 h-56 bg-gray-200 rounded-lg flex items-center justify-center text-gray-500 text-xs font-semibold border-2 border-dashed border-[#FFB823]">
-                  <span>YouTube Shorts<br/>Placeholder</span>
-                </div>
+            {/* CLAT/Law Entrance */}
+            <div className="rounded-2xl shadow-lg bg-white/90 p-8 flex flex-col items-start text-left border border-[color:rgb(var(--primary))]">
+              <div className="mb-4">
+                <span className="inline-block bg-[#41644A] text-white text-xs px-3 py-1 rounded-full font-semibold mb-2">CLAT / Law Entrance</span>
               </div>
-              <p className="text-lg font-medium text-[color:rgb(var(--foreground))] mb-3">“The faculty at SmartPreps made learning fun and easy. I cracked my exam on the first attempt!”</p>
-              <div className="font-bold text-[#41644A]">Amit Kumar</div>
-              <div className="text-sm text-[#E9762B] font-semibold">SSC Student</div>
+              <p className="text-lg font-medium text-[color:rgb(var(--foreground))] mb-3">“I wanted to be a lawyer since Class 10 but had no clue how to crack CLAT. Smart Preps’ logical reasoning drills and legal GK sessions from Kaushik Kalita made all the difference! Their mock tests were tougher than the actual exam—got into NLU Guwahati with a top 500 rank. Still can’t believe it!”</p>
+              <div className="font-bold text-[#41644A]">Devasmita</div>
+              <div className="text-sm text-[#E9762B] font-semibold">CLAT 2024</div>
             </div>
-            <div className="rounded-2xl shadow-lg bg-white/90 p-8 flex flex-col items-center text-center border border-[color:rgb(var(--primary))]">
-              <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="Priya Singh" className="w-20 h-20 rounded-full mb-4 object-cover border-4 border-[#FFB823]" />
-              {/* YouTube Shorts Placeholder */}
-              <div className="w-full flex justify-center mb-4">
-                <div className="w-32 h-56 bg-gray-200 rounded-lg flex items-center justify-center text-gray-500 text-xs font-semibold border-2 border-dashed border-[#FFB823]">
-                  <span>YouTube Shorts<br/>Placeholder</span>
-                </div>
+            {/* CUET */}
+            <div className="rounded-2xl shadow-lg bg-white/90 p-8 flex flex-col items-start text-left border border-[color:rgb(var(--primary))]">
+              <div className="mb-4">
+                <span className="inline-block bg-[#E9762B] text-white text-xs px-3 py-1 rounded-full font-semibold mb-2">CUET</span>
               </div>
-              <p className="text-lg font-medium text-[color:rgb(var(--foreground))] mb-3">“The mock tests and personal attention helped me gain confidence. Highly recommended!”</p>
-              <div className="font-bold text-[#41644A]">Priya Singh</div>
-              <div className="text-sm text-[#E9762B] font-semibold">CLAT Aspirant</div>
+              <p className="text-lg font-medium text-[color:rgb(var(--foreground))] mb-3">“CUET was a mess—too many subjects, zero direction. Smart Preps’ subject-wise strategy and NCERT-focused notes saved me! Scored 98%ile in Pol Science and got into DU. Shoutout to the teachers especially Ashirvad Kumar for tolerating my endless doubts!”</p>
+              <div className="font-bold text-[#41644A]">Rishav</div>
+              <div className="text-sm text-[#E9762B] font-semibold">CUET 2024</div>
             </div>
-            <div className="rounded-2xl shadow-lg bg-white/90 p-8 flex flex-col items-center text-center border border-[color:rgb(var(--primary))]">
-              <img src="https://randomuser.me/api/portraits/men/43.jpg" alt="Rahul Verma" className="w-20 h-20 rounded-full mb-4 object-cover border-4 border-[#FFB823]" />
-              {/* YouTube Shorts Placeholder */}
-              <div className="w-full flex justify-center mb-4">
-                <div className="w-32 h-56 bg-gray-200 rounded-lg flex items-center justify-center text-gray-500 text-xs font-semibold border-2 border-dashed border-[#FFB823]">
-                  <span>YouTube Shorts<br/>Placeholder</span>
-                </div>
+            {/* Banking Exams */}
+            <div className="rounded-2xl shadow-lg bg-white/90 p-8 flex flex-col items-start text-left border border-[color:rgb(var(--primary))]">
+              <div className="mb-4">
+                <span className="inline-block bg-[#FFB823] text-white text-xs px-3 py-1 rounded-full font-semibold mb-2">Banking Exams</span>
               </div>
-              <p className="text-lg font-medium text-[color:rgb(var(--foreground))] mb-3">“Great mentors and a supportive environment. I improved my scores drastically!”</p>
-              <div className="font-bold text-[#41644A]">Rahul Verma</div>
-              <div className="text-sm text-[#E9762B] font-semibold">Bank PO</div>
+              <p className="text-lg font-medium text-[color:rgb(var(--foreground))] mb-3">“After failing IBPS prelims twice, I joined Smart Preps’ <span className='italic'>4-month intensive batch</span>. Their daily Quant shortcuts and current affairs PDFs were gold. Cleared PO and RRB Clerk in the same year! Now working at Canara Bank, Guwahati.”</p>
+              <div className="font-bold text-[#41644A]">Manash</div>
+              <div className="text-sm text-[#E9762B] font-semibold">IBPS PO 2023</div>
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Gallery Carousel Section */}
-      <section className="relative z-9 py-16 bg-[color:rgb(var(--background))]">
-        <div className="container mx-auto px-4 sm:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl sm:text-4xl font-extrabold mb-4 font-serif animate-gradient-text bg-gradient-to-r from-[#41644A] via-[#E9762B] to-[#FFB823] bg-clip-text text-transparent">
-              Gallery
-            </h2>
-            <p className="text-lg sm:text-xl text-[color:rgb(var(--foreground))] max-w-2xl mx-auto">
-              Explore moments from our classes, events, and student achievements.
-            </p>
-          </div>
-          <div className="flex flex-col lg:flex-row gap-8 w-full justify-center items-center">
-            {/* Gallery Carousel 1 */}
-            <div className="relative w-full max-w-md aspect-[16/9] flex items-center justify-center overflow-hidden rounded-xl shadow-lg bg-white">
-              {galleryImages1.map((img, idx) => (
-                <img
-                  key={idx}
-                  src={img.src}
-                  alt={img.alt}
-                  className={`absolute top-0 left-0 w-full h-full max-h-full max-w-full object-contain transition-opacity duration-700 ease-in-out ${galleryIndex1 === idx ? 'opacity-100 z-10' : 'opacity-0 z-0'}`}
-                  style={{ background: '#f8f9fa' }}
-                />
-              ))}
-              {/* Dots */}
-              <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-30">
-                {galleryImages1.map((_, idx) => (
-                  <span
-                    key={idx}
-                    className={`w-3 h-3 rounded-full border transition-all duration-200 cursor-pointer ${galleryIndex1 === idx ? 'bg-[color:rgb(var(--primary))]' : 'bg-white opacity-50'} border-[color:rgb(var(--primary))]`}
-                    onClick={() => setGalleryIndex1(idx)}
-                  />
-                ))}
+            {/* SSC Exams */}
+            <div className="rounded-2xl shadow-lg bg-white/90 p-8 flex flex-col items-start text-left border border-[color:rgb(var(--primary))]">
+              <div className="mb-4">
+                <span className="inline-block bg-[#708A58] text-white text-xs px-3 py-1 rounded-full font-semibold mb-2">SSC Exams</span>
               </div>
-            </div>
-            {/* Gallery Carousel 2 */}
-            <div className="relative w-full max-w-md aspect-[16/9] flex items-center justify-center overflow-hidden rounded-xl shadow-lg bg-white">
-              {galleryImages2.map((img, idx) => (
-                <img
-                  key={idx}
-                  src={img.src}
-                  alt={img.alt}
-                  className={`absolute top-0 left-0 w-full h-full max-h-full max-w-full object-contain transition-opacity duration-700 ease-in-out ${galleryIndex2 === idx ? 'opacity-100 z-10' : 'opacity-0 z-0'}`}
-                  style={{ background: '#f8f9fa' }}
-                />
-              ))}
-              {/* Dots */}
-              <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-30">
-                {galleryImages2.map((_, idx) => (
-                  <span
-                    key={idx}
-                    className={`w-3 h-3 rounded-full border transition-all duration-200 cursor-pointer ${galleryIndex2 === idx ? 'bg-[color:rgb(var(--primary))]' : 'bg-white opacity-50'} border-[color:rgb(var(--primary))]`}
-                    onClick={() => setGalleryIndex2(idx)}
-                  />
-                ))}
-              </div>
-            </div>
-            {/* Gallery Carousel 3 */}
-            <div className="relative w-full max-w-md aspect-[16/9] flex items-center justify-center overflow-hidden rounded-xl shadow-lg bg-white">
-              {galleryImages3.map((img, idx) => (
-                <img
-                  key={idx}
-                  src={img.src}
-                  alt={img.alt}
-                  className={`absolute top-0 left-0 w-full h-full max-h-full max-w-full object-contain transition-opacity duration-700 ease-in-out ${galleryIndex3 === idx ? 'opacity-100 z-10' : 'opacity-0 z-0'}`}
-                  style={{ background: '#f8f9fa' }}
-                />
-              ))}
-              {/* Dots */}
-              <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-30">
-                {galleryImages3.map((_, idx) => (
-                  <span
-                    key={idx}
-                    className={`w-3 h-3 rounded-full border transition-all duration-200 cursor-pointer ${galleryIndex3 === idx ? 'bg-[color:rgb(var(--primary))]' : 'bg-white opacity-50'} border-[color:rgb(var(--primary))]`}
-                    onClick={() => setGalleryIndex3(idx)}
-                  />
-                ))}
-              </div>
+              <p className="text-lg font-medium text-[color:rgb(var(--foreground))] mb-3">“SSC CGL’s syllabus felt like climbing Everest—until Smart Preps’ teachers especially Nilav Kalita cut it down to the essentials. Their answer writing practice was a game-changer. Selected as Tax Assistant in my very first try! Still using their GK notes for promotions.”</p>
+              <div className="font-bold text-[#41644A]">Priyanka</div>
+              <div className="text-sm text-[#E9762B] font-semibold">SSC CGL 2024</div>
             </div>
           </div>
         </div>
@@ -986,7 +906,7 @@ const Home: React.FC = () => {
       {/* Elegant Divider */}
       <div className="w-full flex justify-center items-center my-0">
         <svg viewBox="0 0 1440 60" fill="none" className="w-full h-10">
-          <path d="M0 30 Q 360 60 720 30 T 1440 30 V60 H0Z" fill="#FFB823" fillOpacity="0.10" />
+          <path d="M0 30 Q 360 0 720 30 T 1440 30 V60 H0Z" fill="#41644A" fillOpacity="0.10" />
         </svg>
       </div>
 
@@ -1037,6 +957,51 @@ const Home: React.FC = () => {
                 View All Articles
               </Button>
             </a>
+          </div>
+        </div>
+      </section>
+
+      {/* Study Material Section */}
+      <section className="relative z-10 py-16 bg-[color:rgb(var(--background))]">
+        <div className="container mx-auto px-4 sm:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl sm:text-4xl font-extrabold mb-4 font-serif animate-gradient-text bg-gradient-to-r from-[#41644A] via-[#E9762B] to-[#FFB823] bg-clip-text text-transparent">
+              Study Material
+            </h2>
+            <p className="text-lg sm:text-xl text-[color:rgb(var(--foreground))] max-w-2xl mx-auto">
+              Get access to high-quality books, notes, and exclusive Smart Preps bags for all your exam needs.
+            </p>
+          </div>
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto mb-8">
+            {/* Example study material cards */}
+            {[
+              {
+                image: "https://i.ibb.co/dwnwnZN5/book1.jpg",
+                title: "Comprehensive Guidebooks",
+                description: "Subject-wise books for CLAT, CUET, SSC, Banking, and more."
+              },
+              {
+                image: "https://i.ibb.co/k2k95htS/book.jpg",
+                title: "Practice Workbooks",
+                description: "Mock test booklets and practice sets for every exam."
+              },
+              {
+                image: "https://i.ibb.co/cKr5F7dn/bag.jpg",
+                title: "Smart Preps Bag",
+                description: "Durable, stylish bags for all enrolled students."
+              },
+              {
+                image: "https://www.educomiq.com/wp-content/uploads/2022/04/S.S-Bharti-Elementary-Maths-Optional-Class-Notes-in-English-for-SSC-CGL-Entrance-b.jpg",
+                title: "Handwritten Notes",
+                description: "Exclusive notes and quick revision material from our expert faculty."
+              }
+            ].map((item, idx) => (
+              <div key={idx} className="rounded-2xl shadow-lg bg-white/90 p-6 flex flex-col border border-[color:rgb(var(--primary))] hover:scale-105 hover:shadow-2xl transition-all">
+                <img src={item.image} alt={item.title} className="w-full h-48 object-cover rounded-xl mb-4" />
+                <h3 className="text-xl font-bold mb-2 text-[#41644A]">{item.title}</h3>
+                <p className="text-base text-gray-700 mb-2">{item.description}</p>
+              </div>
+            ))}
           </div>
         </div>
       </section>

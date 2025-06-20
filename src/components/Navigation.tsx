@@ -9,6 +9,7 @@ const Navigation = () => {
     { name: 'About Us', path: '/about' },
     { name: 'Courses', path: '/courses' },
     { name: 'Articles', path: '/articles' },
+    { name: 'Campus Tour', path: '/campus-tour' },
     { name: 'Contact', path: '/contact' }
   ];
 
@@ -30,7 +31,7 @@ const Navigation = () => {
               <Link to="/" className="group">
                 <span className="text-xl font-bold text-[#41644A] tracking-wide drop-shadow-sm transition-colors duration-300 group-hover:text-[#E9762B] font-serif">SmartPreps</span>
               </Link>
-              <span className="text-xs text-gray-500 font-medium mt-0.5 ml-1">Initiative by Smart IAS Foundation</span>
+              <span className="text-xs text-gray-500 font-medium mt-0.5 ml-1">An Initiative by Smart IAS Foundation</span>
             </div>
           </div>
           <div className="flex items-center flex-1">

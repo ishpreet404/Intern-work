@@ -11,6 +11,7 @@ import Courses from "./pages/Courses";
 import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
 import Articles from "./pages/Articles";
+import CampusTour from "./pages/CampusTour";
 
 const queryClient = new QueryClient();
 
@@ -30,6 +31,7 @@ const App = () => {
                 <Route path="/courses" element={<Courses />} />
                 <Route path="/articles" element={<Articles />} />
                 <Route path="/contact" element={<Contact />} />
+                <Route path="/campus-tour" element={<CampusTour />} />
                 <Route path="*" element={<NotFound />} />
               </Routes>
             </main>
