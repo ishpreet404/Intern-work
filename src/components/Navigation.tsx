@@ -1,5 +1,4 @@
 import React from 'react';
-import { BookOpen } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
 
 const Navigation = () => {
@@ -9,6 +8,7 @@ const Navigation = () => {
     { name: 'Home', path: '/' },
     { name: 'About Us', path: '/about' },
     { name: 'Courses', path: '/courses' },
+    { name: 'Articles', path: '/articles' },
     { name: 'Contact', path: '/contact' }
   ];
 
@@ -21,13 +21,18 @@ const Navigation = () => {
       <a href="#main-content" className="sr-only focus:not-sr-only absolute left-2 top-2 bg-[#41644A] text-white px-4 py-2 rounded z-50">Skip to main content</a>
       <div className="container mx-auto px-6 py-2">
         <div className="flex items-center justify-between min-h-[56px]">
-          <Link to="/" className="flex items-center space-x-2 group">
-            <div className="w-8 h-8 rounded-full flex items-center justify-center border-2 border-[#41644A] bg-white shadow-md overflow-hidden transition-transform duration-300 group-hover:scale-110">
-              <BookOpen className="w-5 h-5 text-[#41644A] transition-colors duration-300 group-hover:text-[#E9762B]" />
-              <img src="https://smartpreps.in/wp-content/uploads/2025/06/cropped-78-scaled-2-112x56.png" alt="logo" className="h-5 ml-1" />
+          {/* Logo Section */}
+          <div className="flex items-center space-x-3">
+            <a href="/" className="flex items-center">
+              <img src="https://i.ibb.co/fG9zRcpn/IMG-8537.png" alt="Smart IAS Foundation Logo" className="h-12 w-auto rounded-full shadow border-2 border-[#41644A] bg-white" />
+            </a>
+            <div className="flex flex-col justify-center">
+              <Link to="/" className="group">
+                <span className="text-xl font-bold text-[#41644A] tracking-wide drop-shadow-sm transition-colors duration-300 group-hover:text-[#E9762B] font-serif">SmartPreps</span>
+              </Link>
+              <span className="text-xs text-gray-500 font-medium mt-0.5 ml-1">Initiative by Smart IAS Foundation</span>
             </div>
-            <span className="text-xl font-bold text-[#41644A] tracking-wide drop-shadow-sm transition-colors duration-300 group-hover:text-[#E9762B] font-serif">SmartPreps</span>
-          </Link>
+          </div>
           <div className="flex items-center flex-1">
             <div className="hidden md:flex items-center space-x-6 ml-auto">
               {navItems.map((item, idx) => (

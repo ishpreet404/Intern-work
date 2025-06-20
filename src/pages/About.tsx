@@ -103,7 +103,7 @@ const About = () => {
               </p>
             </div>
             <div className="rounded-3xl p-10 flex items-center justify-center bg-gradient-to-br from-[color:rgb(var(--primary))]/10 to-[color:rgb(var(--secondary))]/10 shadow-xl border-2 border-[color:rgb(var(--primary))]/20">
-              <Lightbulb className="w-40 h-40 text-[color:rgb(var(--primary))] drop-shadow-lg" />
+              <img src="https://i.ibb.co/5hDSgNg2/IMG-8551.jpg" alt="image" className='w-400 h-400'/>
             </div>
           </div>
           {/* Features Grid */}

@@ -121,6 +121,21 @@ const carouselImages = [
     url: "https://i.ibb.co/RTJ2bv5V/Admissions-OPEN-NOW-Join-SMART-an-initiative-by-Smartpreps-and-access-ONE-PLATFORM-for-Banking-Railw.webp",
     title: "Expert Guidance",
     description: "Get personalized mentorship from industry professionals"
+  },
+  {
+    url: "https://i.ibb.co/hJCx4FSN/Admissions-OPEN-NOW-Join-SMART-an-initiative-by-Smartpreps-and-access-ONE-PLATFORM-for-Banking-Railw.webp",
+    title: "Railways Exam",
+    description: "National Railway Success"
+  },
+  {
+    url: "https://i.ibb.co/4nLXf48X/Admissions-OPEN-NOW-Join-SMART-an-initiative-by-Smartpreps-and-access-ONE-PLATFORM-for-Banking-Railw.webp",
+    title: "SSC",
+    description: "Small time roots Big time SSC results"
+  },
+  {
+    url: "https://i.ibb.co/RTJ2bv5V/Admissions-OPEN-NOW-Join-SMART-an-initiative-by-Smartpreps-and-access-ONE-PLATFORM-for-Banking-Railw.webp",
+    title: "Expert Guidance",
+    description: "Get personalized mentorship from industry professionals"
   }
 ] as const;
 
@@ -134,6 +149,15 @@ const galleryImages = [
   { src: "https://i.ibb.co/hR5gfNg4/IMG-8550.jpg", alt: "Award Ceremony" },
   { src: "https://i.ibb.co/cS7VY7Pg/IMG-8553.jpg", alt: "Mentor Session" },
 ];
+
+// Split carouselImages into two arrays
+const carouselImages1 = carouselImages.slice(0, Math.ceil(carouselImages.length / 2));
+const carouselImages2 = carouselImages.slice(Math.ceil(carouselImages.length / 2));
+
+// Split galleryImages into three arrays
+const galleryImages1 = galleryImages.slice(0, Math.ceil(galleryImages.length / 3));
+const galleryImages2 = galleryImages.slice(Math.ceil(galleryImages.length / 3), Math.ceil(galleryImages.length * 2 / 3));
+const galleryImages3 = galleryImages.slice(Math.ceil(galleryImages.length * 2 / 3));
 
 const scrollToSection = (sectionId: string) => {
   document.getElementById(sectionId)?.scrollIntoView({ behavior: "smooth" });
@@ -166,6 +190,16 @@ const Home: React.FC = () => {
   const galleryPrev = () => setGalleryIndex(i => (i === 0 ? galleryImages.length - 1 : i - 1));
   const galleryNext = () => setGalleryIndex(i => (i === galleryImages.length - 1 ? 0 : i + 1));
 
+  // Gallery carousel 1 state
+  const [galleryIndex1, setGalleryIndex1] = useState(0);
+  const galleryTimeout1 = useRef<NodeJS.Timeout | null>(null);
+  // Gallery carousel 2 state
+  const [galleryIndex2, setGalleryIndex2] = useState(0);
+  const galleryTimeout2 = useRef<NodeJS.Timeout | null>(null);
+  // Gallery carousel 3 state
+  const [galleryIndex3, setGalleryIndex3] = useState(0);
+  const galleryTimeout3 = useRef<NodeJS.Timeout | null>(null);
+
   // Auto-move carousel
   useEffect(() => {
     if (isGalleryPaused) return;
@@ -177,6 +211,33 @@ const Home: React.FC = () => {
     };
   }, [galleryIndex, isGalleryPaused]);
 
+  // Auto-move for gallery carousel 1
+  useEffect(() => {
+    if (galleryTimeout1.current) clearTimeout(galleryTimeout1.current);
+    galleryTimeout1.current = setTimeout(() => {
+      setGalleryIndex1(i => (i === galleryImages1.length - 1 ? 0 : i + 1));
+    }, 3000);
+    return () => { if (galleryTimeout1.current) clearTimeout(galleryTimeout1.current); };
+  }, [galleryIndex1]);
+
+  // Auto-move for gallery carousel 2
+  useEffect(() => {
+    if (galleryTimeout2.current) clearTimeout(galleryTimeout2.current);
+    galleryTimeout2.current = setTimeout(() => {
+      setGalleryIndex2(i => (i === galleryImages2.length - 1 ? 0 : i + 1));
+    }, 3000);
+    return () => { if (galleryTimeout2.current) clearTimeout(galleryTimeout2.current); };
+  }, [galleryIndex2]);
+
+  // Auto-move for gallery carousel 3
+  useEffect(() => {
+    if (galleryTimeout3.current) clearTimeout(galleryTimeout3.current);
+    galleryTimeout3.current = setTimeout(() => {
+      setGalleryIndex3(i => (i === galleryImages3.length - 1 ? 0 : i + 1));
+    }, 3000);
+    return () => { if (galleryTimeout3.current) clearTimeout(galleryTimeout3.current); };
+  }, [galleryIndex3]);
+
   useEffect(() => {
     if (!emblaApi) return;
     const onSelect = () => setSelectedIndex(emblaApi.selectedScrollSnap());
@@ -187,8 +248,167 @@ const Home: React.FC = () => {
     };
   }, [emblaApi]);
 
+  // Carousel 1 state
+  const [carousel1Index, setCarousel1Index] = useState(0);
+  const carousel1Timeout = useRef<NodeJS.Timeout | null>(null);
+  // Carousel 2 state
+  const [carousel2Index, setCarousel2Index] = useState(0);
+  const carousel2Timeout = useRef<NodeJS.Timeout | null>(null);
+
+  // Auto-move for carousel 1
+  useEffect(() => {
+    if (carousel1Timeout.current) clearTimeout(carousel1Timeout.current);
+    carousel1Timeout.current = setTimeout(() => {
+      setCarousel1Index(i => (i === carouselImages1.length - 1 ? 0 : i + 1));
+    }, 3000);
+    return () => { if (carousel1Timeout.current) clearTimeout(carousel1Timeout.current); };
+  }, [carousel1Index]);
+
+  // Auto-move for carousel 2
+  useEffect(() => {
+    if (carousel2Timeout.current) clearTimeout(carousel2Timeout.current);
+    carousel2Timeout.current = setTimeout(() => {
+      setCarousel2Index(i => (i === carouselImages2.length - 1 ? 0 : i + 1));
+    }, 3000);
+    return () => { if (carousel2Timeout.current) clearTimeout(carousel2Timeout.current); };
+  }, [carousel2Index]);
+
+  // Enquiry modal state
+  const [showEnquiry, setShowEnquiry] = useState(false);
+  const [enquiryForm, setEnquiryForm] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    message: ''
+  });
+  const [enquirySubmitting, setEnquirySubmitting] = useState(false);
+  const [enquirySuccess, setEnquirySuccess] = useState(false);
+  const [enquiryError, setEnquiryError] = useState('');
+  const [enquiryDismissed, setEnquiryDismissed] = useState(false);
+
+  // Auto-popup after 12 seconds if not already shown or dismissed
+  useEffect(() => {
+    if (showEnquiry || enquiryDismissed) return;
+    const timer = setTimeout(() => {
+      setShowEnquiry(true);
+    }, 12000);
+    return () => clearTimeout(timer);
+  }, [showEnquiry, enquiryDismissed]);
+
+  const handleEnquiryChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setEnquiryForm({ ...enquiryForm, [e.target.name]: e.target.value });
+  };
+
+  const handleEnquirySubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setEnquirySubmitting(true);
+    setEnquiryError('');
+    setEnquirySuccess(false);
+    // Simulate async submit
+    setTimeout(() => {
+      setEnquirySubmitting(false);
+      setEnquirySuccess(true);
+      setEnquiryForm({ name: '', email: '', phone: '', message: '' });
+    }, 1200);
+  };
+
+  const handleEnquiryClose = () => {
+    setShowEnquiry(false);
+    setEnquirySuccess(false);
+    setEnquiryError('');
+    setEnquiryDismissed(true);
+  };
+
   return (
     <div className="min-h-screen w-full overflow-x-hidden pt-20 bg-[color:rgb(var(--background))] text-[color:rgb(var(--foreground))]" style={{ fontFamily: 'Montserrat, Nunito, Lato, Open Sans, Poppins, sans-serif' }}>
+      {/* Enquiry Modal */}
+      {showEnquiry && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/50 backdrop-blur-sm animate-fade-in">
+          <div className="relative max-w-3xl w-full flex flex-col md:flex-row rounded-3xl shadow-2xl overflow-hidden animate-fade-in-up border-2 border-[#FFB823] bg-gradient-to-br from-[#fffbe6] via-[#f7f7f7] to-[#f0f4ec]">
+            {/* Close button */}
+            <button
+              className="absolute top-4 right-4 text-gray-400 hover:text-red-500 text-3xl font-bold z-10 transition"
+              onClick={handleEnquiryClose}
+              aria-label="Close"
+            >
+              ×
+            </button>
+            {/* Image side */}
+            <div className="hidden md:block md:w-1/2 bg-gradient-to-br from-[#FFB823]/80 to-[#41644A]/70 flex items-center justify-center">
+              <img
+                src="https://i.ibb.co/jk97s1NY/Admissions-OPEN-NOW-Join-SMART-an-initiative-by-Smartpreps-and-access-ONE-PLATFORM-for-Banking-Railw.webp"
+                alt="Enquiry"
+                className="w-full h-full object-cover scale-105 shadow-xl rounded-l-3xl"
+                style={{ minHeight: 420 }}
+              />
+            </div>
+            {/* Form side */}
+            <div className="w-full md:w-1/2 p-8 flex flex-col justify-center bg-white/90">
+              <h3 className="text-3xl font-extrabold mb-2 text-[#41644A] font-serif animate-gradient-text bg-gradient-to-r from-[#41644A] via-[#E9762B] to-[#FFB823] bg-clip-text text-transparent">Enquire Now</h3>
+              <p className="mb-4 text-gray-600 text-base font-medium">Fill out the form and our team will get in touch with you soon.</p>
+              <form className="space-y-4" onSubmit={handleEnquirySubmit}>
+                <div>
+                  <label htmlFor="enquiry-name" className="block text-sm font-semibold text-[#41644A]">Name</label>
+                  <input
+                    id="enquiry-name"
+                    name="name"
+                    type="text"
+                    required
+                    value={enquiryForm.name}
+                    onChange={handleEnquiryChange}
+                    className="mt-1 block w-full rounded-lg border border-[#FFB823] shadow-sm focus:border-[#41644A] focus:ring-[#41644A] text-base px-3 py-2 bg-white"
+                  />
+                </div>
+                <div>
+                  <label htmlFor="enquiry-email" className="block text-sm font-semibold text-[#41644A]">Email</label>
+                  <input
+                    id="enquiry-email"
+                    name="email"
+                    type="email"
+                    required
+                    value={enquiryForm.email}
+                    onChange={handleEnquiryChange}
+                    className="mt-1 block w-full rounded-lg border border-[#FFB823] shadow-sm focus:border-[#41644A] focus:ring-[#41644A] text-base px-3 py-2 bg-white"
+                  />
+                </div>
+                <div>
+                  <label htmlFor="enquiry-phone" className="block text-sm font-semibold text-[#41644A]">Phone</label>
+                  <input
+                    id="enquiry-phone"
+                    name="phone"
+                    type="tel"
+                    required
+                    value={enquiryForm.phone}
+                    onChange={handleEnquiryChange}
+                    className="mt-1 block w-full rounded-lg border border-[#FFB823] shadow-sm focus:border-[#41644A] focus:ring-[#41644A] text-base px-3 py-2 bg-white"
+                  />
+                </div>
+                <div>
+                  <label htmlFor="enquiry-message" className="block text-sm font-semibold text-[#41644A]">Message</label>
+                  <textarea
+                    id="enquiry-message"
+                    name="message"
+                    rows={3}
+                    required
+                    value={enquiryForm.message}
+                    onChange={handleEnquiryChange}
+                    className="mt-1 block w-full rounded-lg border border-[#FFB823] shadow-sm focus:border-[#41644A] focus:ring-[#41644A] text-base px-3 py-2 bg-white"
+                  />
+                </div>
+                {enquiryError && <div className="text-red-500 text-sm">{enquiryError}</div>}
+                {enquirySuccess && <div className="text-green-600 text-base font-semibold">Thank you! We have received your enquiry.</div>}
+                <button
+                  type="submit"
+                  className="w-full bg-gradient-to-r from-[#41644A] via-[#E9762B] to-[#FFB823] text-white rounded-full py-2.5 font-bold shadow-lg hover:scale-105 transition disabled:opacity-60 text-lg mt-2"
+                  disabled={enquirySubmitting}
+                >
+                  {enquirySubmitting ? 'Submitting...' : 'Submit'}
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      )}
       {/* Decorative SVG background overlays for extra depth */}
       <svg className="absolute top-0 left-0 w-[60vw] h-[40vw] opacity-20 z-0 pointer-events-none" viewBox="0 0 600 400" fill="none">
         <ellipse cx="300" cy="200" rx="300" ry="200" fill="#708A58" fillOpacity="0.10" />
@@ -242,7 +462,7 @@ const Home: React.FC = () => {
             <p className="text-base xs:text-lg sm:text-2xl mb-3 xs:mb-5 sm:mb-7 text-white opacity-90 drop-shadow">
               Unlock your success with high-quality, affordable coaching  offline 
               <br />
-              Prepare for CLAT, BANK PO, BANK CLERICAL, SSC, and State Exams with
+              Prepare for <span className="animate-gradient-text bg-gradient-to-r from-[#E9762B] via-[#41644A] to-[#FFB823] bg-clip-text text-transparent font-bold">CLAT, BANK PO, BANK CLERICAL, SSC, and State Exams</span> with
               structured courses and expert faculty.
             </p>
             <h2 className="font-medium mb-5 xs:mb-7 text-[#FFB823] drop-shadow text-base xs:text-lg">Start your journey to success with Smart Preps today!</h2>
@@ -334,7 +554,7 @@ const Home: React.FC = () => {
         className="relative z-10 py-14 sm:py-20 animate-fade-in bg-[color:rgb(var(--card))]"
       >
         <div className="w-full px-0 sm:px-0 flex flex-col items-center">
-          <div className="text-center mb-10 sm:mb-16">
+          <div className="text-center mb-10 sm:mb-16 w-full">
             <h2 className="text-2xl sm:text-4xl font-extrabold mb-4 sm:mb-6 animate-fade-in-up tracking-tight animate-gradient-text bg-gradient-to-r from-[#41644A] via-[#E9762B] to-[#FFB823] bg-clip-text text-transparent">
               Experience <span className="text-[#FFB823]">Modern Learning</span>
             </h2>
@@ -343,93 +563,66 @@ const Home: React.FC = () => {
               you learn.
             </p>
           </div>
-          {/* Custom Crossfade Carousel */}
-          <div className="relative w-full max-w-5xl h-[340px] sm:h-[420px] md:h-[480px] lg:h-[520px] flex items-center justify-center overflow-hidden rounded-xl shadow-lg border border-[color:rgb(var(--border))] bg-white/90"
-            onMouseDown={e => {
-              dragStartX.current = e.clientX;
-              setIsDragging(true);
-            }}
-            onMouseMove={e => {
-              if (isDragging && dragStartX.current !== null) {
-                const delta = e.clientX - dragStartX.current;
-                if (Math.abs(delta) > dragThreshold) {
-                  if (delta < 0) setSelectedIndex(prev => prev === carouselImages.length - 1 ? 0 : prev + 1);
-                  else setSelectedIndex(prev => prev === 0 ? carouselImages.length - 1 : prev - 1);
-                  setIsDragging(false);
-                  dragStartX.current = null;
-                }
-              }
-            }}
-            onMouseUp={() => {
-              setIsDragging(false);
-              dragStartX.current = null;
-            }}
-            onMouseLeave={() => {
-              setIsDragging(false);
-              dragStartX.current = null;
-            }}
-            onTouchStart={e => {
-              dragStartX.current = e.touches[0].clientX;
-              setIsDragging(true);
-            }}
-            onTouchMove={e => {
-              if (isDragging && dragStartX.current !== null && e.touches.length > 0) {
-                const delta = e.touches[0].clientX - dragStartX.current;
-                if (Math.abs(delta) > dragThreshold) {
-                  if (delta < 0) setSelectedIndex(prev => prev === carouselImages.length - 1 ? 0 : prev + 1);
-                  else setSelectedIndex(prev => prev === 0 ? carouselImages.length - 1 : prev - 1);
-                  setIsDragging(false);
-                  dragStartX.current = null;
-                }
-              }
-            }}
-            onTouchEnd={() => {
-              setIsDragging(false);
-              dragStartX.current = null;
-            }}
-          >
-            {carouselImages.map((img, idx) => (
-              <img
-                key={idx}
-                src={img.url}
-                alt={img.title}
-                className={`absolute top-0 left-0 w-full h-full object-contain bg-white transition-opacity duration-700 ease-in-out ${selectedIndex === idx ? 'opacity-100 z-10' : 'opacity-0 z-0'}`}
-                style={{ transitionProperty: 'opacity' }}
-              />
-            ))}
-            {/* Caption overlay */}
-            <div className="absolute bottom-0 left-0 w-full flex flex-col items-start p-8 sm:p-10 z-20 bg-gradient-to-t from-black/60 via-transparent to-transparent rounded-b-xl">
-              <span className="inline-block px-4 py-1 mb-2 rounded-full text-xs font-bold tracking-widest bg-[color:rgb(var(--secondary))] text-[color:rgb(var(--secondary-foreground))] shadow-md uppercase">
-                {carouselImages[selectedIndex].title}
-              </span>
-              <h3 className="text-2xl sm:text-3xl font-bold mb-1 drop-shadow-lg text-white">
-                {carouselImages[selectedIndex].description}
-              </h3>
-            </div>
-            {/* Controls */}
-            <button
-              className="absolute left-4 top-1/2 -translate-y-1/2 bg-[color:rgb(var(--primary))] text-white rounded-full p-2 shadow hover:bg-[color:rgb(var(--secondary))] transition z-30"
-              onClick={() => setSelectedIndex((prev) => prev === 0 ? carouselImages.length - 1 : prev - 1)}
-              aria-label="Previous"
-            >
-              <ChevronDown className="rotate-90 w-6 h-6" />
-            </button>
-            <button
-              className="absolute right-4 top-1/2 -translate-y-1/2 bg-[color:rgb(var(--primary))] text-white rounded-full p-2 shadow hover:bg-[color:rgb(var(--secondary))] transition z-30"
-              onClick={() => setSelectedIndex((prev) => prev === carouselImages.length - 1 ? 0 : prev + 1)}
-              aria-label="Next"
-            >
-              <ChevronDown className="-rotate-90 w-6 h-6" />
-            </button>
-            {/* Dots */}
-            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-30">
-              {carouselImages.map((_, idx) => (
-                <span
+          <div className="flex flex-col lg:flex-row gap-12 w-full justify-center items-center">
+            {/* Carousel 1 */}
+            <div className="relative w-full max-w-3xl h-[340px] sm:h-[420px] flex items-center justify-center overflow-hidden rounded-xl shadow-lg border border-[color:rgb(var(--border))] bg-white/90">
+              {carouselImages1.map((img, idx) => (
+                <img
                   key={idx}
-                  className={`w-3 h-3 rounded-full border transition-all duration-200 cursor-pointer ${selectedIndex === idx ? 'bg-[color:rgb(var(--primary))]' : 'bg-white opacity-50'} border-[color:rgb(var(--primary))]`}
-                  onClick={() => setSelectedIndex(idx)}
+                  src={img.url}
+                  alt={img.title}
+                  className={`absolute top-0 left-0 w-full h-full object-contain bg-white transition-opacity duration-700 ease-in-out ${carousel1Index === idx ? 'opacity-100 z-10' : 'opacity-0 z-0'}`}
                 />
               ))}
+              {/* Caption overlay */}
+              <div className="absolute bottom-0 left-0 w-full flex flex-col items-start p-8 sm:p-10 z-20 bg-gradient-to-t from-black/60 via-transparent to-transparent rounded-b-xl">
+                <span className="inline-block px-4 py-1 mb-2 rounded-full text-xs font-bold tracking-widest bg-[color:rgb(var(--secondary))] text-[color:rgb(var(--secondary-foreground))] shadow-md uppercase">
+                  {carouselImages1[carousel1Index].title}
+                </span>
+                <h3 className="text-2xl sm:text-3xl font-bold mb-1 drop-shadow-lg text-white">
+                  {carouselImages1[carousel1Index].description}
+                </h3>
+              </div>
+              {/* Dots */}
+              <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-30">
+                {carouselImages1.map((_, idx) => (
+                  <span
+                    key={idx}
+                    className={`w-3 h-3 rounded-full border transition-all duration-200 cursor-pointer ${carousel1Index === idx ? 'bg-[color:rgb(var(--primary))]' : 'bg-white opacity-50'} border-[color:rgb(var(--primary))]`}
+                    onClick={() => setCarousel1Index(idx)}
+                  />
+                ))}
+              </div>
+            </div>
+            {/* Carousel 2 */}
+            <div className="relative w-full max-w-3xl h-[340px] sm:h-[420px] flex items-center justify-center overflow-hidden rounded-xl shadow-lg border border-[color:rgb(var(--border))] bg-white/90">
+              {carouselImages2.map((img, idx) => (
+                <img
+                  key={idx}
+                  src={img.url}
+                  alt={img.title}
+                  className={`absolute top-0 left-0 w-full h-full object-contain bg-white transition-opacity duration-700 ease-in-out ${carousel2Index === idx ? 'opacity-100 z-10' : 'opacity-0 z-0'}`}
+                />
+              ))}
+              {/* Caption overlay */}
+              <div className="absolute bottom-0 left-0 w-full flex flex-col items-start p-8 sm:p-10 z-20 bg-gradient-to-t from-black/60 via-transparent to-transparent rounded-b-xl">
+                <span className="inline-block px-4 py-1 mb-2 rounded-full text-xs font-bold tracking-widest bg-[color:rgb(var(--secondary))] text-[color:rgb(var(--secondary-foreground))] shadow-md uppercase">
+                  {carouselImages2[carousel2Index].title}
+                </span>
+                <h3 className="text-2xl sm:text-3xl font-bold mb-1 drop-shadow-lg text-white">
+                  {carouselImages2[carousel2Index].description}
+                </h3>
+              </div>
+              {/* Dots */}
+              <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-30">
+                {carouselImages2.map((_, idx) => (
+                  <span
+                    key={idx}
+                    className={`w-3 h-3 rounded-full border transition-all duration-200 cursor-pointer ${carousel2Index === idx ? 'bg-[color:rgb(var(--primary))]' : 'bg-white opacity-50'} border-[color:rgb(var(--primary))]`}
+                    onClick={() => setCarousel2Index(idx)}
+                  />
+                ))}
+              </div>
             </div>
           </div>
         </div>
@@ -596,7 +789,7 @@ const Home: React.FC = () => {
         <div className="container mx-auto px-4 sm:px-8">
           <div className="text-center mb-10 sm:mb-16">
             <h2 className="text-2xl sm:text-4xl font-extrabold mb-4 sm:mb-6 animate-fade-in-up tracking-tight animate-gradient-text bg-gradient-to-r from-[#41644A] via-[#E9762B] to-[#FFB823] bg-clip-text text-transparent font-serif">
-              Why Choose <span className="text-[#FFB823]">EduGreen</span>
+              Why Choose <span className="text-[#FFB823]">SmartPreps</span>
             </h2>
             <p className="text-base sm:text-xl max-w-3xl mx-auto animate-fade-in-up text-[color:rgb(var(--primary))]">
               We're committed to providing the best learning experience with proven
@@ -656,6 +849,59 @@ const Home: React.FC = () => {
         </svg>
       </div>
 
+      {/* Student Testimonials Section (moved above Gallery) */}
+      <section className="relative z-10 py-16 bg-[color:rgb(var(--background))]">
+        <div className="container mx-auto px-4 sm:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl sm:text-4xl font-extrabold mb-4 font-serif animate-gradient-text bg-gradient-to-r from-[#41644A] via-[#E9762B] to-[#FFB823] bg-clip-text text-transparent">
+              Student Testimonials
+            </h2>
+            <p className="text-lg sm:text-xl text-[color:rgb(var(--foreground))] max-w-2xl mx-auto">
+              Hear from our students about their learning experience at SmartPreps.
+            </p>
+          </div>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+            {/* Example testimonials with random Indian student images and YouTube Shorts placeholder */}
+            <div className="rounded-2xl shadow-lg bg-white/90 p-8 flex flex-col items-center text-center border border-[color:rgb(var(--primary))]">
+              <img src="https://randomuser.me/api/portraits/men/75.jpg" alt="Amit Kumar" className="w-20 h-20 rounded-full mb-4 object-cover border-4 border-[#FFB823]" />
+              {/* YouTube Shorts Placeholder */}
+              <div className="w-full flex justify-center mb-4">
+                <div className="w-32 h-56 bg-gray-200 rounded-lg flex items-center justify-center text-gray-500 text-xs font-semibold border-2 border-dashed border-[#FFB823]">
+                  <span>YouTube Shorts<br/>Placeholder</span>
+                </div>
+              </div>
+              <p className="text-lg font-medium text-[color:rgb(var(--foreground))] mb-3">“The faculty at SmartPreps made learning fun and easy. I cracked my exam on the first attempt!”</p>
+              <div className="font-bold text-[#41644A]">Amit Kumar</div>
+              <div className="text-sm text-[#E9762B] font-semibold">SSC Student</div>
+            </div>
+            <div className="rounded-2xl shadow-lg bg-white/90 p-8 flex flex-col items-center text-center border border-[color:rgb(var(--primary))]">
+              <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="Priya Singh" className="w-20 h-20 rounded-full mb-4 object-cover border-4 border-[#FFB823]" />
+              {/* YouTube Shorts Placeholder */}
+              <div className="w-full flex justify-center mb-4">
+                <div className="w-32 h-56 bg-gray-200 rounded-lg flex items-center justify-center text-gray-500 text-xs font-semibold border-2 border-dashed border-[#FFB823]">
+                  <span>YouTube Shorts<br/>Placeholder</span>
+                </div>
+              </div>
+              <p className="text-lg font-medium text-[color:rgb(var(--foreground))] mb-3">“The mock tests and personal attention helped me gain confidence. Highly recommended!”</p>
+              <div className="font-bold text-[#41644A]">Priya Singh</div>
+              <div className="text-sm text-[#E9762B] font-semibold">CLAT Aspirant</div>
+            </div>
+            <div className="rounded-2xl shadow-lg bg-white/90 p-8 flex flex-col items-center text-center border border-[color:rgb(var(--primary))]">
+              <img src="https://randomuser.me/api/portraits/men/43.jpg" alt="Rahul Verma" className="w-20 h-20 rounded-full mb-4 object-cover border-4 border-[#FFB823]" />
+              {/* YouTube Shorts Placeholder */}
+              <div className="w-full flex justify-center mb-4">
+                <div className="w-32 h-56 bg-gray-200 rounded-lg flex items-center justify-center text-gray-500 text-xs font-semibold border-2 border-dashed border-[#FFB823]">
+                  <span>YouTube Shorts<br/>Placeholder</span>
+                </div>
+              </div>
+              <p className="text-lg font-medium text-[color:rgb(var(--foreground))] mb-3">“Great mentors and a supportive environment. I improved my scores drastically!”</p>
+              <div className="font-bold text-[#41644A]">Rahul Verma</div>
+              <div className="text-sm text-[#E9762B] font-semibold">Bank PO</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Gallery Carousel Section */}
       <section className="relative z-9 py-16 bg-[color:rgb(var(--background))]">
         <div className="container mx-auto px-4 sm:px-8">
@@ -667,47 +913,69 @@ const Home: React.FC = () => {
               Explore moments from our classes, events, and student achievements.
             </p>
           </div>
-          <div className="relative max-w-2xl mx-auto flex flex-col items-center">
-            <div
-              className="relative w-full aspect-[16/9] flex items-center justify-center overflow-hidden rounded-xl shadow-lg bg-white"
-              style={{ minHeight: '250px' }}
-              onMouseEnter={() => setIsGalleryPaused(true)}
-              onMouseLeave={() => setIsGalleryPaused(false)}
-              tabIndex={0}
-              onFocus={() => setIsGalleryPaused(true)}
-              onBlur={() => setIsGalleryPaused(false)}
-            >
-              {galleryImages.map((img, idx) => (
+          <div className="flex flex-col lg:flex-row gap-8 w-full justify-center items-center">
+            {/* Gallery Carousel 1 */}
+            <div className="relative w-full max-w-md aspect-[16/9] flex items-center justify-center overflow-hidden rounded-xl shadow-lg bg-white">
+              {galleryImages1.map((img, idx) => (
                 <img
                   key={idx}
                   src={img.src}
                   alt={img.alt}
-                  className={`absolute top-0 left-0 w-full h-full max-h-full max-w-full object-contain transition-opacity duration-700 ease-in-out ${galleryIndex === idx ? 'opacity-100 z-10' : 'opacity-0 z-0'}`}
+                  className={`absolute top-0 left-0 w-full h-full max-h-full max-w-full object-contain transition-opacity duration-700 ease-in-out ${galleryIndex1 === idx ? 'opacity-100 z-10' : 'opacity-0 z-0'}`}
                   style={{ background: '#f8f9fa' }}
                 />
               ))}
-              {/* Controls */}
-              <button
-                className="absolute left-2 top-1/2 -translate-y-1/2 bg-[color:rgb(var(--primary))] text-white rounded-full p-2 shadow hover:bg-[color:rgb(var(--secondary))] transition z-30"
-                onClick={galleryPrev}
-                aria-label="Previous"
-              >
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" /></svg>
-              </button>
-              <button
-                className="absolute right-2 top-1/2 -translate-y-1/2 bg-[color:rgb(var(--primary))] text-white rounded-full p-2 shadow hover:bg-[color:rgb(var(--secondary))] transition z-30"
-                onClick={galleryNext}
-                aria-label="Next"
-              >
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" /></svg>
-              </button>
               {/* Dots */}
               <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-30">
-                {galleryImages.map((_, idx) => (
+                {galleryImages1.map((_, idx) => (
                   <span
                     key={idx}
-                    className={`w-3 h-3 rounded-full border transition-all duration-200 cursor-pointer ${galleryIndex === idx ? 'bg-[color:rgb(var(--primary))]' : 'bg-white opacity-50'} border-[color:rgb(var(--primary))]`}
-                    onClick={() => setGalleryIndex(idx)}
+                    className={`w-3 h-3 rounded-full border transition-all duration-200 cursor-pointer ${galleryIndex1 === idx ? 'bg-[color:rgb(var(--primary))]' : 'bg-white opacity-50'} border-[color:rgb(var(--primary))]`}
+                    onClick={() => setGalleryIndex1(idx)}
+                  />
+                ))}
+              </div>
+            </div>
+            {/* Gallery Carousel 2 */}
+            <div className="relative w-full max-w-md aspect-[16/9] flex items-center justify-center overflow-hidden rounded-xl shadow-lg bg-white">
+              {galleryImages2.map((img, idx) => (
+                <img
+                  key={idx}
+                  src={img.src}
+                  alt={img.alt}
+                  className={`absolute top-0 left-0 w-full h-full max-h-full max-w-full object-contain transition-opacity duration-700 ease-in-out ${galleryIndex2 === idx ? 'opacity-100 z-10' : 'opacity-0 z-0'}`}
+                  style={{ background: '#f8f9fa' }}
+                />
+              ))}
+              {/* Dots */}
+              <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-30">
+                {galleryImages2.map((_, idx) => (
+                  <span
+                    key={idx}
+                    className={`w-3 h-3 rounded-full border transition-all duration-200 cursor-pointer ${galleryIndex2 === idx ? 'bg-[color:rgb(var(--primary))]' : 'bg-white opacity-50'} border-[color:rgb(var(--primary))]`}
+                    onClick={() => setGalleryIndex2(idx)}
+                  />
+                ))}
+              </div>
+            </div>
+            {/* Gallery Carousel 3 */}
+            <div className="relative w-full max-w-md aspect-[16/9] flex items-center justify-center overflow-hidden rounded-xl shadow-lg bg-white">
+              {galleryImages3.map((img, idx) => (
+                <img
+                  key={idx}
+                  src={img.src}
+                  alt={img.alt}
+                  className={`absolute top-0 left-0 w-full h-full max-h-full max-w-full object-contain transition-opacity duration-700 ease-in-out ${galleryIndex3 === idx ? 'opacity-100 z-10' : 'opacity-0 z-0'}`}
+                  style={{ background: '#f8f9fa' }}
+                />
+              ))}
+              {/* Dots */}
+              <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-30">
+                {galleryImages3.map((_, idx) => (
+                  <span
+                    key={idx}
+                    className={`w-3 h-3 rounded-full border transition-all duration-200 cursor-pointer ${galleryIndex3 === idx ? 'bg-[color:rgb(var(--primary))]' : 'bg-white opacity-50'} border-[color:rgb(var(--primary))]`}
+                    onClick={() => setGalleryIndex3(idx)}
                   />
                 ))}
               </div>
@@ -721,6 +989,57 @@ const Home: React.FC = () => {
           <path d="M0 30 Q 360 60 720 30 T 1440 30 V60 H0Z" fill="#FFB823" fillOpacity="0.10" />
         </svg>
       </div>
+
+      {/* Article Grid Section */}
+      <section className="relative z-10 py-16 bg-[color:rgb(var(--background))]">
+        <div className="container mx-auto px-4 sm:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl sm:text-4xl font-extrabold mb-4 font-serif animate-gradient-text bg-gradient-to-r from-[#41644A] via-[#E9762B] to-[#FFB823] bg-clip-text text-transparent">
+              Latest Articles
+            </h2>
+            <p className="text-lg sm:text-xl text-[color:rgb(var(--foreground))] max-w-2xl mx-auto">
+              Stay updated with our latest insights, tips, and educational resources.
+            </p>
+          </div>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto mb-8">
+            {/* Example article cards */}
+            {[
+              {
+                image: "https://images.unsplash.com/photo-1503676382389-4809596d5290?auto=format&fit=crop&w=600&q=80",
+                title: "How to Crack CLAT 2025: Top Strategies",
+                description: "Discover proven strategies and tips to ace the CLAT exam from our expert mentors.",
+                link: "/articles/how-to-crack-clat-2025"
+              },
+              {
+                image: "https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=600&q=80",
+                title: "Balancing Board Exams & Entrance Prep",
+                description: "Learn how to manage your time and stress while preparing for both board and entrance exams.",
+                link: "/articles/balancing-board-exams"
+              },
+              {
+                image: "https://images.unsplash.com/photo-1513258496099-48168024aec0?auto=format&fit=crop&w=600&q=80",
+                title: "Why Mock Tests Matter",
+                description: "Understand the importance of mock tests and how they boost your exam performance.",
+                link: "/articles/why-mock-tests-matter"
+              }
+            ].map((article, idx) => (
+              <div key={idx} className="rounded-2xl shadow-lg bg-white/90 p-6 flex flex-col border border-[color:rgb(var(--primary))] hover:scale-105 hover:shadow-2xl transition-all">
+                <img src={article.image} alt={article.title} className="w-full h-48 object-cover rounded-xl mb-4" />
+                <h3 className="text-xl font-bold mb-2 text-[#41644A]">{article.title}</h3>
+                <p className="text-base text-gray-700 mb-4">{article.description}</p>
+                <a href={article.link} className="text-[#E9762B] font-semibold hover:underline">Read More →</a>
+              </div>
+            ))}
+          </div>
+          <div className="text-center">
+            <a href="/articles">
+              <Button size="lg" className="bg-[#FFB823] text-white rounded-full hover:scale-105 transition px-8 py-3 font-semibold shadow-md text-lg">
+                View All Articles
+              </Button>
+            </a>
+          </div>
+        </div>
+      </section>
 
       {/* Partner Logos Section */}
       <section className="relative z-0 py-10 bg-[color:rgb(var(--card))]">
@@ -737,7 +1056,7 @@ const Home: React.FC = () => {
             {/* <img src="/public/placeholder.svg" alt="Partner 1" className="h-12 w-auto opacity-80 grayscale hover:grayscale-0 transition" /> */}
             {/* <img src="/public/placeholder.svg" alt="Partner 2" className="h-12 w-auto opacity-80 grayscale hover:grayscale-0 transition" /> */}
             {/* <img src="/public/placeholder.svg" alt="Partner 3" className="h-12 w-auto opacity-80 grayscale hover:grayscale-0 transition" /> */}
-            <img src="https://smartiasfoundation.com/wp-content/uploads/2024/05/Main-2D.png" alt="Partner 4" className="h-12 w-auto opacity-80  " />
+            <img src="https://smartiasfoundation.com/wp-content/uploads/2024/05/Main-2D.png" alt="Partner 4" className="h-16 w-auto bg-[#41644A] p-2 rounded-xl border border-[#708A58] shadow-md" style={{opacity: 1}} />
           </div>
         </div>
       </section>
@@ -748,15 +1067,15 @@ const Home: React.FC = () => {
         </svg>
       </div>
 
-      {/* Floating CTA Button */}
-      <a
-        href="/contact"
+      {/* Floating CTA Button (now opens enquiry modal) */}
+      <button
+        onClick={() => setShowEnquiry(true)}
         className="fixed bottom-8 right-8 z-50 bg-[#FFB823] text-white px-6 py-3 rounded-full shadow-lg hover:bg-[#41644A] hover:scale-105 transition-all font-bold text-lg flex items-center gap-2 animate-bounce"
         style={{ boxShadow: '0 4px 24px rgba(255,184,35,0.18)' }}
-        aria-label="Contact Us CTA"
+        aria-label="Enquire Now CTA"
       >
         <Target className="w-6 h-6" /> Get Free Counseling
-      </a>
+      </button>
 
       <style>{`
         @keyframes gradientMove {
