@@ -432,7 +432,7 @@ const Home: React.FC = () => {
         {/* GIF background as image */}
         <div className="absolute inset-0 w-full h-full z-0 pointer-events-none overflow-hidden rounded-2xl xs:rounded-3xl">
           <img
-            src="https://i.ibb.co/3KD1Q8K/IMG-8559.gif"
+            src="https://i.ibb.co/CKTwM5jT/IMG-4720.gif"
             alt="Animated background"
             className="w-full h-full object-cover opacity-90 brightness-110"
             draggable="false"
